@@ -1,0 +1,83 @@
+﻿
+@using Web.SourceCoin.Models
+@{
+    ViewBag.Title = "Two-Factor Authentication ";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+    Security sec = (Security)ViewBag.ModelSecurity;
+
+}
+
+<section class="card" id="authen-frm">
+    <div class="card-content">
+        <div class="card-body">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 col-12">
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-12">
+                        <input type="hidden" id="UserUniqueKey" value="@sec.UserUniqueKey" />
+                        <input type="hidden" id="BarcodeImageUrl" value="@sec.BarcodeImageUrl" />
+                        <input type="hidden" id="SetupCode" value="@sec.SetupCode" />
+                        @if (!string.IsNullOrEmpty(sec.SetupCode))
+                        {
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p align="center"><img src="@sec.BarcodeImageUrl" alt="qr"></p>
+                                </div>
+                                <div class="col-md-8" style="padding: 20px;overflow-wrap: break-word;">
+                                    <p style="font-size:14px !important;">
+                                        1. Install Google Authenticator on your phone, download: <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Android</a> or <a href="https://itunes.apple.com/app/google-authenticator/id388497605">Iphone, iPad and iPod</a>, <a href="http://www.windowsphone.com/en-us/store/app/authenticator/e7994dbc-2336-4950-91ba-ca22d653759b">Windows Phone</a><br>
+                                        2. Open the Google Authenticator app.<br>
+                                        3. Tab menu, then tab "Set up Account", then "Scan a barcode" or "Enter key provided" is <strong class="colors">@sec.SetupCode</strong>.<br>
+                                        4. Your phone will now be in "scanning" mode. When you are in this mode, scan the barcode below:
+                                    </p>
+                                    <p align="left">Once you have scanned the barcode, enter the 6-digit code below:</p>
+                                    <div id="BTC" class="payment_option d-block">
+                                        <h6 class="mb-2">Input code from application:</h6>
+                                        <div class="copy-button">
+                                            <input id="CodeDigit" type="text" name="address" class="form-control" placeholder="000000">
+                                            <div class="col-md-12 mt-2">
+                                                <div class="deposit_withdraw_btn" style="text-align: center !important">
+                                                    <span class="btn_icon">
+                                                        <input class="btn btn-primary" type="button" value="Enable 2FA" id="btn-authenticator" />
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-xl-12 col-sm-12 col-md-3 col-lg-3">
+                            </div>
+                            <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+                                <p align="left" style="padding-top:32px;text-align:center;">Once you have scanned the barcode, enter the 6-digit code below:</p>
+                                <div id="BTC" class="payment_option d-block">
+                                    <h6 class="mb-2">Input code from application:</h6>
+                                    <div class="copy-button">
+                                        <input id="CodeDigit" type="text" name="address" class="form-control" placeholder="000000">
+                                        <div class="col-md-12 mt-2">
+                                            <div class="deposit_withdraw_btn" style="text-align: center !important">
+                                                <span class="btn_icon text-center">
+                                                    <input class="btn btn-primary" type="button" value="Disable 2FA" id="btn-authenticator" style="padding-right: 20px" />
+
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-sm-12 col-md-3 col-lg-3">
+                            </div>
+                        }
+                    </div>
+                        <div class="col-sm-12 col-md-3 col-12">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>

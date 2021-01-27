@@ -1,0 +1,428 @@
+﻿
+@using Web.SourceCoin.Helpers
+@using CoinbaseConnector
+@{
+    ViewBag.Title = "Trading Platform";
+    Layout = "~/Views/Shared/_LayoutOfficeHub.cshtml";
+    var _helper = new Helper();
+    // string linkLeft = (string)ViewBag.ReferLink + SimpleConstant.NODE_LEFT_CODE;
+    //string linkRight = (string)ViewBag.ReferLink + SimpleConstant.NODE_RIGHT_CODE;
+}
+
+<style type="text/css">
+
+    .list-unstyled .media {
+        cursor: pointer;
+    }
+
+    .afiliateLink {
+        display: inline-flex !important;
+        width: 70%;
+        float: left;
+    }
+
+    .copy {
+        padding: 2px 4px !important;
+        font-weight: inherit !important;
+        font-size: 16px !important;
+        float: right !important;
+        width: 20% !important;
+        background-color: #F58630;
+        margin: 5px;
+        text-align: center;
+    }
+
+    #main-wrapper {
+        opacity: 0;
+        transition: all 0.25s ease-in;
+        overflow: hidden;
+        position: fixed;
+        z-index: 1;
+        /* margin-top: 55px; */
+        width: 100%;
+        padding-top: 55px;
+        height: calc(100% - 5px);
+        overflow: hidden;
+        top: 0px;
+    }
+
+    .content-body {
+        height: calc(100vh - 75px);
+    }
+
+    .container-fluid {
+        height: 100%;
+    }
+
+    .card.main-chart {
+        margin-bottom: 0px;
+    }
+
+    .flags-line {
+        z-index: 999 !important;
+        display: inline-flex;
+    }
+
+        .flags-line span {
+            width: auto;
+            padding: 2px 5px;
+            color: #fff;
+            font-size: 13px
+        }
+
+            .flags-line span.down {
+                background-color: chocolate;
+            }
+
+            .flags-line span.up {
+                background-color: darkseagreen;
+            }
+
+        .flags-line img {
+            margin-left: 2px;
+        }
+
+    .highcharts-bindings-wrapper * {
+        box-sizing: content-box !important;
+    }
+
+    .tab-content {
+        border: none;
+    }
+    .carousel-indicators {
+        top: -20px !important;
+        margin-bottom: 10px
+    }
+
+    .modal-header {
+        background-color: #2b4354 !important
+        /*border-top-left-radius: 0;
+        border-top-left-radius: 0;*/
+    }
+    .modal-body {
+        background: #263643;
+        padding-top:0.5px;
+    }
+    .modal.show .modal-dialog {
+        transform: none;
+        border-top-left-radius: 0.8rem;
+        border-top-right-radius: 0.8rem;
+    }
+    .carousel-indicators {
+        top: -30px !important;
+        margin-bottom: 10px;
+    }
+    .text-white-notice {
+        color: #dadada !important;
+    }
+</style>
+@*@Styles.Render("~/chartstool/css")*@
+@*<link href="/assets/UI/css/responsive.css?v=3" rel="stylesheet" />
+    <link href="/Content/Chart/linebo/topTool.css?v=3" rel="stylesheet" />
+    <link href="/Content/Chart/linebo/dark-unica.css?v=3" rel="stylesheet" />*@
+<input type="hidden" id="select-trade" value="@ViewBag.TradeSlect" />
+<div class="main-slide notranslate">
+
+    <div id="leftside" class="leftside">
+        <a class="leftside-close-controller d-mobile" onclick="buildfunction._toogleLeftSide()"><img src="/Images/symbol/close.svg"></a>
+        <div class="fbt-leftside-hide-controller" onclick="buildfunction._toogleLeftSide()">
+            <img id="arr-left-leftside" src="~/Images/symbol/arrow-left.svg" />
+        </div>
+        <div class="card balance-widget slider-mobile">
+            <div class="card-body pt-0">
+                <div id="overloadingslideleft" class=""></div>
+                <ul class="nav nav-tabs " role="tablist">
+                    <li id="tabtradingpair" class="nav-item" onclick="buildfunction._showtradePairInit(); return false;">
+                        <a class="nav-link active" data-toggle="tab" href="#slide1">Top Assets</a>
+                    </li>
+                    <li id="tabtradinghistory" class="nav-item" onclick="buildData.ListTradingSimple();return false;">
+                        <a class="nav-link " data-toggle="tab" href="#slide2">Trading</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="slide1" class="tab-pane active">
+                        <div id="slide-tradepairs" class="balance-widget ">
+                            <div class="form-group seach-symbol">
+                                <div class="input-group">
+                                    <input type="text" id="keyassetsname" class="form-control input-search" placeholder="EUR/USD">
+                                </div>
+                            </div>
+                            <ul class="list-unstyled" id="tradepairs-main"></ul>
+                        </div>
+                    </div>
+                    <div id="slide2" class="tab-pane fade">
+                        <div id="slide-tradinghistory" class="balance-widget d-none">
+                            @*<div class="form-group seach-symbol">
+                                    <label class="mr-sm-2">Trading History </label>
+                                </div>*@
+                            <ul class="list-unstyled" id="left-history"></ul>
+                            <span id="showmore" class='d-flex text-center showmore'><a href="/account/trading-history">Show more</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="rightside" class="rightside">
+        @*<button id="auto" class="btn-buy" onmouseover="buildfunction._hoverRangeBuy()">buy</button>
+            <button id="auto2" class="btn-sell" onmouseover="buildfunction._hoverRangeSell()">sell</button>*@
+        @*<button id="resetZoom2">Reset</button>*@
+        <span id="testtime"></span>
+        <div style="height: 100%">
+            <div class="card profile_chart main-chart">
+                @*<div id="slider-volume-1" class="slider-volume-1">
+                        <div class="volume-higher-1"></div>
+                        <div class="volume-lower-1"></div>
+                    </div>*@
+                <div id="slider-volume" class="slider-volume">
+                    <div id="volume-higher" class="barr volume-higher">
+                        @*<span id="sph">50%</span>*@
+                    </div>
+                    <div id="volume-lower" class="barr volume-lower">
+                        @*<span id="spl">50%</span>*@
+                    </div>
+                </div>
+
+                <div class="zoom-focus">
+                    <i id="zoomin" class="fa fa-minus-circle"></i>
+                    <img id="zoomfocus" src="/Images/Icon/tool-chart/Icon-focus-gray.png" />
+                    <i id="zoomout" class="fa fa-plus-circle"></i>
+                </div>
+                <div id="overloading" class="over-loading">
+                    <p class='loader loader-icon'><svg width='30px' height='30px' fill='#4FB95C' viewBox='0 0 30 30'> <circle cx='4' cy='4' r='4'></circle>  <circle cx='4' cy='26' r='4'></circle> <circle cx='26' cy='4' r='4'></circle>  <circle cx='26' cy='26' r='4'></circle> </svg><span>Loading</span></p>
+                </div>
+                <section class="kr-dash-pan-hedr profile_log dropdown">
+                    <div class="kr-dash-pan-hedr-ca kr-search-field-content kr-search-field-content-inited" onclick="buildfunction._toppairsadd();">
+                        <img id="tool-tradingcurent-icon" src="/images/symbol/flags/BTC_USD.png">
+                        <span id="tools-tradepair"></span>
+                    </div>
+                    <div class="fbt-tool ">
+                        <div data-toggle="dropdown">
+                            <img id="tool-selecttype-icon" src="/Images/Icon/tool-chart/candlestick.png" />
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a id="chart-type-Candlestick" class="dropdown-item">
+                                <img src="/Images/Icon/tool-chart/candlestick.png" />
+                                <span>Candlestick</span>
+                            </a>
+                            <a id="chart-type-Areaspline" class="dropdown-item">
+                                <img src="/Images/Icon/tool-chart/linearea.png" />
+                                <span class="highcharts-series-type-areaspline">Areaspline</span>
+                            </a>
+                            <a id="chart-type-Line" class="dropdown-item">
+                                <img src="/Images/Icon/tool-chart/line.png" />
+                                <span class="highcharts-series-type-line">Line</span>
+                            </a>
+                            <a id="chart-type-ohlc" class="dropdown-item">
+                                <img src="/Images/Icon/tool-chart/ohlc.png" />
+                                <span class="highcharts-series-type-ohlc">Ohlc</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="fbt-tool ">
+                        <div class="user" data-toggle="dropdown">
+                            <span id="rangeSelectorFocus">2min</span>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" onclick="buildfunction._zoomTime('2min',0);">
+                                <span id="time2m">2min</span>
+                            </a>
+                            <a class="dropdown-item" onclick="buildfunction._zoomTime('5min',1);">
+                                <span id="time5m">5min</span>
+                            </a>
+                            <a class="dropdown-item" onclick="buildfunction._zoomTime('15min',2);">
+                                <span id="time15m">15min</span>
+                            </a>
+                            <a class="dropdown-item" onclick="buildfunction._zoomTime('30min',3);">
+                                <span id="time30m">30min</span>
+                            </a>
+                            <a class="dropdown-item" onclick="buildfunction._zoomTime('3h',4);">
+                                <span id="time3h">3h</span>
+                            </a>
+                            <a class="dropdown-item" onclick="buildfunction._zoomTime('1d',5);">
+                                <span id="time1d">1d</span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                <link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/annotations/popup.css">
+                @*<script src="https://code.highcharts.com/modules/draggable-points.js"></script>
+                    <script src="https://code.highcharts.com/stock/indicators/indicators-all.js"></script>
+                    <script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+                    <script src="https://code.highcharts.com/stock/indicators/bollinger-bands.js"></script>
+                    <script src="https://code.highcharts.com/stock/indicators/ema.js"></script>
+                    <script src="https://code.highcharts.com/stock/modules/annotations-advanced.js"></script>
+                    <script src="https://code.highcharts.com/stock/modules/full-screen.js"></script>
+                    <script src="https://code.highcharts.com/stock/modules/price-indicator.js"></script>
+                    <script src="https://code.highcharts.com/stock/modules/stock-tools.js"></script>
+                    <script src="https://code.highcharts.com/modules/datagrouping.js"></script>
+                     <script src="http://code.highcharts.com/maps/modules/map.js"></script>
+                    <script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>*@
+                <script src="/Content/Chart/linebo/js/map.js"></script>
+                @*<script src="http://code.highcharts.com/maps/modules/map.js"></script>*@
+                <script src="/Content/Chart/linebo/js/annotations-advanced.js"></script>
+                <script src="/Content/Chart/linebo/js/bollinger-bands.js"></script>
+                <script src="/Content/Chart/linebo/js/datagrouping.js"></script>
+                <script src="/Content/Chart/linebo/js/draggable-points.js"></script>
+                <script src="/Content/Chart/linebo/js/ema.js"></script>
+                <script src="/Content/Chart/linebo/js/full-screen.js"></script>
+                <script src="/Content/Chart/linebo/js/indicators-all.js"></script>
+                <script src="/Content/Chart/linebo/js/indicators.js"></script>
+                <script src="/Content/Chart/linebo/js/no-data-to-display.js"></script>
+                <script src="/Content/Chart/linebo/js/price-indicator.js"></script>
+                <script src="/Content/Chart/linebo/js/stock-tools.js"></script>
+                @*<script src="~/Content/Chart/linebo/current-price-indicator.js?v=2"></script>*@
+                <div id="containerchart" class="chart" style="height: 100%"></div>
+            </div>
+            <div id="main-action-order" class="card main-action">
+            </div>
+        </div>
+    </div>
+</div>
+@*<script src="/Content/Chart/linebo/AutoScale-v1.js?v=1"></script>*@
+<script src='@Scripts.Url("~/bundles/chartsjs_plugins?v=5.9")'></script>
+<script>
+
+</script>
+<div id="bottomside" class="card main-action-bottomside">
+</div>
+<input id="userencrypted" value="@ViewBag.userEncrypted" type="hidden" />
+
+@Html.Partial("Markets/templateMarkets")
+
+<div class="modal fade " id="NotifysModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog panel-market p-0" role="document">
+        <div class="modal-header pb-10">
+            <img class="d-icon" style="height:30px" src='/images/icon/bell-white.png?v=5.9'>
+            @*<img class='notify-icon' src='/images/icon/bell.svg?v=5.9' />*@
+            <marquee direction="left" width="100%" class="pt-2">
+                <h5 class="text-white-notice">
+                    We have some new announcements and hope to bring you more opportunities
+                </h5>
+            </marquee>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-12  order-2">
+                        <div class='panel-right'>
+                            <div class="tab-content">
+                              
+                                <div id="carouselExampleIndicators" class="carousel slide mt-4" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleIndicators" style="background-color:red;" data-slide-to="0" class="active">
+                                        <li data-target="#carouselExampleIndicators" style="background-color:yellow;" data-slide-to="1"></li>
+                                        <li data-target="#carouselExampleIndicators" style="background-color:#11d03d;" data-slide-to="2"></li>
+                                    </ol>
+                                    <div class="carousel-inner text-white-notice">
+                                        <div class="carousel-item carousel-item active">
+                                            <h3 class="text-uppercase">We Launch Forbitoption's Copy trade platform</h3>
+                                            <p class="text-left">
+                                                Copy trade also known as Social Trading, is a form of investment that allows investors to observe the trading behavior of their professional traders and colleagues, while also following early strategies. account using a Copy Transaction or a Mirror Transaction. This is an alternative to analyzing financial data by looking at what other traders are doing and comparing and copying their techniques and strategies.
+                                            </p>
+                                            <p class="text-left mt-20">
+                                                Both us and another division of the Forbit team consider Copy Trading to be a leading instrument on the Forex and Crypto Markets.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                That's why we offer Copy trade platform for Forbitoption at <span class="brightGreen-color">https://copytrade.fortrex.io/</span> 
+                                            </p>
+                                            <p class="text-left">
+                                                This social trading platform allows you to follow the strategies of top market traders and copy for easy profits. When professionals are profitable, you are also profitable!
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                The confusion and lack of confidence in trading are over - now there is always a substantial professional community with you 24/7. Get started now and choose your expert at <span class="brightGreen-color">https://copytrade.fortrex.io/</span>
+                                            </p>
+                                            <p class="text-left  mt-201">
+                                                Forbitoption CopyTrade helps you access the financial markets and manage your investments intelligently.
+                                            </p>
+
+                                            <p class="text-left  mt-20">
+                                                We are always here to support and accompany you.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                Thanks for all!@*<img class="d-icon" style="height: 25px;margin-bottom: 16px;" src="/images/Icon/penback.png">*@
+                                            </p>
+                                            <div class="d-inline-flex">
+                                                 <h3 class="mt-0 mb-0" style="color:#dadada; font-family: BIKO">Forbit Team.</h3><img class="d-icon" style="height: 25px;" src="/images/Icon/penback.png">
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <h3 class="text-uppercase">We are pleased to announce the provision of deposit and withdrawal portals by Forbit USD (FBTC)</h3>
+                                            <p>
+                                                <b class="brightGreen-color">Forbit USD Stable Coin (FBTC)</b> is a token issued by Forbit that pegs the USD price at the rate of <b class="brightGreen-color">1 FBTC = 1 USD</b>
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                <b class="text-white">Forbit USD (FBTC)</b> provides an excellent method to park money during trading or to use as a base currency in <a href="https://forbit.org/" class="brightGreen-color" target="_blank">forbit.org</a> platform, <a href="https://fortrex.io/" class="brightGreen-color" target="_blank">fortrex.io</a> platform.
+                                                The most prominent use case of Forbit USD (FBTC) is stability and how it helps cryptocurrency users, especially traders, to hedge against volatility.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                This stability allows cryptocurrency traders to move funds frequently, in and out of exchanges at low costs. Also, traders who anticipate volatile price action can exchange their other cryptocurrencies to Forbit USD _(FBTC)  to maintain value.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                <b class="brightGreen-color">Forbit USD (FBTC)</b> is also crucial for making digital payments. In addition, Forbit USD (FBTC) can be used for remittances. Forbit USD (FBTC) presents a quick and affordable way for people to send money around the world.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                <b class="brightGreen-color">To celebrate this upgraded event, the Forbit team offers a promotion:</b> when you deposit with Forbit USD (FBTC)  from <b class="brightGreen-color">$300</b>, you will get <b class="brightGreen-color">10%</b> bonus immediately to your account (bonus money is used to Trade or Copy Trade).
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                The promotion will start from August 25, 2020 to December 25, 2020.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                We are always here to support and accompany you.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                Thanks for all!@*<img class="d-icon" style="height: 25px;margin-bottom: 16px;" src="/images/Icon/penback.png">*@
+                                            </p>
+                                            <div class="d-inline-flex">
+                                                 <h3 class="mt-0 mb-0" style="color:#dadada; font-family: BIKO">Forbit Team.</h3><img class="d-icon" style="height: 25px;" src="/images/Icon/penback.png">
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <h3 class="text-uppercase">Eq Option Launches a $50 Bonus Campaign to Promote Crypto and Forex Options Trading.</h3>
+                                            <p class="text-left  mt-20">
+                                                Eq Option, This is a financial company that provides options trading service for cryptocurrencies and Forex. has officially launched  <b class="brightGreen-color">
+                                                    $50
+                                                </b> for first deposits since Aug 2020.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                This promotion is upgraded from a First Deposit Promotion which only offers a bonus to first deposits previously. But from now on, every deposit over <b class="brightGreen-color">$500</b> can get <b class="brightGreen-color">$50</b> back within <b class="brightGreen-color">24H</b> this profit for the trade or Copy trade.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                “We have received tons of new users flocking in much more than we expected since the launching of the platform, the recurring deposits are often higher than first deposits, that’s why we want to surrender part of the profits to say thank you to our loyal clients for choosing Eq Option as an investment solution during the bear market”.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                Eq Option, established in late 2019, and operated by a team of financial specialists, is dedicated to working for a vision to make options trading an easy tool for all crypto and forex traders.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                We are always here to support and accompany you.
+                                            </p>
+                                            <p class="text-left  mt-20">
+                                                Thanks for all!@*<img class="d-icon" style="height: 25px;margin-bottom: 16px;" src="/images/Icon/penback.png">*@
+                                            </p>
+                                            <div class="d-inline-flex">
+                                                <h3 class="mt-0 mb-0" style="color:#dadada; font-family: BIKO">Forbit Team.</h3><img class="d-icon" style="height: 25px;" src="/images/Icon/penback.png">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(window).on('load', function () {
+        $("#NotifysModal").modal('show');
+    });
+</script>

@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Management</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/AdminAssets/dist/css/adminlte.min.css?v=5.9">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="~/AdminAssets/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Content/Extension.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Content/jquery.ui.dialog.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Content/google.table.css")" rel="stylesheet" />
+
+    <!-- jQuery -->
+    <script src="/AdminAssets/plugins/jquery/jquery.min.js"></script>
+    @section headscript {
+        @{Html.EnableClientValidation();}
+        @{Html.EnableUnobtrusiveJavaScript();}
+    }
+    <style type="text/css">
+        .buttons-excel {
+            right: 0;
+            position: absolute;
+            margin-right: 20px;
+            background-color: green;
+            color: white;
+            font-weight: bold;
+            /*padding: 4px 8px;*/
+            border: solid 1px black;
+            /* margin-bottom: 25px; */
+            float: right;
+            cursor: pointer;
+        }
+
+        .ui-dialog {
+            background-color: #fff;
+            top: 5% !important
+        }
+    </style>
+    <script type="text/javascript" src="@Url.Content("~/Content/ckeditor/ckeditor.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/ckfinder/ckfinder.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.2.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.3.custom.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout.mapping-latest.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.dateFormat-1.0.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.blockUI.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/CommonPhrase.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/CommonHelper.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-render-table.min.js?v=5.9")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/lib.load-list.2.0.js")"></script>
+
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand border-bottom navbar-dark bg-success">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/manage" class="nav-link">Home</a>
+                </li>
+            </ul>
+            <!-- SEARCH FORM -->
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Messages Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="fa fa-comments-o"></i>
+                        <span class="badge badge-danger navbar-badge">3</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="/AdminAssets/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Brad Diesel
+                                        <span class="float-right text-sm text-danger"><i class="fa fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">Call me whenever you can...</p>
+                                    <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="/AdminAssets/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        John Pierce
+                                        <span class="float-right text-sm text-muted"><i class="fa fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">I got your message bro</p>
+                                    <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="/AdminAssets/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Nora Silvester
+                                        <span class="float-right text-sm text-warning"><i class="fa fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">The subject goes here</p>
+                                    <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                    </div>
+                </li>
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell-o"></i>
+                        <span class="badge badge-warning navbar-badge">15</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header">15 Notifications</span>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-envelope mr-2"></i> 4 new messages
+                            <span class="float-right text-muted text-sm">3 mins</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-users mr-2"></i> 8 friend requests
+                            <span class="float-right text-muted text-sm">12 hours</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-file mr-2"></i> 3 new reports
+                            <span class="float-right text-muted text-sm">2 days</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+                        <i class="fa fa-th-large"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="#" class="brand-link">
+                <img src="/images/mini-logo-60.png"
+                     alt="FB"
+                     class="brand-image img-circle elevation-3"
+                     style="opacity: .8">
+                <span class="brand-text font-weight-light">Eq Option</span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user (optional) -->
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a href="/manage" class="nav-link">
+                                <i class="nav-icon fa fa-th"></i><span> Dashboard </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/manage/VolumeBuySell" class="nav-link">
+                                <i class="nav-icon fa fa-th"></i><span> Volume Buy-Sell </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/manage/UserList" class="nav-link">
+                                <i class="nav-icon fa fa-th"></i><span> Find Users </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/manage/withdraw" class="nav-link">
+                                <i class="nav-icon fa fa-th"></i><span> Withdraw </span>
+                            </a>
+                        </li>
+                        @*<li class="nav-item">
+                                <a href="/manage/kyc" class="nav-link">
+                                    <i class="nav-icon fa fa-th"></i><span> KYC </span>
+                                </a>
+                            </li>*@
+
+                        <li class="nav-item">
+                            <a href="/manage/ticket" class="nav-link">
+                                <i class="nav-icon fa fa-th"></i><span>Tickets</span>
+                            </a>
+                        </li>
+                        @if (User.IsInRole("SUPPERADMIN"))
+                        {
+                            <li class="nav-item">
+                                <a href="/manage/getconfig" class="nav-link">
+                                    <i class="nav-icon fa fa-th"></i><span> Settings </span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/manage/sys" class="nav-link">
+                                    <i class="nav-icon fa fa-th"></i><span>Schedule </span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/manage/log" class="nav-link">
+                                    <i class="nav-icon fa fa-th"></i><span> Log Error </span>
+                                </a>
+                            </li>
+
+                        }
+                        @if (User.IsInRole("STAFF"))
+                        {
+                            <li class="nav-item">
+                                <a href="/manage/cointransaction" class="nav-link">
+                                    <i class="nav-icon fa fa-th"></i><span> Deposit </span>
+                                </a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a href="/home/logout" class="nav-link"><i class="md md-settings-power"></i> Logout</a>
+                        </li>
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid ">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card" style="background: #f4f6f9;">
+                                <div class="card-header">
+                                    <h3 class="card-title">Manage</h3>
+                                    <div class="card-tools">
+                                        <div class="input-group input-group-sm" style="width: 250px;">
+                                            <input type="text" name="table_search" id="find-username" value="" class="form-control float-right" placeholder="Username,...">
+                                            <div class="input-group-append">
+                                                <button type="submit" id="btn-find-user" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body table-responsive p-0">
+                                    @RenderBody()
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 3.0.0-alpha
+            </div>
+            <strong>Copyright &copy; 2014-2019 <a href="#">Admin</a>.</strong> All rights
+            reserved.
+        </footer>
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- Bootstrap 4 -->
+    <script src="/AdminAssets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="/AdminAssets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="/AdminAssets/plugins/fastclick/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/AdminAssets/dist/js/adminlte.min.js"></script>
+
+    <!-- AdminLTE for demo purposes -->
+    <script src="/AdminAssets/dist/js/demo.js"></script>
+    <script>
+        window.onload = (function () {
+            var url = window.location.pathname,
+                urlRegExp = new RegExp(url.replace(/\/$/, '') + "$"); // create regexp to match current url pathname and remove trailing slash if present as it could collide with the link in navigation in case trailing slash wasn't present there
+            // now grab every link from the navigation
+            $("ul li a").each(function () {
+                // and test its normalized href against the url pathname regexp
+                if (urlRegExp.test(this.href.replace(/\/$/, ''))) {
+                    $(this.parentNode).addClass('active');
+                    $(this.parentNode.parentNode.parentNode).addClass('active');
+                } else {
+                    $(this.parentNode).removeClass('active');
+                }
+            });
+
+        });
+    </script>
+
+    <script src='http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js?v=5.9'></script>
+    <script src='http://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js?v=5.9'></script>
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js?v=5.9'></script>
+    <script src='http://cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js?v=5.9'></script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+﻿@model Lib.Domain.Promocodes.Promocode
+@{
+    ViewBag.Title = "Promocode";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+<style type="text/css">
+    #dialog-model input, textarea {
+        width: 80%;
+    }
+</style>
+<section style="clear:both;padding-top:20px;">
+    <div id="admin-container">
+        <div class="tool-bar">
+            <a href="javascript:void(0);" onclick="lib_load_list.LoadDetailData(-1);" class="button green">Create</a>
+            |&nbsp;
+            <input type="text" id="txt-code" />
+            |&nbsp;
+            <a href="javascript:void(0);" onclick="lib_load_list.LoadList();" class="button">Search</a>
+        </div>
+        @Html.Partial("_MultiAdminTable")
+    </div>
+</section>
+<div id="dialog-model" title="Manage Promocode" style="display:none">
+    @using (Html.BeginForm())
+    {
+        @Html.EditorForModel()
+    }
+</div>
+<script type='text/javascript'>
+    lib_load_list.GetCustomLoadListData = function () {
+            var self = this;
+            var data = {
+                pageIndex: self.PageIndex,
+                orderClause: self.GetOrderClause(),
+                code: $('#txt-code').val()
+            };
+
+            return data;
+        }
+    lib_load_list.DisplayCallBackSuccess = function (result) {
+            var self = this;
+
+            if (result.Message == null || result.Message == "") {
+                self.Total = result.Optional;
+
+                data = new RenderTable();
+                data.addColumn('number', 'Id');
+                data.addColumn('string', 'Code');
+                data.addColumn('string', 'FromDate');
+                data.addColumn('string', 'ToDate');
+                data.addColumn('string', 'Status');
+                data.addColumn('string', 'MinBTC');
+                data.addColumn('string', 'MinETH');
+                data.addColumn('string', 'TotalDays');
+                data.addColumn('string', 'Items');
+                data.addColumn('string', 'Edit');
+                data.addColumn('string', 'SendMail')
+
+                if (result.Result.length > 0) {
+                    for (var i = 0; i < result.Result.length; i++) {
+                        var item = result.Result[i];
+                        var status = item.Status == 0 ? "NotSet" : "Promocode";
+                        var btnRow = self.GetRowButton({
+                            Id: item.Id,
+                            Edit: true
+                        });
+                        var viewDetail = "<a href='/manage/promocodeitems/" + item.Id + "'>items(" + item.TotalItems + ")</a>"
+
+                        var send = "<a target='_blank' href='/manage/promotionsend/" + item.Id + "'>Send</a>";
+
+                        var tmpRow = [
+                            item.Id,
+                            item.Code,
+                            item.FromDate,
+                            item.EndDate,
+                            status,
+                            item.MinValueBtc,
+                            item.MinValueEth,
+                            item.TotalDays,
+                            viewDetail,
+                            btnRow,
+                            send
+                        ];
+
+                        data.addRow(tmpRow);
+                    }
+                    self.DrawTable(data);
+                    $(".table-list table").addClass("table");
+                }
+                else {
+                    $("#" + self.ContainerId + " .table-list").html(CommonPhrase.NoData);
+                    $(".table-list table").addClass("table");
+                }
+            }
+            else {
+                CommonHelper.ShowMsg("Error: " + result.Message, MsgIconType.Error);
+            }
+        }
+    lib_load_list.LoadDetailUrl = "@Url.Action("GetDetailPromocode")";
+    lib_load_list.ManageUrl = "@Url.Action("ManagePromocode")";
+    lib_load_list.Init("@Url.Action("ListPromocode")", "20");
+        CommonHelper.SetHeadingTitle("Manage Promocode");
+</script>

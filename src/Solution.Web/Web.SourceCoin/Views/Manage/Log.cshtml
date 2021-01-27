@@ -1,0 +1,95 @@
+﻿@model Lib.Domain.User.Dblog
+@{
+    ViewBag.Title = "Log";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+<style type="text/css">
+    body{color:black;}
+</style>
+<section style="clear:both;padding:20px;">
+    <div id="admin-container">
+        <div class="tool-bar">
+            <div class="form-group">
+                <div class="input-group">
+                    <input class="form-control" type="text" id="txt-name" />
+                    |&nbsp;
+                    @Html.DropDownList("cbo-type", new SelectList(ViewBag.LstLogType, "Value", "Text", -1), new { @class = "form-control" })
+                    |&nbsp;
+                    <a href="javascript:void(0);" onclick="lib_load_list.LoadList();" class="btn btn-default">Search</a>
+                </div>
+            </div>
+        </div>
+        @Html.Partial("_MultiAdminTable")
+    </div>
+</section>
+<div id="dialog-model" title="Manage log" style="display:none">
+    @using (Html.BeginForm())
+    {
+        @Html.EditorForModel()
+    }
+</div>
+<script type='text/javascript'>
+    lib_load_list.GetCustomLoadListData = function () {
+            var self = this;
+            var data = {
+                pageIndex: self.PageIndex,
+                orderClause: self.GetOrderClause(),
+                name: $('#txt-name').val(),
+                type: $('#cbo-type').val()
+            };
+            return data;
+        }
+    lib_load_list.DisplayCallBackSuccess = function (result) {
+            var self = this;
+
+            if (result.Message == null || result.Message == "") {
+                self.Total = result.Optional;
+
+                data = new jqueryRenderTable();
+                data.addColumn('number', 'Id');
+                data.addColumn('string', 'CreateOn');
+                data.addColumn('number', 'ReferentId');
+                data.addColumn('string', 'Message');
+                data.addColumn('string', 'Name');
+                data.addColumn('string', 'View');
+
+                if (result.Result.length > 0) {
+                    for (var i = 0; i < result.Result.length; i++) {
+                        var item = result.Result[i];
+                        item.CreateOn = $.format.date(CommonHelper.ConvertJsonDate(item.CreateOn), "yyyy/MM/dd HH:mm");
+
+                        var btnRow = self.GetRowButton({
+                            Id: item.Id,
+                            Edit: true,
+                            Delete: true
+                        });
+
+                        var tmpRow = [
+                            item.Id,
+                            item.CreateOn,
+                            item.ReferentId,
+                            item.Message.substring(0, 50) + " ...",
+                            item.Name,
+                            btnRow
+                        ];
+
+                        data.addRow(tmpRow);
+                    }
+                    self.DrawTable(data);
+                    $(".table-list table").addClass("table");
+                }
+                else {
+                    $("#" + self.ContainerId + " .table-list").html(CommonPhrase.NoData);
+                    $(".table-list table").addClass("table");
+                }
+            }
+            else {
+                CommonHelper.ShowMsg("Error: " + result.Message, MsgIconType.Error);
+            }
+        }
+    lib_load_list.LoadDetailUrl = "@Url.Action("GetDetailBDLog")";
+    lib_load_list.DeleteUrl = "@Url.Action("DeleteLog")";
+    lib_load_list.CustomLoadList = true;
+    lib_load_list.Init("@Url.Action("ListLog")", "20");
+    CommonHelper.SetHeadingTitle("Manage Log");
+</script>

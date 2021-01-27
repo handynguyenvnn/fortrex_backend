@@ -1,0 +1,189 @@
+﻿@{
+    ViewBag.Title = "Customer";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+<style type="text/css">
+    .btn-link {
+        cursor: pointer;
+        color: blue !important;
+    }
+    table{
+        width: 100%;
+    }
+    table tr td {
+        max-width: 400px;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $("#to-date").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#from-date").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change", function () {
+            var minValue = $(this).val();
+            minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
+            minValue.setDate(minValue.getDate());
+            $("#to-date").datepicker("option", "minDate", minValue);
+        })
+    });
+</script>
+<section class="content" id="content-user-info">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2"><input type="text" id="txt-username" placeholder="Username or Email" class="form-control" /></div>
+            @*<div class="col-2">
+                    <select class="form-control input-common ng-untouched ng-pristine ng-valid" autocomplete="off" id="select-invest">
+                        <option value="-1">Pay method</option>
+                        <option value="3">USD</option>
+                        <option value="3">USDT</option>
+                        <option value="1">BTC</option>
+                    </select>
+                </div>*@
+            <div class="col-2">
+                <select class="form-control input-common ng-untouched ng-pristine ng-valid" autocomplete="off" id="select-status">
+                    <option value="-1">Status</option>
+                    <option value="0">Pendding</option>
+                    <option value="1">Approved</option>
+                    <option value="2">Cancel</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="text" id="from-date" placeholder="From date" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <input type="text" id="to-date" placeholder="To date" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <a href="javascript:void(0);" onclick="lib_load_list.LoadList();" class="btn btn-warning">Search</a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row" id="admin-container">
+        @Html.Partial("_MultiAdminTable")
+    </div>
+</section>
+<script type='text/javascript'>
+    lib_load_list.GetCustomLoadListData = function () {
+        var self = this;
+        
+        var data = {
+            pageIndex: self.PageIndex,
+            orderClause: self.GetOrderClause(),
+            username: $('#txt-username').val(),
+            status: $("#select-status").val(),
+            fromdate: $("#from-date").val(),
+            todate: $("#to-date").val(),
+        };
+        return data;
+    }
+    lib_load_list.DisplayCallBackSuccess = function (result) {
+        var self = this;
+
+        if (result.Message == null || result.Message == "") {
+            self.Total = result.Optional;
+            data = new RenderTable();
+            data.addColumn('number', 'No.');
+            data.addColumn('string', 'Username');
+            data.addColumn('string', 'Email');
+            data.addColumn('decimal', 'Amount');
+            data.addColumn('string', 'TxHash');
+            data.addColumn('string', 'DepositDate');
+            data.addColumn('string', 'ApprovedDate');
+            data.addColumn('string', 'Status')
+            data.addColumn('string', '')
+
+            if (result.Result.length > 0) {
+                for (var i = 0; i < result.Result.length; i++) {
+                    var item = result.Result[i];
+                    var date = '', approvedate = '';
+                    if (item.CreateDate != null)
+                        date = $.format.date(CommonHelper.ConvertJsonDate(item.CreateDate), "yyyy/MM/dd HH:mm:ss");
+                    if (item.ApprovedDate != null)
+                        approvedate = $.format.date(CommonHelper.ConvertJsonDate(item.ApprovedDate), "yyyy/MM/dd HH:mm:ss");
+                    var view = ''
+                    if (item.Status != null) {
+                        if (item.Status == 0)
+                            view = "Pending";
+                        else if (item.Status == 1)
+                            view = "Approved";
+                        else if (item.Status == 2)
+                            view = "Cancel";
+                    }
+                    var addUsd = '';
+                    if (item.Status == 0) {
+                        addUsd = '<a class="btn-link" id="Approve-' + item.Id + '" onclick="UsdtSendDeposit_Approve(' + item.Id + ',1)">Approve</a>';
+                        addUsd += '<br/><a class="btn-link" id="cancel-' + item.Id + '"  onclick="UsdtSendDeposit_Approve(' + item.Id + ',0)">Cancel</a>';
+                    }
+
+                    var tmpRow = [
+                        i + 1,
+                        item.Username,
+                        item.Email,
+                        "$" + item.Amount,
+                        item.TxHash,
+                        date,
+                        approvedate,
+                        view,
+                        addUsd
+                    ];
+
+                    data.addRow(tmpRow);
+                }
+                self.DrawTable(data);
+                $(".table-list table").addClass("table");
+            }
+            else {
+                $("#" + self.ContainerId + " .table-list").html(CommonPhrase.NoData);
+                $(".table-list table").addClass("table");
+            }
+            ExportData("table-list");
+        }
+        else {
+            CommonHelper.ShowMsg("Error: " + result.Message, MsgIconType.Error);
+        }
+    }
+
+    lib_load_list.Init("/manage/UsdtDepositLst", "15");
+    CommonHelper.SetHeadingTitle("User transaction coin");
+
+    function UsdtSendDeposit_Approve(id, type) {
+        var typeApprove = 0;
+        var messageConfirm = "";
+        if (type == 1) {
+            messageConfirm = "You sure want Approve?";
+        } else {
+            messageConfirm = "You sure want Cancel?";
+        }
+
+        if (confirm(messageConfirm)) {
+            $.ajax({
+                type: "POST",
+                url: '/manage/UsdtSendDeposit_Approve',
+                data: {
+                    'id': id,
+                    'type': type
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    CommonHelper.AjaxLoading();
+                },
+                success: function (response) {
+                    CommonHelper.StopAjaxLoading();
+                    if (response == 1) {
+                        $("#Approve-" + id).removeAttr("onclick");
+                        $("#Approve-" + id).text('');
+                        $("#cancel-" + id).removeAttr("onclick");
+                        $("#cancel-" + id).text('');
+                        lib_load_list.LoadList();
+                    } else {
+                        alert('Error, Please try again');
+                    }
+                },
+                error: function (error) {
+                    CommonHelper.StopAjaxLoading();
+                    alert('Error, Please try again');
+                }
+            });
+        }
+    }
+</script>

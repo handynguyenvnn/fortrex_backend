@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="dataConfiguration" type="Microsoft.Practices.EnterpriseLibrary.Data.Configuration.DatabaseSettings, Microsoft.Practices.EnterpriseLibrary.Data" />
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  <appSettings>
+    <add key="API_KEY" value="lpB5gUGgF5RZxq53" />
+    <add key="API_SECRET" value="ZGuVMfscvFbFz4SbgsyP3yOdGqrKRPyS" />
+    <add key="API_KEY_ETH" value="thp6b5eHuAsF4xQU" />
+    <add key="API_SECRET_ETH" value="7PcBoxuSRviRqEEYCdPWG3qUr4FINqiI" />
+    <add key="ProjectType" value="1" />
+    <add key="WriteLogDetails" value="false" />
+    <add key="VERSION" value="2017-08-07" />
+  </appSettings>
+  <connectionStrings>
+    <clear />
+    <add name="MiningHash" connectionString="Data Source=198.12.229.255;Initial Catalog=bo_exchange;Integrated Security=False;Persist Security Info=False;User ID=bo_exchange;Password=qa1@fgf$$^b0p;MultipleActiveResultSets=True;Max Pool Size=500" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5" />
+  </startup>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-10.0.0.0" newVersion="10.0.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.SqlConnectionFactory, EntityFramework" />
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
+</configuration>

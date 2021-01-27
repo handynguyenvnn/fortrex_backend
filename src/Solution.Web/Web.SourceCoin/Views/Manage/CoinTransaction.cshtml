@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "CoinTransaction";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-header" id="title-transaction"></div>
+                    <div class="card-body table-responsive p-0">
+                        <div class="tool-bar">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select id="txt-status" class="form-control">
+                                        <option value=""> -- Status -- </option>
+                                        <option value="pending">Pending</option>
+                                        <option value="completed">Completed</option>
+                                    </select>
+                                    |&nbsp;
+                                    <a href="javascript:void(0);" onclick="lib_load_list.LoadList();" class="btn btn-default">Search</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="admin-container">
+                            @Html.Partial("_MultiAdminTable")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type='text/javascript'>
+lib_load_list.GetCustomLoadListData = function () {
+    var self = this;
+    var data = {
+        pageIndex: self.PageIndex,
+        orderClause: self.GetOrderClause(),
+        status: $('#txt-status').val()
+    };
+    return data;
+}
+lib_load_list.DisplayCallBackSuccess = function (result) {
+    var self = this;
+
+    if (result.Message == null || result.Message == "") {
+        self.Total = result.Optional;
+
+        data = new jqueryRenderTable();
+        data.addColumn('number', 'UId');
+        data.addColumn('string', 'Username');
+        data.addColumn('string', 'Payment');
+        data.addColumn('string', 'Status');
+        data.addColumn('decimal', 'PriceCoin');
+        data.addColumn('decimal', 'PriceUSD');
+        data.addColumn('string', 'Minutes');
+        data.addColumn('string', 'AddressWallet');
+        data.addColumn('decimal', 'TransactionId');       
+
+        if (result.Result.length > 0) {
+
+            for (var i = 0; i < result.Result.length; i++) {
+                var item = result.Result[i];
+
+                var type = "";
+                if (item.MethodPayment == 1) {
+                    type = "BTC";
+                } else if (item.MethodPayment == 2) {
+                    type = "ETH";
+                }
+
+                var username = item.Username + "|" + item.Email;
+                if (item.TimeMinutes > 5 && item.Status == "pending") {
+                    username = "<font color='red'>" + username + "</font>";
+                }
+                var transactionId = item.TransactionId;
+                if (item.Status == "pending") {
+                    transactionId = "<span style='color:green;' id='" + item.TransactionId + "' onclick='SetApprove(\"" + item.AddressWallet + "\", \"" + item.TransactionId + "\", \"" + item.MethodPayment + "\")'>" + item.TransactionId + "</span>";
+                }
+
+                var tmpRow = [
+                    item.Id,
+                    username,
+                    type,
+                    item.Status,
+                    item.PriceCoin,
+                    item.PriceUSD,
+                    item.TimeMinutes,
+                    item.AddressWallet,
+                    transactionId
+                ];
+                data.addRow(tmpRow);
+            }
+            self.DrawTable(data);
+            $(".table-list table").addClass("table");
+        }
+        else {
+            $("#" + self.ContainerId + " .table-list").html(CommonPhrase.NoData);
+            $(".table-list table").addClass("table");
+        }
+    }
+    else {
+        CommonHelper.ShowMsg("Error: " + result.Message, MsgIconType.Error);
+    }
+}
+
+lib_load_list.Init("/manage/cointransaction", "10");
+CommonHelper.SetHeadingTitle("Coin transaction");
+
+function SetApprove(wallet, tranId, methodId) {
+    if (confirm("Are you sure ?")) {
+        CommonHelper.AjaxLoading();
+        var data = {
+            'addressWallet': wallet,
+            'transactionId': tranId,
+            'methodPayment': methodId
+        };
+        $.ajax({
+            url: '/manage/coinApprove',
+            type: 'POST',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                CommonHelper.StopAjaxLoading();
+                if (result > 0) {
+                    $("#" + tranId).removeAttr('onclick');
+                    $("#" + tranId).css('opacity', '0.3');
+                    alert("update success");
+                }
+                else {
+                    alert("update faild");
+                }
+            },
+            error: function () {
+                CommonHelper.StopAjaxLoading();
+                alert("update faild");
+            }
+        });
+    }
+}
+</script>

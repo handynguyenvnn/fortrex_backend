@@ -1,0 +1,95 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @Html.Partial("_HeaderMainHomePartial")
+</head>
+
+<body class="dashbody">
+    <div class="closelivestock2" onclick="settinglivestock()"><i id="arrowlivestock" class="fa fa-arrow-down" style="margin-right:0"></i></div>
+    @Html.Partial("WidgetsLiveStock/_PartialWidgetsLiveStock")
+    <div id="ui" class="ui">
+        <!--header start-->
+        <header id="header" class="ui-header">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">
+                    <span class="logo"><img class="ofs ad-logo" src="~/assets/images/logo-ofs.svg?v=5.9" alt="logo"></span>
+                    <span class="logo-compact">
+                        <img class="ad-logo" src="~/assets/images/g-logo.svg" />
+                    </span>
+                </a>
+            </div>
+            <div class="navbar-collapse nav-responsive-disabled">
+                <ul class="nav navbar-nav">
+                    <li><a class="toggle-btn" data-toggle="ui-nav" href="javascript:void(0)"><i class="fa fa-ellipsis-v"></i></a></li>
+                </ul>
+                <div class="admin_title">
+                    <h4> @ViewBag.Title</h4>
+                </div>
+                <div class="admin_top_right">
+                    <div class="currency_data">
+                        <ul id="currency-data"></ul>
+                    </div>
+                    <span class="theme-color1" style="font-weight: bold;text-transform: uppercase;font-size: 16px;vertical-align: middle;">@User.Identity.Name</span>
+                    <div class="admin_user">
+                        <h4>
+                            <span class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="icon-user"></i>
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><i class="icon-user"></i><a href="/user-profile">Edit Account</a></li>
+                                    <li><i class="icon-security"></i><a href="/office/TwoFactorAuthentication">Security</a></li>
+                                </ul>
+                            </span>
+                        </h4>
+
+                    </div>
+                    <div class="logout_link">
+                        <ul>
+                            <li><a href="#" data-toggle="modal" data-target="#logoutModal">Logout <i class="icon-logout"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--header end-->
+        <!--sidebar start-->
+        @Html.Partial("_MenuTopAdminPartial")
+        <!--sidebar end-->
+        <div id="content" class="ui-content ui-content-aside-overlay">
+            <div class="ui-content-body">
+                <div class="ui-container">
+                    <div class="admin_body">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave??</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/home/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<script src="/assets/js/bootstrap.min.js"></script>
+        <script src="/assets/js/side_menu.js?v=1.1"></script>*@
+    @Scripts.Render("~/assets/side_menu")
+    @Scripts.Render("~/assets/loadpage")
+
+</body>
+</html>

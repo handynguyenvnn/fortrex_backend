@@ -1,0 +1,182 @@
+﻿@{
+    ViewBag.Title = "Customer";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+<style type="text/css">
+    .btn-link {
+        cursor: pointer;
+    }
+</style>
+
+<section style="clear:both;padding-top:20px;">
+    <div id="admin-container" style="background-color:white;color:black;padding:15px;">
+        <div class="tool-bar">
+            <input type="text" id="txt-username" />
+            <a href="javascript:void(0);" onclick="lib_load_list.LoadList();" class="button">Search</a>
+        </div>
+        @Html.Partial("_MultiAdminTable")
+    </div>
+</section>
+<script type='text/javascript'>
+    lib_load_list.GetCustomLoadListData = function () {
+        var self = this;
+        var data = {
+            pageIndex: self.PageIndex,
+            orderClause: self.GetOrderClause(),
+            username: $('#txt-username').val()
+        };
+        return data;
+    }
+    lib_load_list.DisplayCallBackSuccess = function (result) {
+        var self = this;
+
+        if (result.Message == null || result.Message == "") {
+            self.Total = result.Optional;
+
+            data = new jqueryRenderTable();
+            data.addColumn('number', 'Id');
+            data.addColumn('string', 'Username');
+            data.addColumn('string', 'Email');
+            data.addColumn('string', 'Referral ');
+            data.addColumn('string', 'TreeHead');
+            data.addColumn('decimal', 'BTC Deposit');
+            data.addColumn('decimal', 'ETH Deposit');
+            data.addColumn('decimal', 'Amount USD');
+            data.addColumn('decimal', 'Coin ($)');
+            data.addColumn('string', 'CraeteDate');
+            data.addColumn('string', 'Reset 2FA-code')
+
+            if (result.Result.length > 0) {
+                for (var i = 0; i < result.Result.length; i++) {
+                    var item = result.Result[i];
+                    var date = '';
+                    if (item.CreateDate != null)
+                        date = $.format.date(CommonHelper.ConvertJsonDate(item.CreateDate), "yyyy/MM/dd HH:mm:ss");
+                    var isLock = '';
+                    if (item.FA2Code != '' && item.FA2Code != null) {
+                        isLock = '<span style="color:red;cursor: pointer;" id="lock-' + item.Id + '" onclick="unLock(' + item.Id + ')">Reset</a>';
+                    }
+                    var email = "<span id='change-" + item.Id + "'>" + item.Email + "</span>" + " | <span style='color: #fff; cursor: pointer;padding:3px;background:green;' onclick='changeEmail(" + item.Id + ")'>edit</span>";
+
+                    var tmpRow = [
+                        item.Id,
+                        item.Username,
+                        email,
+                        item.ParrentName,
+                        item.TreeName,
+                        item.MoneyBTC,
+                        item.MoneyETH,
+                        item.Balance,
+                        item.PriceCoin,
+                        date,
+                        isLock
+                    ];
+
+                    data.addRow(tmpRow);
+                }
+                self.DrawTable(data);
+                $(".table-list table").addClass("table");
+            }
+            else {
+                $("#" + self.ContainerId + " .table-list").html(CommonPhrase.NoData);
+                $(".table-list table").addClass("table");
+            }
+        }
+        else {
+            CommonHelper.ShowMsg("Error: " + result.Message, MsgIconType.Error);
+        }
+    }
+
+    lib_load_list.Init("/manage/userlist", "15");
+    CommonHelper.SetHeadingTitle("User transaction coin");
+
+    function unLock(id) {
+        if (confirm("You sure want reset 2Fa-Code ?")) {
+            $.ajax({
+                type: "POST",
+                url: '/manage/unlock',
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    CommonHelper.AjaxLoading();
+                },
+                success: function (response) {
+                    CommonHelper.StopAjaxLoading();
+                    if (response == 1) {
+                        $("#lock-" + id).removeAttr("onclick");
+                        $("#lock-" + id).text('');
+                    } else {
+                        alert('reset faild');
+                    }
+                },
+                error: function (error) {
+                    CommonHelper.StopAjaxLoading();
+                    alert("Unknown");
+                }
+            });
+        }
+    }
+</script>
+
+<link href="/Content/jquery-ui.css" rel="stylesheet" />
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:0px;">
+                <h4 class="modal-title" style="text-transform:none;padding-left:15px;padding:15px;">Change email</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:-8px -3px -15px auto;"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height: 450px; overflow: auto;">
+                <form class="form-horizontal form-signin">
+                    <input type="hidden" value="" id="model-uid" />
+                    <fieldset class="form-label-group">
+                        <label for="model-email">Email New<font color="red">*</font></label>
+                        <input type="text" class="form-control" id="model-email" />
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="userAdd" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var model_dialog = $('#user-modal');
+
+    function changeEmail(id) {
+        model_dialog.find('#model-uid').val(id);
+        model_dialog.modal('show');
+    }
+
+    model_dialog.find('.btn-primary').on('click', function () {
+        var email = model_dialog.find('#model-email').val();
+        var userId = model_dialog.find('#model-uid').val();
+        $.ajax({
+            url: '/manage/change_email',
+            type: 'POST',
+            data: JSON.stringify({ "uid": userId, "email": email }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                if (result == 1) {
+                    alert("Update success");
+                    $("#change-" + userId).text(email);
+                    model_dialog.modal('hide');
+                } else if (result == -1) {
+                    alert("Please enter your email address");
+                } else if (result == -2) {
+                    alert("Email already exists");
+                } else {
+                    alert("update not success");
+                }
+            },
+            error: function () {
+                alert("update not success");
+            }
+        });
+    });
+</script>

@@ -1,0 +1,83 @@
+﻿@model Lib.Domain.User.SettingEntity
+@{
+    ViewBag.Title = "Setting";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+<style type="text/css">
+    #dialog-model input, textarea{width:80%;}
+</style>
+<section style="clear:both;padding:20px;">
+    <div id="admin-container">
+        <div class="tool-bar">
+            <a href="javascript:void(0);" onclick="lib_load_list.LoadDetailData(-1);" class="btn btn-default green">Create</a>
+            |&nbsp;
+            <input type="text" id="txt-name" />
+            |&nbsp;
+            <a href="javascript:void(0);" onclick="lib_load_list.LoadList();" class="btn btn-default">Search</a>
+        </div>
+        @Html.Partial("_MultiAdminTable")
+    </div>
+</section>
+<div id="dialog-model" title="Manage Setting" style="display:none">
+    @using (Html.BeginForm())
+    {
+        @Html.EditorForModel()
+    }
+</div>
+<script type='text/javascript'>
+    lib_load_list.GetCustomLoadListData = function () {
+            var self = this;
+            var data = {
+                pageIndex: self.PageIndex,
+                orderClause: self.GetOrderClause(),
+                name: $('#txt-name').val()
+            };
+
+            return data;
+        }
+    lib_load_list.DisplayCallBackSuccess = function (result) {
+            var self = this;
+
+            if (result.Message == null || result.Message == "") {
+                self.Total = result.Optional;
+
+                data = new jqueryRenderTable();
+                data.addColumn('number', 'Id');
+                data.addColumn('string', 'Name');
+                data.addColumn('string', 'Value');
+                data.addColumn('string', 'Edit');
+
+                if (result.Result.length > 0) {
+                    for (var i = 0; i < result.Result.length; i++) {
+                        var item = result.Result[i];
+
+                        var btnRow = self.GetRowButton({
+                            Id: item.Id,
+                            Edit: true
+                        });
+
+                        var tmpRow = [
+                            item.Id,
+                            item.Name,
+                            item.Value,
+                            btnRow
+                        ];
+                        data.addRow(tmpRow);
+                    }
+                    self.DrawTable(data);
+                    $(".table-list table").addClass("table");
+                }
+                else {
+                    $("#" + self.ContainerId + " .table-list").html(CommonPhrase.NoData);
+                    $(".table-list table").addClass("table");
+                }
+            }
+            else {
+                CommonHelper.ShowMsg("Error: " + result.Message, MsgIconType.Error);
+            }
+        }
+    lib_load_list.LoadDetailUrl = "@Url.Action("GetDetailSetting")";
+    lib_load_list.ManageUrl = "@Url.Action("ManageSetting")";
+    lib_load_list.Init("@Url.Action("ListSettings")", "50");
+        CommonHelper.SetHeadingTitle("Manage Setting");
+</script>

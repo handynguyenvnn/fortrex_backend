@@ -1,0 +1,33 @@
+﻿@model object
+
+@{
+    string placeHolder = string.Empty;
+
+    if (ViewData.ModelMetadata.AdditionalValues.ContainsKey("PlaceHolder"))
+    {
+        placeHolder = Convert.ToString(ViewData.ModelMetadata.AdditionalValues["PlaceHolder"]);
+    }
+
+    bool isKo = true;
+
+    if (ViewData.ModelMetadata.AdditionalValues.ContainsKey("IsKo"))
+    {
+        isKo = Convert.ToBoolean(ViewData.ModelMetadata.AdditionalValues["IsKo"]);
+    }
+
+    var htmlAttr = new Dictionary<string, object> {
+        { "class", "form-control small" },
+        { "placeholder", placeHolder }
+    };
+
+    if (isKo)
+    {
+        htmlAttr.Add("data-bind", "value:" + Lib.Domain.CommonHelper.GetFullHtmlFieldNameWithoutPrefix(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty)));
+    }
+}
+
+<div class="sale-setup-label-container">@Html.LabelFor(m => m)</div>
+<div class="sale-setup-input-container">
+    @Html.TextBoxFor(m => m, htmlAttr)
+</div>
+<div style="clear:both;height:10px;font-size:0px"></div>

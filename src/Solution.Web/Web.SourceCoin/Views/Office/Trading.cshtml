@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Transaction";
+    Layout = "~/Views/Shared/_LayoutOfficeHub.cshtml";
+}
+<link rel="stylesheet" href="~/Content/jquery-ui.css">
+<style type="text/css">
+    
+    .ui-datepicker-calendar {
+        background-color: #fff
+    }
+
+    #transaction-container table td .fa {
+        margin-right: 5px;
+    }
+
+    .card-body .col-md-3 input, button {
+        margin-top: 5px;
+    }
+</style>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header border-0">
+                <h4 class="card-title">Trading History</h4>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    @*<div class="form-row col-md-12">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="mr-sm-2">Transaction Type</label>
+
+                    <select id="id-bonus" class="form-control">
+                        <option value="-1"></option>
+                        <option value="1">Trading History</option>
+                        <option value="2">Affiliate bonus</option>
+                        <option value="8">Level Bonus</option>
+                        <option value="8">Cash Back</option>
+                        <option value="3">Deposit</option>
+                        <option value="7">Withdraw</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="mr-sm-2">From Date</label>
+
+                    <input type="text" id="from-date" class="form-control" >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="mr-sm-2">To Date</label>
+                    <input type="text" id="to-date" class="form-control" >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="mr-sm-2" style="opacity:0">Find</label>
+                    <button type="submit" class="btn btn-success pl-5 pr-5 waves-effect"  onclick="jqueryLoadList.loadList();">
+                        <i class="fa fa-search"></i>  Search
+                    </button>
+
+                </div>
+            </div>
+        </div>*@
+
+    <div class="col-md-12">
+        <div class="transaction-table">
+            <div class="table-responsive">
+                <div id="transaction-container">
+                    <div id="table-list" class="table-list"></div>
+                    <div class="pagination-list" style=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    jqueryLoadList.getCustomData = function () {
+        var self = this;
+        var data = {
+            pageIndex: self.pageIndex,
+            pageSize: self.pageSize
+        };
+        return data;
+    }
+    buildData.listTrading("/office/tradinglist", 10);
+</script>

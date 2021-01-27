@@ -1,0 +1,100 @@
+﻿
+#chart_div img {
+    /*height: 84px;*/
+}
+
+.google-visualization-orgchart-node-medium {
+    font-size: 1em;
+}
+
+.google-visualization-orgchart-node {
+    text-align: center;
+    vertical-align: middle;
+    font-family: arial,helvetica;
+    cursor: default;
+    border: 0 !important;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 0 !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 3px;
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+.profile-name {
+    min-width: 120px;
+    font-family: monospace;
+    font-size: 15px;
+}
+.profile-name a{
+    text-transform: uppercase;
+}
+    .profile-name a:hover {
+        color: #F1B929;
+        cursor: pointer;
+    }
+.google-visualization-orgchart-lineleft {
+    border-left: 2px solid #9D2A2B !important;
+}
+
+.google-visualization-orgchart-lineright {
+    border-right: 2px solid #9D2A2B !important;
+}
+
+.google-visualization-orgchart-linebottom {
+    border-bottom: 2px solid #9D2A2B !important;
+}
+/*.google-visualization-orgchart-linenode {
+    min-width: 35px !important;
+}*/
+.icon-package img{
+        height: 90px;
+    position: absolute;
+    left: 0;
+}
+.icon-level img{
+        height: 90px;
+}
+table tbody td {
+    text-align: left;
+    font-size: 14px;
+    /* color: #353025; */
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    white-space: nowrap;
+    padding: 14px 20px;
+    /* white-space: nowrap; */
+     background: none !important; 
+    background-size: cover;
+}
+table tbody tr:hover td {
+    background: none !important;
+    color: #222 !important;
+}
+#wordtree_explicit div:first-child {
+    width: 750px;
+}
+
+.detaiTree {
+    /*border-top:1px solid #ccc;*/
+    padding-top: 7px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.box {
+    background-color: white;
+}
+
+.treeusers img {
+    width: 60px;
+}
+
+.treefinduser {
+    margin: 0 auto;
+    width: 477px;
+    position: relative;
+}
+
+    .treefinduser span {
+        display: flex;
+    }

@@ -1,0 +1,205 @@
+﻿/* =========================== admin =========================== */
+
+    /* =========================== left panel =========================== */
+
+    .left-toolbars ul li ul li { border-top: 1px solid #CCCCCC; border-bottom: none; float: left; background-image: none; padding-left: 10px; margin-right: -10px; }
+
+    .left-toolbars ul li ul li a { font-weight: normal; }
+
+    .left-toolbars ul li.selected a { background: #666; color: #fff; }
+
+    .left-labels { cursor: pointer; border-bottom: 1px solid #dedede; color: #666; font-size: 16px; font-weight: bold; padding: 10px; text-transform: none; line-height: 1.4em; background: #dcdcdc url("images/icons/expand-icon.png") no-repeat 98% center; }
+
+    .left-labels.expanded { background: #dcdcdc url("images/icons/collapse-icon.png") no-repeat 98% center; color: #111!important; text-shadow: 0 1px 1px #fff; }
+
+    /* =========================== toolbar =========================== */
+
+    div.tool-bar { clear: both; padding-bottom: 15px; }
+
+        div.tool-bar input[type=text] { border-color: #ccc; }
+
+        div.tool-bar input[type=text].small { width: 150px; }
+
+    a.button { border-color: #ccc; }
+
+    a.button.disabled { color: #ccc; cursor: default; }
+
+    a.button.green { background-color: #51a351; color: #fff; }
+
+    a.button.red { background-color: #bd362f; color: #fff; }
+
+    /* =========================== google table =========================== */
+
+    .main-text { font-weight: bold; }
+
+    .excutable { color: #167C11 !important; font-weight: bold; }
+    
+    .google-visualization-table-table { font-size: 12px !important; width: 100%; }
+
+    .google-visualization-table-sortind { color: #167C11 !important; }
+
+    .google-visualization-table-tr-over {
+        background-color: #e7e9f9 !important;
+    }
+
+    .google-visualization-table-th {
+        font-size: 12px;
+    }
+
+    .oddTableRow { /*background-color: #F3F3F3;*/ }
+
+    .selectedTableRow { /*background-color: #c2dff5 !important;*/ }
+
+    .selectedTableRow td { /*background-color: #c2dff5 !important;*/ }
+
+    #pagination-list { clear: both; padding-top: 15px; }
+
+    .pagination-list { clear: both; padding-top: 15px; }
+
+    .btn-row { font-weight: bold; }
+
+    .btn-detail, .btn-edit { color: #167C11 !important; }
+
+    .btn-delete { color: #bd362f !important; }
+
+    .red { color: #bd362f; }
+
+    .green { color: #167C11; }
+
+    .biz-image { height: 100px; overflow: hidden; }
+    .biz-image >img{width:initial;height:100%;}
+
+    /* =========================== dialog =========================== */
+
+    .sale-setup-label-container label { font-size: 12px; }
+
+    span.required { color: #E80C4D; }
+
+    .uploadImage { border-radius: 3px !important; font-size: 14px !important; }
+
+    input:disabled { cursor: not-allowed; }
+
+    /* =========================== validation =========================== */
+
+    .field-validation-error { color: #e80c4d !important; font-weight: bold !important; }
+
+    .field-validation-valid { display: none; }
+
+    .input-validation-error { /*border: 1px solid #e80c4d !important;*/ border: 1px solid #ff0000 !important; background-color: #ffeeee; }
+
+    input[type="checkbox"].input-validation-error { border: 0 none !important; }
+
+    .validation-summary-errors { color: #e80c4d !important; font-size: 1.1em !important; }
+
+    .validation-summary-valid { display: none !important; }
+
+    /* =========================== report =========================== */
+
+    #chart_total { height: 250px; float: left; width: 70%; padding: 0!important; }
+
+    #chart-budget { height: 250px; float: left; padding: 0!important; margin-left: 30px; }
+
+    #chart_withreview { height: 250px; float: right; width: 270px; margin-left: 0%; padding: 0!important; }
+
+    #bottomOption { padding-top: 10px; clear: both; }
+
+    input.editable { width: 60px; }
+
+    input.MonthlyReportRowRadio { width: auto; }
+
+/* =========================== fix jquery - ui =========================== */
+
+.ui-widget-overlay { z-index: 2000 !important; }
+
+.ui-dialog { z-index: 2005 !important; }
+
+.blockUI.blockOverlay.ui-widget-overlay { z-index: 3000 !important; }
+
+.blockUI.blockMsg { z-index: 3005 !important; }
+
+.ui-autocomplete { max-height: 200px; overflow-y: auto; overflow-x: hidden; max-width: 300px; }
+
+* html .ui-autocomplete { height: 200px; width: 300px; }
+
+.ui-autocomplete-loading { background: white url('/Content/Images/ui-anim_basic_16x16.gif') right center no-repeat; }
+
+.ui-widget { font-family: Arial !important; font-size: 12px !important; }
+
+.ui-widget .ui-widget { font-size: 12px !important; }
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Arial !important; font-size: 12px !important; }
+
+/* =========================== timepicker =========================== */
+
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+
+.ui-timepicker-div dl { text-align: left; }
+
+.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+
+.ui-timepicker-div dl dd { margin: 0 10px 10px 45%; }
+
+.ui-timepicker-div td { font-size: 90%; }
+
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+
+.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
+
+.ui-timepicker-rtl dl dt{ float: right; clear: right; }
+
+.ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
+
+/* =========================== res dish =========================== */
+
+.res-dish-detail-container .res-dish-detail-item, .res-dish-select-from-album-container .res-dish-detail-item {
+    float: left;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    margin: 0 10px 10px 0;
+    position: relative;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+
+.res-dish-detail-container .res-dish-detail-item.is-default, .res-dish-select-from-album-container .res-dish-detail-item.is-select {
+      border: 2px solid #0524FA;
+  opacity: 1;
+}
+
+.res-dish-detail-container .res-dish-detail-item-action {
+    position: absolute;
+    background-color: #ddd;
+    width: 100px;
+    font-weight: normal;
+    bottom: 0px;
+    opacity: 0.9;
+}
+
+.res-dish-detail-container .btn-select-from-album {
+    position: absolute;
+    top: -3px;
+    left: 133px;
+    padding: 6px;
+}
+.res-dish-select-from-album-container .res-dish-select-from-album-title {
+    font-weight: bold;
+}
+
+.res-dish-select-from-album-container .res-dish-detail-item {
+    width: 120px;
+    height: 120px;
+}
+
+.res-dish-select-from-album-container .res-dish-select-from-album-load-more {
+    color: #167C11;
+    clear: both;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.google-visualization-table-table tr{
+    background-color: transparent;
+}

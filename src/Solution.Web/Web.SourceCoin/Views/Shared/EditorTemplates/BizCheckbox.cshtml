@@ -1,0 +1,23 @@
+﻿@model bool
+
+@{
+    bool isKo = true;
+
+    if (ViewData.ModelMetadata.AdditionalValues.ContainsKey("IsKo"))
+    {
+        isKo = Convert.ToBoolean(ViewData.ModelMetadata.AdditionalValues["IsKo"]);
+    }
+
+    var htmlAttr = new Dictionary<string, object>();
+
+    if (isKo)
+    {
+        htmlAttr.Add("data-bind", "checked:" + Lib.Domain.CommonHelper.GetFullHtmlFieldNameWithoutPrefix(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty)));
+    }
+}
+
+<div class="sale-setup-label-container">@Html.LabelFor(m => m)</div>
+<div class="sale-setup-input-container">
+    @Html.CheckBoxFor(m => m, htmlAttr)
+</div>
+<div style="clear:both;height:10px;font-size:0px"></div>

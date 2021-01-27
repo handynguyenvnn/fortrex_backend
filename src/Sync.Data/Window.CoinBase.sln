@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Window.CoinBase", "Window.CoinBase\Window.CoinBase.csproj", "{8E634272-551E-4EC4-9356-AB3B3527285F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Tasks", "Lib.Tasks\Lib.Tasks.csproj", "{513ADEF4-693B-4C27-A340-049ABD42A3A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Data", "Lib.Data\Lib.Data.csproj", "{14612553-79DF-4659-B6A7-1C93F5780A4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Cache", "Lib.Cache\Lib.Cache.csproj", "{79E7F1E3-A54B-4D95-97A3-805E72695517}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{1B506082-BBFB-4633-B8B7-4AEB200EC5E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E634272-551E-4EC4-9356-AB3B3527285F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E634272-551E-4EC4-9356-AB3B3527285F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E634272-551E-4EC4-9356-AB3B3527285F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E634272-551E-4EC4-9356-AB3B3527285F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{513ADEF4-693B-4C27-A340-049ABD42A3A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{513ADEF4-693B-4C27-A340-049ABD42A3A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{513ADEF4-693B-4C27-A340-049ABD42A3A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{513ADEF4-693B-4C27-A340-049ABD42A3A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14612553-79DF-4659-B6A7-1C93F5780A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14612553-79DF-4659-B6A7-1C93F5780A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14612553-79DF-4659-B6A7-1C93F5780A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14612553-79DF-4659-B6A7-1C93F5780A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E7F1E3-A54B-4D95-97A3-805E72695517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E7F1E3-A54B-4D95-97A3-805E72695517}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E7F1E3-A54B-4D95-97A3-805E72695517}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E7F1E3-A54B-4D95-97A3-805E72695517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B506082-BBFB-4633-B8B7-4AEB200EC5E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B506082-BBFB-4633-B8B7-4AEB200EC5E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B506082-BBFB-4633-B8B7-4AEB200EC5E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B506082-BBFB-4633-B8B7-4AEB200EC5E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
+		SolutionGuid = {E2C57BE6-C2C5-4E78-B29F-09B941984D36}
+	EndGlobalSection
+EndGlobal

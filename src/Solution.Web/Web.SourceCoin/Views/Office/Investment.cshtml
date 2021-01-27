@@ -1,0 +1,567 @@
+﻿@model Lib.Domain.Packages.DasboarchDetail
+@using Web.SourceCoin.Helpers
+@using CoinbaseConnector
+@using Lib.Domain
+@{
+    ViewBag.Title = "Investment";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+    var _helper = new Helper();
+}
+
+    <style type="text/css">
+
+        .dps:focus {
+            background-color: #042C85;
+        }
+
+        .dps:hover {
+            background-color: #042C85;
+        }
+
+        .choose-packages .dps {
+            padding: 14px 0px;
+            width: 130px;
+            border-color: #17a2b8;
+            border: 2px solid orange !important;
+            background: no-repeat;
+            color: inherit;
+        }
+
+        .choose-packages .btn-primary.dps {
+            border: 2px solid orange !important;
+            background-color: #F89F34;
+            color: #fff;
+        }
+    </style>
+<div class="content">
+    <div class="contentHeader">
+        <div class="contentHeaderTitle plansPricingTitle">
+            <div class="contentHeaderTitle_subtitle">Account</div>
+            <h1 class="">PLANS AND PRICING</h1>
+        </div>
+        <p class="contentHeader_info">Here, you’ll find the prices for our three services. Choose the plan that works best for you.</p>
+    </div>
+
+    <div class="card card-transparent m-t-50 m-b-0">
+        <div class="plansPricingContentTabs">
+            <div class="plansPricingAutotradingContent">
+                <ul class="nav nav-tabs slide-left d-flex principalTabs">
+                    <li class="nav-item">
+                        <a href="#autotrading" data-toggle="tab" data-target="#autotrading" class="active show"><span>Auto Trading</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#signals" data-toggle="tab" data-target="#signals" class=""><span>Trading Signals</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tradingPool" data-toggle="tab" data-target="#tradingPool" class=""><span class="">Trading Pool</span></a>
+                    </li>
+                </ul>
+
+                <div class="tab-content plansPricingTabContent m-t-10 p-0">
+                    <div style="color: #47b0f7; font-weight: 900; margin-bottom: 10px; font-size: 18px;" class="">SPECIAL LAUNCHING OFFER, ALL OUR PLANS 50% OFF!</div>
+
+                    <!-- AUTO TRADING CONTENT -->
+                    <div class="autotrading tab-pane slide-left active show" id="autotrading">
+                        <div class="autotrading_plans">
+                            <div class="autotrading_plansContainersOutter">
+                                <div class="autotrading_plansContainersInner autotrading_silver">
+                                    <div class="autotrading_plansHeader" style="background-image: linear-gradient(to right, #bdc5c8, #c7d2e2);">
+                                        <h3>
+                                        
+                                        Silver</h3>
+
+                                        <div class="autotrading_plansHeaderSilverActive hidden" style="padding-top: 5px; font-weight: 600;"><span class="autotrading_plansHeaderSilverDaysLeft"></span> days left <span class="autotrading_plansHeaderActive">Active</span></div>
+                                        <div class="autotrading_plansHeaderPremiumActive hidden" style="padding-top: 5px;"><span class="autotrading_plansHeaderActive">Active</span></div>
+                                    </div>
+
+                                    <div class="autotrading_plansContent">
+                                        <div class="autotrading_plansInfoContainer">
+                                            <p>Limited daily volume<span class="autotrading_plansInfoContainer-number">$2,000</span></p>
+                                            <p>Recommended for deposits up to<span class="autotrading_plansInfoContainer-number">$5,000</span></p>
+                                        </div>
+
+                                        <div class="autotrading_plansBuyContainer">
+                                            <div class="autotrading_plansBuyInner m-b-10">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+30 Days</span>
+                                                    <!-- <span class="autotrading_plansBuyPrice silver1MonthFoxt">0 FOXT</span> -->
+
+                                                    <div class="autotrading_plansBuyPriceOffer" style="margin-left: 18px;">
+                                                        <span class="autotrading_plansBuyPriceOffer-old silver1MonthFoxtOld">6,620 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new silver1MonthFoxt">3,310 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="autotrading_plansBuyInner">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+180 Days</span>
+
+                                                    <div class="autotrading_plansBuyPriceOffer">
+                                                        <span class="autotrading_plansBuyPriceOffer-old silver6MonthFoxtOld">39,720 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new silver6MonthFoxt">16,580 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="autotrading_plansBuyInner">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+365 Days</span>
+
+                                                    <div class="autotrading_plansBuyPriceOffer">
+                                                        <span class="autotrading_plansBuyPriceOffer-old silver12MonthFoxtOld">79,440 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new silver12MonthFoxt">29,490 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="autotrading_plansContainersOutter">
+                                <div class="autotrading_plansContainersInner autotrading_gold">
+                                    <div class="autotrading_plansHeader" style="background-image: linear-gradient(to right, #ffd07f, #ffe29f);">
+                                        <h3>
+                                        Gold</h3>
+                                        <div class="autotrading_plansHeaderGoldActive hidden" style="padding-top: 5px; font-weight: 600;"><span class="autotrading_plansHeaderGoldDaysLeft"></span> days left <span class="autotrading_plansHeaderActive">Active</span></div>
+                                        <div class="autotrading_plansHeaderPremiumActive hidden" style="padding-top: 5px; font-weight: 600; text-align: right;">Upgrade with an extra 25% discount</div>
+                                    </div>
+
+                                    <div class="autotrading_plansContent">
+                                        <div class="autotrading_plansInfoContainer">
+                                            <p>Limited daily volume<span class="autotrading_plansInfoContainer-number">$5,000</span></p>
+                                            <p>Recommended for deposits up to<span class="autotrading_plansInfoContainer-number">$10,000</span></p>
+                                        </div>
+
+                                        <div class="autotrading_plansBuyContainer">
+                                            <div class="autotrading_plansBuyInner m-b-10">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+30 Days</span>
+                                                    <!-- <span class="autotrading_plansBuyPrice gold1MonthFoxt">0 FOXT</span> -->
+
+                                                    <div class="autotrading_plansBuyPriceOffer" style="margin-left: 18px;">
+                                                        <span class="autotrading_plansBuyPriceOffer-old gold1MonthFoxtOld">13,260 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new gold1MonthFoxt">6,630 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="autotrading_plansBuyInner">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+180 Days</span>
+
+                                                    <div class="autotrading_plansBuyPriceOffer">
+                                                        <span class="autotrading_plansBuyPriceOffer-old gold6MonthFoxtOld">79,560 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new gold6MonthFoxt">33,170 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="autotrading_plansBuyInner">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+365 Days</span>
+
+                                                    <div class="autotrading_plansBuyPriceOffer">
+                                                        <span class="autotrading_plansBuyPriceOffer-old gold12MonthFoxtOld">159,120 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new gold12MonthFoxt">58,980 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="autotrading_plansContainersOutter">
+                                <div class="autotrading_plansContainersInner autotrading_platinum">
+                                    <div class="autotrading_plansHeader" style="background-image: linear-gradient(to right, #80ecf0, #a3fbdb);">
+                                        <h3>Platinum</h3>
+                                        <div class="autotrading_plansHeaderPlatinumActive hidden" style="padding-top: 5px; font-weight: 600;"><span class="autotrading_plansHeaderPlatinumDaysLeft"></span> days left <span class="autotrading_plansHeaderActive">Active</span></div>
+                                        <div class="autotrading_plansHeaderPremiumActive hidden" style="padding-top: 5px; font-weight: 600; text-align: right;">Upgrade with an extra 25% discount</div>
+                                    </div>
+
+                                    <div class="autotrading_plansContent">
+                                        <div class="autotrading_plansInfoContainer">
+                                            <p>Limited daily volume<span class="autotrading_plansInfoContainer-number">$10,000</span></p>
+                                            <p>Recommended for deposits up to<span class="autotrading_plansInfoContainer-number">$25,000</span></p>
+                                        </div>
+
+                                        <div class="autotrading_plansBuyContainer">
+                                            <div class="autotrading_plansBuyInner m-b-10">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+30 Days</span>
+                                                    <!-- <span class="autotrading_plansBuyPrice platinum1MonthFoxt">0 FOXT</span> -->
+
+                                                    <div class="autotrading_plansBuyPriceOffer" style="margin-left: 18px;">
+                                                        <span class="autotrading_plansBuyPriceOffer-old platinum1MonthFoxtOld">22,100 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new platinum1MonthFoxt">11,050 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="autotrading_plansBuyInner">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+180 Days</span>
+
+                                                    <div class="autotrading_plansBuyPriceOffer">
+                                                        <span class="autotrading_plansBuyPriceOffer-old platinum6MonthFoxtOld">132,600 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new platinum6MonthFoxt">58,980 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="autotrading_plansBuyInner">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+365 Days</span>
+
+                                                    <div class="autotrading_plansBuyPriceOffer">
+                                                        <span class="autotrading_plansBuyPriceOffer-old platinum12MonthFoxtOld">265,200 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new platinum12MonthFoxt">99,530 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="autotrading_plansContainersOutter">
+                                <div class="autotrading_plansContainersInner autotrading_diamond">
+                                    <div class="autotrading_plansHeader" style="background-image: linear-gradient(to right, #94bdf7, #c8cbf1);">
+                                        <h3>Diamond</h3>
+                                        <div class="autotrading_plansHeaderDiamondActive hidden" style="padding-top: 5px; font-weight: 600;"><span class="autotrading_plansHeaderDiamondDaysLeft"></span> days left <span class="autotrading_plansHeaderActive">Active</span></div>
+                                        <div class="autotrading_plansHeaderPremiumActive hidden" style="padding-top: 5px; font-weight: 600; text-align: right;">Upgrade with an extra 25% discount</div>
+                                    </div>
+
+                                    <div class="autotrading_plansContent">
+                                        <div class="autotrading_plansInfoContainer">
+                                            <p>Limited daily volume<span class="autotrading_plansInfoContainer-number">$50,000</span></p>
+                                            <p>Recommended for deposits &gt; to<span class="autotrading_plansInfoContainer-number">&gt;$55,000</span></p>
+                                        </div>
+
+                                        <div class="autotrading_plansBuyContainer">
+                                            <div class="autotrading_plansBuyInner m-b-10">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+30 Days</span>
+                                                    <!-- <span class="autotrading_plansBuyPrice diamond1MonthFoxt">0 FOXT</span> -->
+
+                                                    <div class="autotrading_plansBuyPriceOffer" style="margin-left: 18px;">
+                                                        <span class="autotrading_plansBuyPriceOffer-old diamond1MonthFoxtOld">73,280 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new diamond1MonthFoxt">36,640 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="autotrading_plansBuyInner">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+180 Days</span>
+
+                                                    <div class="autotrading_plansBuyPriceOffer">
+                                                        <span class="autotrading_plansBuyPriceOffer-old diamond6MonthFoxtOld">439,680 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new diamond6MonthFoxt">184,320 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="autotrading_plansBuyInner">
+                                                <div class="autotrading_plansBuyInfo">
+                                                    <span class="autotrading_plansBuyMonth">+365 Days</span>
+
+                                                    <div class="autotrading_plansBuyPriceOffer">
+                                                        <span class="autotrading_plansBuyPriceOffer-old diamond12MonthFoxtOld">879,360 FOXT</span>
+                                                        <br>
+                                                        <span class="autotrading_plansBuyPriceOffer-new diamond12MonthFoxt">331,780 FOXT</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- WIZARDS -->
+                        <div class="wizardsContainer m-t-30" id="wizardBuyPlans">
+                            <div id="wizardsContainerInner">
+                                <!-- nav tabs -->
+                                <ul class="nav nav-tabs wizardsContainer_tabs nav-pills">
+                                    <li class="">
+                                        <a data-toggle="tab" href="#tab1" class="active show"><span class="fas fa-tasks p-r-10"></span><span>Summary</span></a>
+                                    </li>
+                                    <li class="">
+                                        <a data-toggle="tab" href="#tab2"><span class="fas fa-wallet p-r-10"></span><span>Payment</span></a>
+                                    </li>
+                                    <li class="">
+                                        <a data-toggle="tab" href="#tab3"><span class="fas fa-check-circle p-r-10"></span><span>Confirm</span></a>
+                                    </li>
+                                </ul>
+                                <!-- tab content -->
+                                <div class="tab-content wizardsContainer_content">
+                                    <div class="row tab-pane slide-left active show" id="tab1">
+                                        <div class="col-lg-6 col-md-12 wizardsContainer_info p-t-40 p-b-20">
+                                            <h2>Excellent decision!</h2>
+                                            <p>Auto Trading for Crypto Arbitrage bot is giving very good results, you are only two steps away from start getting profit with it!</p>
+                                            <p>Review the days and price of your selected plan and click on Next.</p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12 my-auto">
+                                            <h4 style="font-size: 18px; font-weight: 600; font-family: Lato;">Summary</h4>
+                                            <p class="wizardsContainer_activePlanInfo p-b-10"></p>
+                                            <ul class="wizardsContainer_summaryList">
+                                                <li class="wizardsContainer_selectedPlanInfo"></li>
+                                                <li class="wizardsContainer_selectedPlanDiscount"></li>
+                                                <li class="wizardsContainer_selectedPlanPremium hidden"></li>
+                                            </ul>
+
+                                            <div class="wizardsContainer_selectedPlanTotal b-a b-grey m-t-20"></div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane slide-left" id="tab2">
+                                        <div class="" style="width: 100%; display: flex; flex-wrap: wrap;">
+                                            <div class="row wizardsContainer_tab2Info hidden" style="width: 100%; display: flex; flex-wrap: wrap;">
+                                                <div class="col-lg-6 col-md-12 wizardsContainer_info p-t-40 p-b-20">
+                                                    <h2>Auto Trading is waiting for you!</h2>
+                                                    <p>Please, choose a wallet from where you can send us your payment in FOXT, we will track it to get sure that you are the one who made it.</p>
+                                                    <p><span style="color: #e04c3d; font-weight: 700;">IMPORTANT</span><br>We do not accept payments directly from an exchange wallet because we cannot track the origin of the transaction. If you do not have any wallet to store your FOXT, check our compatible wallets <a href="https://foxtrading.io/foxt-token#aboutfoxt" target="_blank">here</a>.</p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-12">
+                                                    <h4 style="font-size: 18px; font-weight: 600; font-family: Lato;">Choose your wallet</h4>
+                                                    <p>Choose one of your wallets to make the payment.</p>
+
+                                                    <select class="wizardsContainer_selectWallets m-t-20" id="wizardWallets">
+                                                        <option value="">-</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="wizardsContainer_noWallets">
+                                                <h3 style="font-size: 16px; padding: 20px;">Please add, at least, one wallet from where you can send us FOXT. You can do it through our <a href="/settings">Settings page</a>. If you do not own any, check our compatible wallets <a href="https://foxtrading.io/foxt-token#aboutfoxt" target="_blank">here</a>.</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane slide-left" id="tab3">
+                                        <div class="row" style="width: 100%; display: flex; flex-wrap: wrap;">
+                                            <div class="col-lg-6 col-md-12 wizardsContainer_info p-t-40 p-b-20">
+                                                <h2>You’re about to start!</h2>
+                                                <p>You have 10 minutes to proceed with the FOXT sending from your wallet. Once you have sent them, click on Confirm and wait a few minutes to see your plan updated.</p>
+                                                <p><span style="color: #e04c3d; font-weight: 700;">IMPORTANT</span><br>Please, send us the exact amount of FOXT requested. Otherwise, the plan will not activate.</p>
+                                            </div>
+                                            <div class="col-lg-6 col-md-12 my-auto p-t-20">
+                                                <h4 style="font-size: 18px; font-weight: 600; font-family: Lato;">Send <span class="wizardsContainer_foxtToPay"></span> to this address</h4>
+                                                <div class="wizardsContainer_walletToPay m-t-10">
+                                                    <span class="wizardsContainer_walletToPay-wallet"></span>
+                                                    <span class="far fa-clone wizardsContainer_walletToPay-copy" style="cursor: pointer; margin-left: 10px;" onclick="copyElement('wizardsContainer_walletToPay-wallet');"></span>
+                                                </div>
+                                                <div class="wizardsContainer_contador m-t-20">10:00</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <ul class="pager wizard wizardsContainer_buttons m-t-30">
+                                        <li class="next wizardsContainer_next1">
+                                            <button class="defaultButton2 pull-right wizardsContainer_buttons-next" type="button" style="padding: 6px 20px;">
+                                                <span>Next</span>
+                                            </button>
+                                        </li>
+                                        <li class="next wizardsContainer_next2 hidden" style="display: none;">
+                                            <button class="defaultButton2 pull-right wizardsContainer_buttons-next" type="button" style="padding: 6px 20px;" onclick="buyAutotradingPlan();">
+                                                <span>Next</span>
+                                            </button>
+                                        </li>
+                                        <li class="finish" style="display:none;">
+                                            <button class="defaultButton2 defaultButton2Animated pull-right" type="button" onclick="confirmBuyPlan('autotradingSilver1Mo');" style="padding: 6px 20px;">
+                                                <span>Confirm</span>
+                                            </button>
+                                        </li>
+                                        <li class="previous disabled" style="display: none;">
+                                            <button class="defaultButton3 pull-right" type="button" style="padding: 6px 20px; margin-right: 20px;">
+                                                <span>Previous</span>
+                                            </button>
+                                        </li>
+                                        <li class="cancel">
+                                            <button class="defaultButton3 pull-right" type="button" style="padding: 6px 20px; margin-right: 20px;" onclick="cancelWizard();">
+                                                <span>Cancel</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END WIZARDS -->
+                    </div>
+
+                    <!-- SIGNALS CONTENT -->
+                    <div class="signals tab-pane slide-left" id="signals">
+                        <p style="margin-top: 20px; font-size: 16px;">It is necessary to hold a minimum of <span style="color: #f47340;">1,000 FOXT</span> to unlock Trading Signals Alerts.</p>
+                    </div>
+
+                    <!-- TRADING POOL CONTENT -->
+                    <div class="tradingPool tab-pane slide-left" id="tradingPool">
+                        <div class="" style="margin-top: 20px; font-size: 16px; padding: 3px 10px 5px;">
+                            <span class="userInfoContainer_services-poolSoon"><a href="/tradingpool">Now available</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- END TAB CONTENT -->
+            </div>
+
+            <!-- LATERAL CONTENT -->
+            <div class="plansLateralInfo">
+                <div class="plansLateralInfo_lastTransactions">
+                    <div class="plansLateralInfo_lastTransactionsHeader">
+                        <h3>Last transactions</h3>
+                    </div>
+                    <div class="plansLateralInfo_lastTransactionsTableContainer">
+                        <table class="table table-hover plansLateralInfo_lastTransactionsTable" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Plan</th>
+                                    <th>Type</th>
+                                    <th>Days</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="plansLateralInfo_lastTransactionsBody"></tbody>
+                        </table>
+                        <div class="plansLateralInfo_lastTransactions-without p-t-20" style="text-align: center;">No transactions yet.</div>
+                    </div>
+                </div>
+
+                <!-- WIDGET -->
+                <div class="dashboardHeaderCard foxtWidgetContainer foxtWidgetPlans">
+                    <div class="signalsTables_forex-comingSoon comingSoonLabel" style="width: 175px;top: 165px;left: calc(50% - 96px);">
+                        <span class="label label-inverse" style="font-size: 13px;background: none;color: #e04c3d;">
+                            <i class="fas fa-wrench" style="margin-right: 5px;"></i>UNDER MAINTENANCE
+                        </span>
+                    </div>
+                    <div class="buyFoxtWidget">
+                        <div class="buyFoxtWidget_header">
+                            <h3 style="font-family: Poppins; font-size: 26px; margin-top: 0;">BUY FOXT</h3>
+                            <small>A fast and easy way to purchase FOXT through the platform.</small>
+
+                            <a href="https://help.foxtrading.io/article/38-buy-foxt-from-the-platform-widget" target="_blank"><span class="fas fa-question-circle buyFoxtWidget_header-help"></span></a>
+                        </div>
+
+                        <div id="contentbuy" class="userInfoContainer_buy" style="filter: blur(3px);">
+                            <div class="buyFoxtWidget_contentBuy">
+                                <div class="buyFoxtWidget_contentBuy-foxtInput">
+                                    <div class="buyFoxtWidget_contentBuy-foxtInputInner">
+                                        <input disabled="" onkeyup="calcular();" onchange="calcular();" type="number" id="enterfoxt" placeholder="AMOUNT" min="0">
+                                        <span> FOXT</span>
+                                    </div>
+                                    <div class="buyFoxtWidget_contentBuy-foxtInputInfo">FOXT you will get</div>
+                                </div>
+                                <div class="fas fa-chevron-circle-right buyFoxtWidget_contentBuy-sign buyFoxtWidget_contentBuy-signRight"></div>
+                                <div class="fas fa-chevron-circle-down buyFoxtWidget_contentBuy-sign buyFoxtWidget_contentBuy-signDown"></div>
+                                <div class="buyFoxtWidget_contentBuy-ethInput">
+                                    <div class="buyFoxtWidget_contentBuy-ethInputInner">
+                                        <input type="text" id="entereth" value="0" placeholder="0" disabled="">
+                                        <span> ETH</span>
+                                    </div>
+                                    <div class="buyFoxtWidget_contentBuy-ethInputInfo">ETH you will pay</div>
+                                </div>
+                            </div>
+                            <div class="buyFoxtWidget_buyTokensContainer">
+                                <!--<div class="defaultButton1 buyFoxtWidget_contentBuy-buyButton" onclick="buyTokens()">BUY</div>-->
+                                <div class="defaultButton1 buyFoxtWidget_contentBuy-buyButton">BUY</div>
+                            </div>
+                        </div>
+
+                        <div id="contenttext" class="buyFoxtWidget_contentText">
+                        </div>
+                    </div>
+                </div>
+                <!-- END WIDGET -->
+            </div>
+            <!-- END LATERAL CONTENT -->
+        </div>
+
+    </div>
+</div>
+<section class="card">
+    <div class="card-content">
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-xl-12 col-sm-12 col-md-12 col-lg-2 col-12">
+                </div>
+                <div class="col-xl-12 col-sm-12 col-md-12 col-lg-6 col-12">
+                    <form class="form-horizontal form-user-profile row mt-2" action="#">
+                        <div class="col-12">
+                            <label id="total-balance">Total Balance : $@_helper.FormatNumber(Model.MoneyUSD)</label>
+                        </div>
+                        <div class="col-6" style="display:none !important;">
+                            <select class="custom-select" id="drop-method-pay">
+                                <option value="@SimpleConstant.USD" selected>USD</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <select class="custom-select" autocomplete="off" id="drop-package-amount"></select>
+                        </div>
+                        <div class="col-md-12 col-12 mt-2 text-center">
+                            <button type="button" id="btn-invest" style="display: none">Save</button>
+                            <button type="button" id="btn-invest-confirm" class="btn btn-primary"><i class="fa fa-check"></i> Buy Now</button>
+                        </div>
+                        
+                        <div class="col-12 text-center">
+                            <small class="form-text text-muted">You agree to <a href="#" target="_blank" style="color: black;padding-left: 2px">our Terms</a> of Use and have read FAQ </small>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xl-12 col-sm-12 col-md-12 col-lg-2 col-12">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title text-left mb-20">
+                        <h2 class="card-title lead collapsed">Investment <span style="color: #9d2a2b"> History</span></h2>
+                    </div>
+                    <div class="table-responsive" id="investment-container">
+                        <div id="table-list" class="table-list"></div>
+                        <div class="pagination-list" style=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<input type="hidden" id="hddusername" value="@User.Identity.Name.ToUpper()">
+
+@*@Html.Partial("_DialogDeposit")*@
+<script type="text/javascript">
+    buildData.listInvestment("/investment-history", 10);
+    $(document).ready(function () {
+        $.ajax({
+            url: '/get-package',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                $('#drop-package-amount').html(result);
+            }
+        });
+
+    });
+</script>

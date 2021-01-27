@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AAB52519-A0C5-4DDA-8D45-1FE93FF16B35}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lib.Database</RootNamespace>
+    <AssemblyName>Lib.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution.Web\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution.Web\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entitys\BaseDbContext.cs" />
+    <Compile Include="Entitys\BNCTHistory.cs" />
+    <Compile Include="Entitys\BonusSale.cs" />
+    <Compile Include="Entitys\Bonus_Cash_Back.cs" />
+    <Compile Include="Entitys\BuyCoin.cs" />
+    <Compile Include="Entitys\BuyCoinStatu.cs" />
+    <Compile Include="Entitys\CoinList.cs" />
+    <Compile Include="Entitys\CoinTransaction.cs" />
+    <Compile Include="Entitys\CoinTransaction_Clone.cs" />
+    <Compile Include="Entitys\ContentStatic.cs" />
+    <Compile Include="Entitys\CoreExchangeDB.cs" />
+    <Compile Include="Entitys\DBLog.cs" />
+    <Compile Include="Entitys\DepositHistory.cs" />
+    <Compile Include="Entitys\DepositProgress.cs" />
+    <Compile Include="Entitys\HistorysOrdersEntity.cs" />
+    <Compile Include="Entitys\HistoryTransactionEntity.cs" />
+    <Compile Include="Entitys\LogDervice.cs" />
+    <Compile Include="Entitys\LoginSession.cs" />
+    <Compile Include="Entitys\Log_Erc20HashLog.cs" />
+    <Compile Include="Entitys\Log_EthHashLog.cs" />
+    <Compile Include="Entitys\Log_Status.cs" />
+    <Compile Include="Entitys\MailAccount.cs" />
+    <Compile Include="Entitys\MailTemplateEntity.cs" />
+    <Compile Include="Entitys\Mail_UserMining.cs" />
+    <Compile Include="Entitys\MarketingEmailEntity.cs" />
+    <Compile Include="Entitys\MarketingEmailTypeEntity.cs" />
+    <Compile Include="Entitys\MUser.cs" />
+    <Compile Include="Entitys\OT_Other_List.cs" />
+    <Compile Include="Entitys\Package.cs" />
+    <Compile Include="Entitys\Packages_Bonus_F.cs" />
+    <Compile Include="Entitys\Packages_Bonus_Transaction.cs" />
+    <Compile Include="Entitys\Package_BonusOnDay.cs" />
+    <Compile Include="Entitys\Packeges_BonusEntitys.cs" />
+    <Compile Include="Entitys\QA_Note.cs" />
+    <Compile Include="Entitys\Role.cs" />
+    <Compile Include="Entitys\ScheduleTask.cs" />
+    <Compile Include="Entitys\SellStock.cs" />
+    <Compile Include="Entitys\SessionLogin.cs" />
+    <Compile Include="Entitys\Setting.cs" />
+    <Compile Include="Entitys\Sysn_Data_Tab.cs" />
+    <Compile Include="Entitys\tbl_tempPayProfitDaily.cs" />
+    <Compile Include="Entitys\tbl_tempPayProfitDaily_log.cs" />
+    <Compile Include="Entitys\Ticket.cs" />
+    <Compile Include="Entitys\TradeHistoryTransactionEntitys.cs" />
+    <Compile Include="Entitys\TradePair.cs" />
+    <Compile Include="Entitys\TransactionCoin_MethodPayment.cs" />
+    <Compile Include="Entitys\TransactionSession.cs" />
+    <Compile Include="Entitys\TransactionStatu.cs" />
+    <Compile Include="Entitys\TransactionType.cs" />
+    <Compile Include="Entitys\T_TreeData.cs" />
+    <Compile Include="Entitys\Users_Marketing_Bonus.cs" />
+    <Compile Include="Entitys\Users_Tem.cs" />
+    <Compile Include="Entitys\User_Block.cs" />
+    <Compile Include="Entitys\User_Branch_Balance.cs" />
+    <Compile Include="Entitys\User_ExtensionEntity.cs" />
+    <Compile Include="Entitys\User_Ignore.cs" />
+    <Compile Include="Entitys\User_LockPending.cs" />
+    <Compile Include="Entitys\User_Maxout.cs" />
+    <Compile Include="Entitys\User_PairName_Mapping.cs" />
+    <Compile Include="Entitys\User_Role_Mapping.cs" />
+    <Compile Include="Entitys\User_Transfer.cs" />
+    <Compile Include="Entitys\User_Vol.cs" />
+    <Compile Include="Entitys\User_Wallet.cs" />
+    <Compile Include="Entitys\User_WalletAddress.cs" />
+    <Compile Include="Entitys\User_WalletTron.cs" />
+    <Compile Include="Entitys\User_Wallet_Amount.cs" />
+    <Compile Include="Entitys\WalletErc20ContractAddress_Mapping.cs" />
+    <Compile Include="Entitys\Wallet_BNB.cs" />
+    <Compile Include="Entitys\Wallet_BRI.cs" />
+    <Compile Include="Entitys\Wallet_ELD.cs" />
+    <Compile Include="Entitys\Wallet_GES.cs" />
+    <Compile Include="Entitys\Wallet_BTC.cs" />
+    <Compile Include="Entitys\Wallet_ETH_General.cs" />
+    <Compile Include="Entitys\Wallet_TRX.cs" />
+    <Compile Include="Entitys\Wallet_USDT.cs" />
+    <Compile Include="Entitys\WithdrawEntity.cs" />
+    <Compile Include="Entitys\WithdrawHistoryEntity.cs" />
+    <Compile Include="Entitys\WithdrawProcessing.cs" />
+    <Compile Include="Entitys\WithdrawProgress.cs" />
+    <Compile Include="Entitys\WithdrawStatu.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

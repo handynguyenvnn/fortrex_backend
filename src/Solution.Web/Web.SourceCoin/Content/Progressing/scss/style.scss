@@ -1,0 +1,184 @@
+@import "compass/css3";
+
+/**
+ * Define variables
+ */
+$points        : 5;
+$demo_w        : 90%;
+$track_h       : 4px;
+$track_h05     : $track_h / 2;
+$gutter        : 100% / ($points - 1);
+$duration      : 1s;
+
+$_r    : 24px;
+$_r05  : $_r / 2;
+$_r025 : $_r05 / 2;
+$_b    : $_r / 6;
+$_mt   : ($track_h - $_r) * 0.5 - $track_h;
+
+$tint-track      : #ddd;
+$tint-progress   : red;
+$tint-complete   : #777;
+$tint-incomplete : lighten($tint-complete, 20%);
+
+
+/**
+ * Style default tags
+ */
+*, *:before, *:after {
+  @include box-sizing(border-box);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-size: 14px;
+  text-align: center;
+}
+
+
+/**
+ * Utility styles
+ */
+.inliner {
+  height: 100%;
+}
+
+.inliner,
+.inliner + .inlined {
+  display        : inline-block;
+  vertical-align : middle;
+}
+
+.inlined {
+  width: $demo_w;
+}
+
+
+/**
+ * Component styles
+ */
+%progress-meter-demo {
+  margin  : 20px auto 40px;
+  padding : 40px;
+}
+
+.progress-meter {
+  @extend %progress-meter-demo;
+  
+  counter-reset : point;
+  
+  %check {
+    @include transition;
+    @include border-radius($_r);
+    @include box-shadow(0 0 0 2px white);
+    
+    content          : "\2713";
+    display          : block;
+    width            : $_r;
+    margin           : 0 auto $_r05;
+    border           : $_b solid $tint-incomplete;
+    text-align       : center;
+    background-color : white;
+    color            : white;
+  }
+  
+  .track {
+    position   : relative;
+    height     : $track_h;
+    background : $tint-track;
+  }
+  
+  .progress {
+    @include transition(width 1s);
+    
+    display    : block;
+    position   : absolute;
+    left       : 0;
+    top        : 0;
+    width      : 0;
+    height     : $track_h;
+    background : $tint-progress;
+  }
+  
+  .progress-points {  
+    position   : relative;
+    margin     : $_mt 0 0;
+    padding    : 0;
+    list-style : none;
+    
+    @for $i from 1 through $points {
+      .progress-point:nth-child(#{$i}) {
+        left: ($i - 1) * $gutter;
+      }
+    }
+  }
+  
+  .progress-point {
+    $_w : 100px;
+    $_ml: $_w / -2;
+    
+    @include transition(color $duration);
+    
+    position    : absolute;
+    display     : block;
+    width       : $_w;
+    margin-left : $_ml;
+    text-align  : center;
+    cursor      : pointer;
+    color       : #999;
+    
+    &:before {
+      @extend %check;
+    }
+    
+    &.completed,
+      &.active {
+      color: $tint-complete;
+    }
+    
+    &.completed:before {
+      border-color     : $tint-complete;
+      background-color : $tint-complete;
+    }
+    
+    &.active:before {
+      @include transition-delay($duration);
+      
+      border-color: $tint-complete;
+    }
+    
+    .label:before {
+      counter-increment: point;
+      content: counter(point) ". "; /* Display the counter */
+    }
+  }
+}
+
+/**
+ * Demo controls 
+ */
+.controls {
+  text-align: center;
+  font-size: 12px;
+}
+
+.trigger {
+  $_tint-bg     : #bbb;
+  $tint_text    : darken($_tint-bg, 35%);
+  $_tint-shadow : lighten($_tint-bg, 25%);
+    
+  @include border-radius(3px);
+  
+  padding     : 6px 8px;
+  border      : none;
+  font        : 14px inherit;
+  text-shadow : 0px 1px 1px rgba($_tint-shadow, 0.75);
+  color       : $tint_text;
+
+  @include background-image(
+    linear-gradient($_tint-bg, darken($_tint-bg, 15%))
+  ); 
+}

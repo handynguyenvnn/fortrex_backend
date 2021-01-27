@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "Ticker";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+
+<style type="text/css">
+    .btn-link {
+        cursor: pointer;
+    }
+</style>
+
+<section style="clear:both;padding-top:20px;">
+    <div id="admin-container" style="background-color:white;color:black;padding:15px;">
+        <div class="tool-bar">
+            <input type="text" id="txt-username" />
+            <a href="javascript:void(0);" onclick="lib_load_list.LoadList();" class="button">Search</a>
+        </div>
+        @Html.Partial("_MultiAdminTable")
+    </div>
+</section>
+<script type='text/javascript'>
+     
+    lib_load_list.GetCustomLoadListData = function () {
+        var self = this;
+        var data = {
+            pageIndex: self.PageIndex,
+            orderClause: self.GetOrderClause(),
+            username: $('#txt-username').val()
+        };
+        return data;
+    }
+    lib_load_list.DisplayCallBackSuccess = function (result) {
+        var self = this;
+
+         if (result.Message === null || result.Message === "") {
+                self.total = result.Optional;
+                data = new jqueryRenderTable();
+
+             data.addColumn('number', 'Id');
+             data.addColumn('string', 'Account');
+                data.addColumn('string', 'Fullname');
+                data.addColumn('string', 'Email');
+                data.addColumn('string', 'Subject');
+                data.addColumn('string', 'Meassages');
+                data.addColumn('string', 'Phone Number');
+                data.addColumn('string', 'CreateAt');
+                data.addColumn('string', 'Reply By');
+                data.addColumn('string', 'Reply Messages');
+                data.addColumn('string', 'Reply Date');
+                if (result.Result.length > 0) {
+                    for (var i = 0; i < result.Result.length; i++) {
+                        var item = result.Result[i];
+                        var itemreplyrow=""
+                        if (item.ReplyMessages=="" || item.ReplyMessages==null) {
+                            var itemreplyrow = "<span style='color: #fff; cursor: pointer;padding:3px;background:green;' onclick='replyfunction(" + item.Id + ")'>Reply</span>";
+                        } else {
+                            itemreplyrow = item.ReplyMessages;
+                        }
+                        var tmpRow = [
+                            i + 1,
+                            item.UserName,
+                            item.FullName,
+                            item.Email,
+                            item.Subject,
+                            item.Messages,
+                            item.PhoneNumber,
+                            item.CreateAtstr,
+                            item.ReplyBy,
+                            itemreplyrow,
+                            item.ModifyDatastr
+                        ];
+
+                        data.addRow(tmpRow);
+                    }
+                     self.DrawTable(data);
+                }
+                else {
+                    var tmpRow1 = ["There are no data to display."];
+                    data.addRow(tmpRow1, 10);
+                        self.DrawTable(data);
+                }
+            }
+            else {
+                var tmpRow2 = ["There are no data to display."];
+                data.addRow(tmpRow2, 10);
+                self.drawTable(data);
+            }
+    }
+
+    lib_load_list.Init("/office/Ticket_Lst", "1500");
+    CommonHelper.SetHeadingTitle("Manage Ticket");
+
+    function unLock(id) {
+        if (confirm("You sure want reset 2Fa-Code ?")) {
+            $.ajax({
+                type: "POST",
+                url: '/manage/unlock',
+                data: {
+                    'id': id
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    CommonHelper.AjaxLoading();
+                },
+                success: function (response) {
+                    CommonHelper.StopAjaxLoading();
+                    if (response == 1) {
+                        $("#lock-" + id).removeAttr("onclick");
+                        $("#lock-" + id).text('');
+                    } else {
+                        alert('reset faild');
+                    }
+                },
+                error: function (error) {
+                    CommonHelper.StopAjaxLoading();
+                    alert("Unknown");
+                }
+            });
+        }
+    }
+</script>
+
+@*<link href="/Content/jquery-ui.css" rel="stylesheet" />*@
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:0px;">
+                <h4 class="modal-title" style="text-transform:none;padding-left:15px;padding:15px;">Reply For User</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:-8px -3px -15px auto;"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height: 450px; overflow: auto;">
+                <form class="form-horizontal form-signin">
+                    <input type="hidden" value="" id="model-uid" />
+                    <fieldset class="form-label-group">
+                        <label for="model-email">Replay Mesages<font color="red">*</font></label>
+                        <input type="text"  class="form-control" id="model-reply-messages" rows="5"/>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnreply" class="btn btn-primary">Reply</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var model_dialog = $('#user-modal');
+     function replyfunction(id) {
+       model_dialog.find('#model-uid').val(id);
+        model_dialog.modal('show');
+    }
+  
+
+    model_dialog.find('#btnreply').on('click', function () {
+        var messages = model_dialog.find('#model-reply-messages').val();
+        var Idticket = model_dialog.find('#model-uid').val();
+        $.ajax({
+            url: '/manage/Ticket_Update',
+            type: 'POST',
+            data: JSON.stringify({ "id":Idticket,"messages": messages}),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                if (result == 1) {
+                    alert("Update success");
+                     location.reload();
+                    model_dialog.modal('hide');
+                }
+            },
+            error: function () {
+                alert("update not success");
+            }
+        });
+    });
+</script>

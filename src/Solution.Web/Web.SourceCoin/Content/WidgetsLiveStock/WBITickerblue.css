@@ -1,0 +1,72 @@
+﻿
+.wbiscroller {
+    width: 100%;
+    width: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    height: 25px !important;
+    font-size: 13pt !important;
+    background-image: none !important;
+    background-color: #262B3E;
+    border: none !important;
+}
+
+    .wbiscroller .changeup {
+        background-image: url('https://widgets.freestockcharts.com/WidgetServer/images/greenGridBG.png');
+        text-align: right;
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+
+    .wbiscroller .changedown {
+        background-image: url('https://widgets.freestockcharts.com/WidgetServer/images/redGridBG.png');
+        text-align: right;
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+
+    .wbiscroller .quotedown {
+        text-align: center;
+    }
+
+    .wbiscroller .quoteup {
+        text-align: center;
+    }
+
+    .wbiscroller .dirup {
+        margin-right: 4px;
+    }
+
+    .wbiscroller .dirdown {
+        margin-right: 4px;
+    }
+
+    .wbiscroller .sym {
+        padding-left: 3px;
+        text-align: left;
+        text-transform: uppercase;
+        color: white;
+    }
+
+div.scrollingtext {
+    position: absolute;
+    white-space: nowrap;
+}
+
+.valueChanged {
+    font-weight: bold;
+}
+
+.wbiscroller a {
+    text-decoration: none;
+}
+
+    .wbiscroller a:hover {
+        text-decoration: underline;
+    }
+
+.WLSymbolItem {
+    margin-right: 5px;
+    margin-left: 10px;
+}

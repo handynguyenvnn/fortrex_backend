@@ -1,0 +1,87 @@
+﻿@model Web.SourceCoin.Models.SeededTreeNodes
+@{
+    ViewBag.Title = "Referrals";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+}
+<link href="~/Content/Draggable/jquery-ui.css?v=5.9" rel="stylesheet" />
+@*<script src="http://code.jquery.com/jquery-1.7.2.min.js">
+    </script>*@
+<script src="~/Content/Draggable/jquery-ui.js?v=5.9"></script>
+<script src="~/Content/Draggable/jquery.ui.touch-punch.min.js?v=5.9"></script>
+<script src="~/Content/Draggable/main.js?v=5.9"></script>
+
+<style>
+    #draggable {
+        width: 150px;
+        height: 150px;
+        padding: 0.5em;
+    }
+     .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background: #f8f8f8;
+     color:inherit !important; 
+}
+</style>
+
+
+<link href="~/Content/TreeView/css/hierarchy-view.css?v=5.9" rel="stylesheet" />
+<link href="~/Content/TreeView/css/main.css?v=5.9" rel="stylesheet" />
+
+<section class="card" style="background-color: #EFE6E2;">
+    <div class="card-content">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-5 col-md-5">
+                    <div class="title text-left mb-30">
+                        <h2 class="text-black">My <span class="theme-color1"> Network</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="hv-container">
+                        <div class="hv-wrapper" style="height: 100%;width: 100%" id="draggable">
+                            <!-- Key component -->
+                            <div class="hv-item ">
+                                @*<div class="hv-item-parent">
+                                        <p class="simple-card"> Root </p>
+                                    </div>
+                                    <div class="hv-item-children">
+                                        <div class="hv-item-child">
+
+                                        </div>
+                                    </div>*@
+                                @Html.Partial("_TreeView", Model)
+                            </div>
+                        </div>
+                    </div>
+                    @*@Html.Partial("_TreeView", Model)*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div style="display:none;">
+    <div id="tip2">
+    </div>
+</div>
+<link rel="stylesheet" href="/Content/jquery.treeview.css" />
+<script src="/Scripts/jquery.treeview.js" type="text/javascript"></script>
+<link href="/Content/tooltip.css?v=5.9" rel="stylesheet" type="text/css">
+<script src="/Scripts/tooltip.js?v.124"></script>
+
+<script type="text/javascript">
+    jQuery(function ($) {
+        $("#red").treeview({
+            animated: "fast",
+            collapsed: true,
+            control: "#treecontrol"
+        });
+    });
+
+    function callTooltip(saft, id) {
+        buildData.getTreeInfoUserTooltip(saft, id);
+    }
+</script>
+@*//drap*@
+
+

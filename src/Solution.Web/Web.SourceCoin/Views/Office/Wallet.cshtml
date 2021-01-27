@@ -1,0 +1,62 @@
+﻿@model Lib.Domain.User.User_WalletAddress
+@using Web.SourceCoin.Common
+@using Web.SourceCoin.Helpers
+@{
+    ViewBag.Title = "Wallet";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var _helper = new Helper();
+}
+<div class="pricing-tab  section-pad section">
+    <div class="container">
+        <div class="content-section">
+            <h6 class="heading-sm-lead color-secondary with-line">Deposits & Withdrawals</h6>
+            <div class="gaps"></div>
+            <div class="table-responsive">
+                <table class="table table-striped text-center">
+                    <thead >
+                        <tr>
+                            <th>No</th>
+                            <th>Currency to invest</th>
+                            <th>Name</th>
+                            <th>Balance invested</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*<tr>
+                            <td>1</td>
+                            <th><img class="font-icon" alt="" src="~/Images/Icon/icon-01.png"></th>
+                            <td>BTC</td>
+                            <td>@_helper.FormatNumber(Model.MoneyBTC) BTC</td>
+                            <td>
+                                <a href="/office/deposit/1" class="btn btn-alt pagination-btn">Deposit</a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <th scope="row"><img class="font-icon" alt="" src="~/Images/Icon/icon-02.png"></th>
+
+                            <td>ETH</td>
+                            <td>@_helper.FormatNumber(Model.MoneyETH) ETH</td>
+                            <td>
+                                <a href="/office/deposit/2" class="btn btn-alt pagination-btn">Deposit</a>
+                            </td>
+                        </tr>*@
+                        <tr>
+                            <td>3</td>
+                            <th scope="row"><img class="font-icon" alt="" src="~/Images/Icon/icon-02.png"></th>
+
+                            <td>TRX</td>
+                            <td>@_helper.FormatNumber(Model.MoneyTRX) TRX</td>
+                            <td>
+                                <a href="/office/deposit/3" class="btn btn-alt pagination-btn">Deposit</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Customer";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+<style type="text/css">
+    .btn-link {
+        cursor: pointer;
+    }
+</style>
+<section style="clear:both;padding-top:20px;">
+    <div id="admin-container" style="background-color:white;color:black;padding:15px;">
+        <div class="tool-bar">
+            <input type="text" id="txt-username" />
+            <a href="javascript:void(0);" onclick="lib_load_list.LoadList();" class="button">Search</a>
+        </div>
+        @Html.Partial("_MultiAdminTable")
+    </div>
+</section>
+<script type='text/javascript'>
+    lib_load_list.GetCustomLoadListData = function () {
+        var self = this;
+        var data = {
+            pageIndex: self.PageIndex,
+            orderClause: "ORDER	BY e.CreateOn desc ",
+            username: $('#txt-username').val()
+        };
+        return data;
+    }
+    lib_load_list.DisplayCallBackSuccess = function (result) {
+        var self = this;
+
+        if (result.Message == null || result.Message == "") {
+            self.Total = result.Optional;
+
+            data = new jqueryRenderTable();
+            data.addColumn('number', 'Id');
+            data.addColumn('string', 'Username');
+            data.addColumn('string', 'Email');
+            data.addColumn('string', 'Date Update');
+            data.addColumn('string', 'KYC')
+
+            if (result.Result.length > 0) {
+                for (var i = 0; i < result.Result.length; i++) {
+                    var item = result.Result[i];
+                    var date = '';
+                    if (item.CreateDate != null)
+                        date = $.format.date(CommonHelper.ConvertJsonDate(item.CreateDate), "yyyy/MM/dd HH:mm:ss");
+                    var view = ''
+                    if (item.StatusEx != null) {
+                        if (item.StatusEx == 1)
+                            view = "<a target='_blank' href='/manage/detail/" + item.Id + "'>Pending</a>";
+                        else
+                            view = "<a target='_blank' href='/manage/detail/" + item.Id + "'>Approved</a>";
+                    }
+
+                    var tmpRow = [
+                        item.Id,
+                        item.Username,
+                        item.Email,
+                        date,
+                        view
+                    ];
+
+                    data.addRow(tmpRow);
+                }
+                self.DrawTable(data);
+                $(".table-list table").addClass("table");
+            }
+            else {
+                $("#" + self.ContainerId + " .table-list").html(CommonPhrase.NoData);
+                $(".table-list table").addClass("table");
+            }
+        }
+        else {
+            CommonHelper.ShowMsg("Error: " + result.Message, MsgIconType.Error);
+        }
+    }
+
+    lib_load_list.Init("/manage/ListUserKYC", "20");
+    CommonHelper.SetHeadingTitle("Users KYC");
+</script>

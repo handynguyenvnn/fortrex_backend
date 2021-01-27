@@ -1,0 +1,36 @@
+﻿@model int?
+
+@{
+    string viewDataSelectList = string.Empty;
+
+    if (ViewData.ModelMetadata.AdditionalValues.ContainsKey("ViewDataSelectList"))
+    {
+        viewDataSelectList = Convert.ToString(ViewData.ModelMetadata.AdditionalValues["ViewDataSelectList"]);
+    }
+
+    bool isKo = true;
+
+    if (ViewData.ModelMetadata.AdditionalValues.ContainsKey("IsKo"))
+    {
+        isKo = Convert.ToBoolean(ViewData.ModelMetadata.AdditionalValues["IsKo"]);
+    }
+
+    var htmlAttr = new Dictionary<string, object> {
+        { "style", "width:auto" },
+        { "class","form-control"}
+    };
+
+    if (isKo)
+    {
+        htmlAttr.Add("data-bind", "value:" + Lib.Domain.CommonHelper.GetFullHtmlFieldNameWithoutPrefix(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty)));
+    }
+}
+
+<div class="sale-setup-label-container">@Html.LabelFor(m => m)</div>
+<div class="sale-setup-input-container">
+    @Html.DropDownListFor(
+        m => m,
+        (SelectList)ViewData[viewDataSelectList],
+        htmlAttr)
+</div>
+<div style="clear:both;height:10px;font-size:0px"></div>

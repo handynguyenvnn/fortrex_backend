@@ -1,0 +1,185 @@
+﻿
+@using Lib.Domain.User;
+
+@{
+    ViewBag.Title = "Deposit";
+    Layout = null; 
+    ShowWalletData dataWallet = (ShowWalletData)ViewBag.DataWallet;
+
+}
+<style type="text/css">
+    .dps:focus {
+        background-color: #042C85;
+    }
+    .dps:hover {
+        background-color: #042C85;
+    }
+    .choose-packages .dps {
+        padding: 14px 0px;
+        width: 130px;
+        border-color: #17a2b8;
+        border: 2px solid orange !important;
+        background: no-repeat;
+        color: inherit;
+    }
+    .choose-packages .btn-primary.dps {
+        border: 2px solid orange !important;
+        background-color: #F89F34;
+        color: #fff;
+    }
+</style>
+
+<link href="/Content/jquery-ui.css" rel="stylesheet" />
+<div class="modal fade" id="deposit-modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content text-center">
+            <div class="modal-header" style="padding:0px;">
+                <h4 class="modal-title" style="text-transform:none;padding-left:15px;padding:15px;">Deposit</h4>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close" style="margin: 2px;">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12 form-group">
+                            <div class="title-info">
+                                <div class="mt-2">
+                                    • The system will accept the transaction automatically by process of blockchain
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+
+                    <div class="col-sm-12 col-md-12 col-12">
+                        <div class="deposit_withdraw_box">
+                            <div class="form_block mb-20">
+                                <label>USD Wallet: <label style="font-weight: bold">$@ViewBag.Balance</label></label>
+                            </div>
+                            <div class="form_block mb-20 text-center mt-2">
+                                @*<a href="#" id="btcclick" onclick="getwalletid(1);" class="btn btn-primary dps" style="padding: 12px 36px;"><img class="d-icon" src="/Images/Icon/btc-logo.png"> Bitcoin</a>*@
+                                <a href="#" id="ethclick" onclick="getwalletid(2);" class="btn btn-info dps" style="padding: 12px 36px;"><img class="d-icon" src="/Images/Icon/eth-logo.png"> Ethereum</a>
+                            </div>
+                            <div class="form_block mb-20  mt-2">
+
+                                @*<label>Choose the type of deposit:</label>
+                        <select id="drop-deposit" class="custom-select" autocomplete="off">
+                            <option value="1">BTC</option>
+                            <option value="2">ETH</option>
+                        </select>*@
+                            </div>
+
+                            <div class="form_block mb-20 text-center mt-2">
+                                <img id="show-image-code" style="height: 250px;-webkit-user-select: none;background-position: 0px 0px, 10px 10px;background-size: 20px 20px;" src="@ViewBag.WalletCoin"><br><br>
+                                <h6>  Scan QR Code to Proceed</h6>
+                                <h6>  Packages: <b id="deposit-request"></b></h6>
+                                <h6>  Fee: <b id="deposit-request-fee"></b></h6>
+                                <h6>  Please Deposit: <b id="deposit-request-coin"></b></h6>
+                            </div>
+                            <div class="form_block mb-20">
+                                <label style="display:none">Your Deposit Address <label id="label-wallet-select" style="font-weight: bold">BTC</label></label>
+                                <input id="urllinkintroduction" autocomplete="off" value="@ViewBag.Address" placeholder="Wallet Address" type="text" class="form-control">
+                            </div>
+                            <div class="form-group text-center mt-2">
+                                <div id="btnurllinkintroduction" data-clipboard-target="#urllinkintroduction" class="btn btn-danger"><i class="fa fa-copy"></i> Copy</div>
+                                <button type="button" id="btn-invest-confirm2" class="btn btn-primary"><i class="fa fa-check"></i> Invest Now</button>
+                            </div>
+                            <script type="text/javascript" src="/Scripts/clipboard.min.js"></script>
+                            <script type="text/javascript">
+                                var clipboard = new Clipboard('#btnurllinkintroduction');
+                                clipboard.on('success', function (e) {
+                                    buildData.showNotifyCenter("Copy Completed", "Deposit Address", "success", 3000);
+                                    //$("#btnurllinkintroduction").css("color", "forestgreen");
+                                    //$("#btnurllinkintroduction").html('Copied');
+                                    //$("#btncopied").html('<i style="position:static;" class="fa fa-copy"></i>');
+                                });
+
+                                $(document).ready(function () {
+                                    $('#drop-deposit option[value="2"]').prop("selected", true);
+                                });
+                            </script>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @*<div class="modal-footer text-center">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" value="@dataWallet.WalletActive" id="wallet-active-code" />
+<input type="hidden" value="@dataWallet.WalletBTC" id="wallet-btc-code" />
+<input type="hidden" value="@dataWallet.WalletETH" id="wallet-eth-code" />
+<input type="hidden" value="@dataWallet.AddressBTC" id="wallet-btc-address" />
+<input type="hidden" value="@dataWallet.AdressETH" id="wallet-eth-address" />
+<script type="text/javascript">
+    function convertAmountToCoin(amount, type, convert) {
+        $.ajax({
+            url: '/office/Cvtusdtocoin',
+            type: 'POST',
+            data: JSON.stringify({ "amount": amount, "type": type }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                $("#deposit-request-coin").text(result + ' ' + convert);
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function getwalletid(obj) {
+        var deposit = $("#deposit-request").text().replace('$', '').trim();
+        var fee = $("#deposit-request-fee").text().replace('$', '').trim();
+       
+        if (obj == 1) {
+            $("#show-image-code").css("padding", "30px");
+
+            $("#show-image-code").attr("src", $('#wallet-btc-code').val());
+            $("#urllinkintroduction").val($('#wallet-btc-address').val());
+            $("#label-wallet-select").text("BTC");
+            // $("#btnurllinkintroduction").text("Copy Link");
+            $("#btcclick").removeClass("btn btn-info");
+            $("#btcclick").addClass("btn btn-primary");
+            $("#ethclick").removeClass("btn btn-primary");
+            $("#ethclick").addClass("btn btn-info");
+            convertAmountToCoin((parseInt(deposit) + parseInt(fee)), 1, "BTC");
+        } else if (obj == 2) {
+            $("#show-image-code").css("padding", "inherit");
+            $("#show-image-code").attr("src", $('#wallet-eth-code').val());
+            $("#urllinkintroduction").val($('#wallet-eth-address').val());
+            $("#label-wallet-select").text("ETH");
+            $("#ethclick").removeClass("btn btn-info");
+            $("#ethclick").addClass("btn btn-primary");
+            $("#btcclick").removeClass("btn btn-primary");
+            $("#btcclick").addClass("btn btn-info");
+            convertAmountToCoin((parseInt(deposit) + parseInt(fee)), 2, "ETH");
+        }
+    }
+
+    $(document).ready(function () {
+        $('.choose-packages a').on('click', function () {
+            //$(".choose-packages a").removeClass("btn btn-primary");
+            //$(".choose-packages a").removeClass("btn btn-info");
+            // $(this).removeClass("btn btn-info");
+            //        $(this).addClass("btn btn-primary");
+            $(".choose-packages").each(function (i) {
+                $('.choose-packages a').removeClass("btn btn-primary");
+                $('.choose-packages a').addClass("btn btn-info");
+            });
+            $(this).removeClass("btn btn-info");
+            $(this).addClass("btn btn-primary");
+        });
+
+    });
+
+</script>

@@ -1,0 +1,85 @@
+﻿@model Lib.Domain.Packages.DasboarchDetail
+@using Web.SourceCoin.Helpers
+@{
+    ViewBag.Title = "Sell stocks";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+    var _helper = new Helper();
+}
+<div class="admin_body_top">
+    <h1>Sell<span class="line"></span></h1>
+</div>
+<div class="admin_body_bottom">
+    <div class="row">
+        <div class="col-xl-12 col-sm-12 col-md-3 col-lg-3">
+
+        </div>
+        <div class="col-xl-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="calc_profit">
+                <ul>
+                    <li class="form_block">
+                        
+                        <h4 id="total-price">Total Stock : <img src="~/assets/images/icon-dashboard/stocks-64.png" style="height: 25px;"/> @_helper.FormatNumber(Model.BonusLucky)</h4>
+                        <h4 id="total-fee">Price : <i class="ti-money"></i>@_helper.FormatNumber(Model.MoneyUSD)</h4>
+                        <h4 id="total-fee">Sell fee : @_helper.FormatNumber(Model.Fee) %</h4>
+                    </li>
+                    <li class="form_block">
+                        <label>Stock</label>
+                        <span><input type="number" onkeyup="investChange()" id="stock-amount" value="@double.Parse(Model.BonusLucky.ToString())" autocomplete="off" placeholder="" /></span>
+                    </li>
+                    <li class="form_block">
+                        <label>Total</label>
+                        <span><input type="text" id="stock-amount-usd" disabled value="" autocomplete="off" placeholder="" /></span>
+                    </li>
+                    <li class="text-center">
+                        @if (Model.IsEnableFA && string.IsNullOrEmpty(Model.FA2Code))
+        {
+                <div id="BTC" class="col-md-8">
+                    <div class="qr_code_content mb-20">
+                        <h6 class="no_padding">
+                            <span>
+                                First you have to activate Authentication (2FA)
+                            </span>
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="deposit_withdraw_btn no_padding">
+                        <span class="btn_icon">
+                            <span id="btnActiveAuthenticator" class="btn btn-default">Enable 2FA</span>
+                            <i class="fa fa-user-secret"></i>
+                        </span>
+                    </div>
+                </div>
+}
+else
+{
+                <div class="col-md-8">
+                    <div class="qr_code_content">
+                        <input type="text" class="form-control" id="code-digit" value="" placeholder="2FA Code" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="btn_icon">
+                        <div id="btn-sell-confirm" class="btn btn-default">Sell</div>
+                        <div id="btn-sell"></div>
+                        <i class="fa fa-paper-plane"></i>
+                    </div>
+                </div>
+}
+                    </li>
+                    <li style="text-align: center;"><small class="form-text text-muted">You agree to <a href="#" target="_blank" style="color: black">our Terms</a> of Use and have read FAQ </small></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-12 col-sm-12 col-md-3 col-lg-3">
+
+        </div>
+    </div>
+</div>
+@Html.Partial("_DialogAuthen")
+<script type='text/javascript'>
+    buildData.validateSell();
+    function investChange() {
+        buildData.validateSell();
+    }
+</script>

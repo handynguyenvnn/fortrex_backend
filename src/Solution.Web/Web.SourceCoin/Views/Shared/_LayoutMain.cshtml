@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Binary Option </title>
+
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="stylesheet" href="/assets/UI/vendor/waves/waves.min.css">
+    <link rel="stylesheet" href="/assets/UI/vendor/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/assets/UI/vendor/owlcarousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/UI/css/style.css">
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <script src="/assets/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.blockUI.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout.mapping-latest.js")"></script>
+    <script src="/Scripts/jquery-render-table.min.js?v=5.9"></script>
+    <script src="/Scripts/jquery-paging.2.1.js"></script>
+    <script src="/Scripts/jquery-build-data.js?v=5.9"></script>
+</head>
+
+<body>
+
+    @*<div id="preloader">
+            <div class="sk-three-bounce">
+                <div class="sk-child sk-bounce1"></div>
+                <div class="sk-child sk-bounce2"></div>
+                <div class="sk-child sk-bounce3"></div>
+            </div>
+        </div>*@
+    <!-- Navigation-->
+    @Html.Partial("_MenuTopAdminPartial")
+    <div id="main-wrapper">
+
+
+        <div class="page_title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="page_title-content">
+                            <p>
+                                Welcome,
+                                <span> @User.Identity.Name</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-body">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+
+        </div>
+
+
+
+        @*<div class="footer">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-xl-6 col-md-6">
+                            <div class="copy_right">
+                                Copyright © 2019 Quixlab. All Rights Reserved.
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6 text-lg-right text-center">
+                            <div class="social">
+                                <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+    <script src="/assets/UI/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/UI/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/UI/vendor/waves/waves.min.js"></script>
+
+    <script src="/assets/UI/vendor/toastr/toastr.min.js"></script>
+    <script src="/assets/UI/vendor/toastr/toastr-init.js"></script>
+
+    <script src="/assets/UI/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="/assets/UI/vendor/circle-progress/circle-progress-init.js"></script>
+
+
+
+    @* <script src="/assets/UI/vendor/apexchart/apexcharts.min.js"></script>
+        <script src="/assets/UI/vendor/apexchart/apexchart-init.js"></script>*@
+
+
+    <!-- <script src="./js/dashboard.js"></script> -->
+    <script src="/assets/UI/js/scripts.js"></script>
+
+    <script src="~/Scripts/notify/bootstrap-notify.min.js"></script>
+    <script src="~/Content/jqueryConfirm/jquery-confirm.min.js"></script>
+    <script src="/assets/common/mainonload.js?v=5.9"></script>
+
+    <script type="text/javascript">
+
+        window.onload = (function () {
+            var url = window.location.pathname,
+                urlRegExp = new RegExp(url.replace(/\/$/, '') + "$"); // create regexp to match current url pathname and remove trailing slash if present as it could collide with the link in navigation in case trailing slash wasn't present there
+            // now grab every link from the navigation
+            $("ul li a").each(function () {
+                // and test its normalized href against the url pathname regexp
+                if (urlRegExp.test(this.href.replace(/\/$/, ''))) {
+                    $(this.parentNode).addClass('active');
+                    $(this.parentNode.parentNode.parentNode).addClass('active');
+                } else {
+                    $(this.parentNode).removeClass('active');
+                }
+            });
+            $.ajax({
+                url: '/home/coinmarketcap',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $("#priceltc").append("$" + result.priceLTC);
+                    $("#priceeth").append("$" + result.priceETH);
+                    $("#pricebtc").append("$" + result.priceBTC);
+                    $("#pricexlm").append("$" + result.priceXLM);
+                    $("#pricexrp").append("$" + result.priceXRP);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+

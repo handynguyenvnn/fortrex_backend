@@ -1,0 +1,111 @@
+﻿@model Lib.Domain.Marketings.MailTemplate
+@{
+    ViewBag.Title = "Marketing";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+<section style="clear:both;padding-top:20px;">
+    <div id="admin-container">
+        <div class="tool-bar">
+            <a href="javascript:void(0);" onclick="lib_load_list.LoadDetailData(-1);" class="btn btn-danger">Create</a>
+        </div>
+        @Html.Partial("_MultiAdminTable")
+    </div>
+</section>
+<div id="dialog-model" title="Manage Marketing" style="display:none;">
+    @using (Html.BeginForm())
+    {
+        @Html.EditorForModel();
+
+    }
+
+    <script>
+        
+       //CKEDITOR.config.pasteFilter = null;
+
+        CKEDITOR.config.height = 350;
+        // Auto Grow has nothing to do with ACF.
+        // However, to make users comfortable while pasting content into a tiny editing area, we would let the editor grow.
+        //CKEDITOR.config.extraPlugins = 'autogrow';
+        CKEDITOR.config.autoGrow_maxHeight = 500;
+        CKEDITOR.config.allowedContent = true
+    </script>
+   
+</div>
+<script type="text/javascript">
+    lib_load_list.GetCustomManageData = function () {
+        var self = this;
+
+        var unmappedViewModel = ko.mapping.toJS(self.ViewModel);
+        unmappedViewModel.Body = CKEDITOR.instances.Body.getData();
+        self.ViewModel.Body(unmappedViewModel.Body);
+        return unmappedViewModel;
+    }
+
+    lib_load_list.GetCustomLoadListData = function () {
+        var self = this;
+        var data = {
+            pageIndex: self.PageIndex,
+            orderClause: self.GetOrderClause()
+        };
+
+        return data;
+    }
+    lib_load_list.DisplayCallBackSuccess = function (result) {
+        var self = this;
+
+        if (result.Message == null || result.Message == "") {
+            self.Total = result.Optional;
+             data = new jqueryRenderTable();
+            //data = new RenderTable();
+            data.addColumn('number', 'Id');
+            data.addColumn('string', 'Type');
+            data.addColumn('string', 'Title');
+            data.addColumn('string', 'CreateBy');
+            data.addColumn('string', 'CreateDay');
+            data.addColumn('boolean', 'IsActive');
+            data.addColumn('boolean', 'IsTest');
+            data.addColumn('string', 'Action');
+
+            if (result.Result.length > 0) {
+                for (var i = 0; i < result.Result.length; i++) {
+                    var item = result.Result[i];
+
+                    item.CreateDate = $.format.date(CommonHelper.ConvertJsonDate(item.CreateDate), "yyyy/MM/dd HH:mm:ss");
+                    var btnRow = self.GetRowButton({
+                        Id: item.Id,
+                        Edit: true,
+                        Delete: true
+                    });
+
+                    var tmpRow = [
+                        item.Id,
+                        item.TypeName,
+                        item.Title,
+                        item.CreateByName,
+                        item.CreateDate,
+                        item.IsActive,
+                        item.IsTest,
+                        btnRow
+                    ];
+
+                    data.addRow(tmpRow);
+                }
+                self.DrawTable(data);
+                $(".table-list table").addClass("table");
+            }
+            else {
+                $("#" + self.ContainerId + " .table-list").html(CommonPhrase.NoData);
+                $(".table-list table").addClass("table");
+            }
+        }
+        else {
+            CommonHelper.ShowMsg("Error: " + result.Message, MsgIconType.Error);
+        }
+    }
+    lib_load_list.LoadDetailUrl = "@Url.Action("MarketingDetail")";
+    lib_load_list.DeleteUrl = "@Url.Action("DeleteMarketing")";
+    lib_load_list.ManageUrl = "@Url.Action("MarketingManage")";
+    lib_load_list.Init("@Url.Action("MarketingList")", "20");
+    CommonHelper.SetHeadingTitle("Manage Marketing");
+</script>
+

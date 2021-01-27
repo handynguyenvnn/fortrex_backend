@@ -1,0 +1,7 @@
+﻿@model object
+
+<div class="sale-setup-label-container">@Html.LabelFor(m => m)</div>
+<div class="sale-setup-input-container" style="padding:20px;">
+    <div data-bind="text:@Lib.Domain.CommonHelper.GetFullHtmlFieldNameWithoutPrefix(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty))"></div>
+</div>
+<div style="clear:both;height:10px;font-size:0px"></div>

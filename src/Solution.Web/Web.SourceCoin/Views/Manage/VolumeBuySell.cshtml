@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "VolumeBuySell";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+<style type="text/css">
+    .btn-push {
+        padding: 10px 20px;
+        margin: 2px 5px;
+        height: 50px;
+        vertical-align: middle;
+        justify-content: center;
+        font-weight: bold;
+    }
+    .disable {
+        cursor: not-allowed;
+        opacity: 0.7;
+        background: #888;
+        color: #1b1919;
+    }
+</style>
+<script src="/Scripts/ServerTime/volumetrade.js"></script>
+<script type="text/javascript">
+    window.onload = (function (e) {
+        loadvolumetrade();
+    });
+</script>
+<section style="clear:both;padding-top:20px;">
+    <div id="admin-container" style="background-color:white;color:black;padding:15px;">
+
+        <div id="table-list" class="table-list">
+            <div class="google-visualization-table" style="position: relative; max-width: 100%; max-height: 100%; width: 100%;">
+                <div style="position: relative; max-width: 100%; max-height: 100%; width: 100%;">
+                    <table cellspacing="0" class="table table-over table-striped" style="width: 100%;">
+                        <thead>
+                            <tr class="google-visualization-table-tr-head">
+                                <th class="google-visualization-table-th gradient" data-name="data">Id</th>
+                                <th class="google-visualization-table-th gradient" data-name="data">Pairname</th>
+                                <th class="google-visualization-table-th gradient" data-name="data">Total Buy</th>
+                                <th class="google-visualization-table-th gradient" data-name="data">Total Sell </th>
+                                <th class="google-visualization-table-th gradient" data-name="data">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="render-rows-volumetrade">
+                        </tbody>
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<link href="/Content/jquery-ui.css" rel="stylesheet" />
+
+<script type="text/javascript">
+   
+  
+
+</script>

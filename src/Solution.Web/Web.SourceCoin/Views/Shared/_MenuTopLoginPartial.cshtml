@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = null;
+    bool isAuth = Request.IsAuthenticated;
+}
+<header class="pt-20 pb-20">
+    <div class="top-head">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="head_left">
+                        <div class="logo">
+                            <a href=""><img alt="fortrex.io" class="img-responsive" src="~/assets/images/fortrex.io-logo-red.png?v=5.9"> </a>
+                        </div>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                        </button>
+                        <h4>Menu</h4>
+                    </div>
+                    <div class="head_right">
+                        <ul>
+                            @if (!isAuth)
+                            {
+                                <li><a href="/Login" style="display: none"></a></li>
+                                <li><a href="/Login">Login</a></li>
+                                <li><a href="/Register">Sign up</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="/home/logout">Logout</a></li>
+                                <li><a href="/office" style="color: #fff">Dashboard</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bot-head">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <nav class="navbar navbar-inverse">
+                        <div class="collapse navbar-collapse" id="myNavbar">
+                            <ul class="nav navbar-nav">
+                                <li><a href="#">Home </a></li>
+                                <li><a href="#">The Project </a></li>
+                                <li><a href="#">Token Sale </a></li>
+                                <li><a href="#">Roadmap </a></li>
+                                <li><a href="#"> Team </a></li>
+                                <li><a href="#"> FAQ </a></li>
+                                <li><a href="#"> News </a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-md-5">
+                    <div class="welcome"><small class="text-white">Hello, ICO BANK Team Lauches pre-ICO!</small> <a href="" class="uppercase text-white fw-6 hvr-col">BUY TOKENS</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

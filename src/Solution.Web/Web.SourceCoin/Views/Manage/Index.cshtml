@@ -1,0 +1,323 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutManagead.cshtml";
+}
+
+<style type="text/css">
+    .table-responsive table tr th {
+        min-width: 150px;
+    }
+    .table-responsive table tr th:first-child {
+        min-width: 10px;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $("#to-date").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#from-date").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change", function () {
+            var minValue = $(this).val();
+            if (minValue != "") {
+                minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
+                minValue.setDate(minValue.getDate());
+                $("#to-date").datepicker("option", "minDate", minValue);
+            }
+        })
+    });
+</script>
+<section class="content" id="content-user-info">
+    <div class="container-fluid">
+        <div class="row">
+           
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">USD WALLET</span>
+                        <span class="info-box-number" id="usd-wallet"></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">STOCK WALLET</span>
+                        <span class="info-box-number" id="stock-wallet"></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">NETWORKS</span>
+                        <span class="info-box-number" id="total-networks"></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">TOTAL INVESTMENT</span>
+                        <span class="info-box-number" id="total-invest"></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">BONUS COMMISSION</span>
+                        <span class="info-box-number" id="bonus-commission"></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">BONUS BRANCH</span>
+                        <span class="info-box-number" id="bonus-branch"></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">TOTAL STOCK</span>
+                        <span class="info-box-number" id="total-stock"></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">TOTAL LEFT | TOTAL RIGHT</span>
+                        <span class="info-box-number" id="total-left-right"></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">MAX INVESTMENT</span>
+                        <span class="info-box-number" id="max-investment"></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">MAX OUT BONUS</span>
+                        <span class="info-box-number" id="maxout-bonus"></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">TOTAL DAILY PROFIT</span>
+                        <span class="info-box-number" id="total-daily-profit"></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+        </div>
+    </div>
+</section>
+<div class="row">
+    <div class="col-md-12">
+        <div style="color:green;" id="txt-message-progress"></div>
+        <div class="progress">
+            
+        </div>
+    </div>
+</div>
+<div class="row" style="padding-top:20px;">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">TRANSACTION HISTORY</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col-lg-2">
+                        <select autocomplete="off" id="id-bonus" class="form-control">
+                            <option value="-1"> Choose type </option>
+                            <option value="1">Investment</option>
+                            <option value="2">Affiliate bonus</option>
+                            <option value="3">Deposit</option>
+                            <option value="4">Transfer USD</option>
+                            <option value="6">Branch balance bonus</option>
+                            <option value="7">Withdraw</option>
+                            <option value="8">Payment</option>
+                            <option value="9">Stock</option>
+                            <option value="10">SellStock</option>
+                            <option value="11">BonusSale</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="text" id="from-date" placeholder="From date" class="form-control">
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="text" id="to-date" placeholder="To date" class="form-control">
+                    </div>
+                    <div class="col-lg-2 col-md-2">
+                        <a href="javascript:void(0);" onclick="lib_load_list.LoadList();" class="btn btn-warning">Search</a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <div id="admin-container">
+                        @Html.Partial("_MultiAdminTable")
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    Number.prototype.amountformat = function (n, x) {
+        var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+        return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
+    };
+
+    $("#find-username").keypress(function (event) {
+        if (event.which == 13) {
+            $('#btn-find-user').click();
+        }
+    });
+
+    $(document).ready(function () {
+        $('#btn-find-user').on('click', function () {
+            var username = $("#find-username").val();
+            if (username.length > 0) {
+                $.ajax({
+                    url: '/manage/usersearch',
+                    type: 'POST',
+                    data: JSON.stringify({ username: username }),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    beforeSend: function () {
+                        CommonHelper.AjaxLoading();
+                    },
+                    success: function (result) {
+                        CommonHelper.StopAjaxLoading();
+                        var dasboarch = result.Dasboarch;                        
+                        $("#usd-wallet").text("$" + dasboarch.MoneyUSD.amountformat(2));
+                        $("#stock-wallet").text("P " + dasboarch.BonusLucky.amountformat(2));
+                        $("#total-networks").text(dasboarch.TotalNetwork);
+                        $("#total-invest").text("$" + dasboarch.TotalInvestment.amountformat(2));
+                        $("#bonus-commission").text("$" + dasboarch.BonusCommission.amountformat(2));
+                        $("#bonus-branch").text("$" + dasboarch.BonusBranch.amountformat(2));
+                        $("#total-stock").text("P " + dasboarch.TotalReceived.amountformat(2));
+                        $("#total-left-right").text("$" + dasboarch.TotalBranchLeft.amountformat(2) + " | $" + dasboarch.TotalBranchRight.amountformat(2));
+                        $("#max-investment").text("$" + dasboarch.MaxInvest.amountformat(2));
+                        $("#maxout-bonus").text(0);
+                        $("#total-daily-profit").text("$" + dasboarch.TotalProfit.amountformat(2));
+
+                        var target = result.Target;
+                        $("#txt-message-progress").text("Complete " + target.Target.amountformat(2) + " on " + target.Node + " branches to gain " + target.Bonus.amountformat(2) + " bonuses");
+                        $("div.progress").html('<div class="progress-bar" role="progressbar" aria-valuenow="' + target.Percent + '" aria-valuemin="0" aria-valuemax="100" style="width:' + target.Percent + '%">' + target.Percent +'%</div>');
+                    },
+                    error: function () {
+                        CommonHelper.StopAjaxLoading();
+                    }
+                });
+
+                lib_load_list.LoadList();
+            }
+        });
+    });
+
+    lib_load_list.GetCustomLoadListData = function () {
+            var self = this;
+            var data = {
+                pageIndex: self.PageIndex,
+                pageSize: self.PageSize,
+                type: $("#id-bonus").val(),
+                from_date: $("#from-date").val(),
+                to_date: $("#to-date").val(),
+                username: $("#find-username").val()
+            };
+
+            return data;
+        }
+    lib_load_list.DisplayCallBackSuccess = function (result) {
+            var self = this;
+
+        if ((result.Message == null || result.Message == "") && result.Result != null) {
+                self.Total = result.Optional;
+                data = new jqueryRenderTable();
+
+                data.addColumn('number', 'No');
+                data.addColumn('string', 'CreateOn');
+                data.addColumn('string', 'By User');
+                data.addColumn('string', 'Type');
+                data.addColumn('string', 'Amount');
+                data.addColumn('string', 'Description');
+
+                if (result.Result.length > 0) {
+                    for (var i = 0; i < result.Result.length; i++) {
+                        var item = result.Result[i];
+                        amount = "";
+                        if (item.Amount < 0) {
+                            amount = '<font color="red">' + item.Amount.amountformat(2) + '</font>';
+                        } else {
+                            amount = '<font color="forestgreen">' + item.Amount.amountformat(2) + '</font>';
+                        }
+
+                        var tmpRow = [
+                            (i + 1),
+                            "<i class='fa fa-calendar'></i>" + item.StrCreateOn,
+                            "<i class='fa fa-user'></i>" + item.FromUser,
+                            "<i class='fa fa-exchange'></i>" + item.TypeName,
+                            "<i class='fa'></i>" + amount,
+                            "<i class='fa fa-commenting'></i>" + item.Description
+                        ];
+                        data.addRow(tmpRow);
+                    }
+                    self.DrawTable(data);
+                }
+                else {
+                    var tmpRow1 = ["There are no data to display."];
+                    data.addRow(tmpRow1, 6);
+                    self.DrawTable(data);
+                }
+            }
+        }
+    lib_load_list.Init("@Url.Action("TransactionList")", "15");
+    CommonHelper.SetHeadingTitle("Manage Transaction");
+</script>

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    @Html.Partial("_HeaderPartial")
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header header-s2 is-sticky">
+        @Html.Partial("_MenuTopPartial")
+        <!-- Banner/Slider -->
+        <div class="page-head section row-vm light">
+            <div class="imagebg">
+                <img src="/assets/images/page-inside-bg.jpg" alt="page-head">
+            </div>
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <h2>Blog Crypto Coin</h2>
+                        <div class="page-breadcrumb">
+                            <ul class="breadcrumb">
+                                <li><a href="index.html">Home</a></li>
+                                <li class="active"><span>Blog Crypto Coin</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #end Banner/Slider -->
+    </header>
+    <!-- End Header -->
+   @RenderBody()
+    <!-- Section Footer -->
+   @Html.Partial("_FooterPartial")
+    <!-- Preloader !remove please if you do not want -->
+    <div id="preloader"><div id="status">&nbsp;</div></div>
+    <!-- Preloader End -->
+    <!-- JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/assets/js/jquery.bundle.js"></script>
+    <script src="/assets/assets/js/script.js"></script>
+</body>
+</html>

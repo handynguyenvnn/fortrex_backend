@@ -1,0 +1,15 @@
+﻿.blockMsg {
+    z-index: 9011 !important;
+    position: fixed;
+    padding: 15px;
+    margin: 0px;
+    top: 20%;
+    left: inherit !important;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    border: none;
+    cursor: wait;
+    width: 100% !important;
+    height: 100%;
+    text-align: center;
+}

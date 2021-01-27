@@ -1,0 +1,116 @@
+﻿
+@using Web.SourceCoin.Helpers
+@{
+
+    Layout = null;
+    //bool isAuth = Request.IsAuthenticated;
+    //var _helper = new Helper();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @Html.Partial("_HeaderPartial")
+
+</head>
+<body>
+
+    @*<header id=header class=header>
+            <nav class=" navbar fixed-top navbar-expand-md hover-menu navbar-dark bg-tra gradient-scroll">
+                <div class=container>
+                    <a href="/" class="navbar-brand logo-sizeM"><img src="/images/logo.png" alt=header-logo></a>
+                    <button class=navbar-toggler type=button data-toggle=collapse data-target=#navbarContent aria-controls=navbarContent aria-expanded=false aria-label="Toggle navigation">
+                        <span class=navbar-bar-icon><i class="fas fa-bars"></i></span>
+                    </button>
+                    <div id=navbarContent class="collapse navbar-collapse">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Trade</a>
+                                <ul class="dropdown-menu" aria-labelledby=DropdownMenu>
+                                    <li><a class="dropdown-item" href="/forex-fb">Forex</a></li>
+                                    <li><a class="dropdown-item" href="/options">Options</a></li>
+                                    <li><a class="dropdown-item" href="/crypto">Cryptocurrencies</a></li>
+                                    <li><a class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true">Stock</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item nl-simple">
+                                <a class=nav-link href="/faqs">FAQs</a>
+                            </li>
+                            <li class="nav-item nl-simple"><a class=nav-link href="/AboutUs">AboutUs</a></li>
+                        </ul>
+                        <span class="navbar-text white-color" style="display: inline-flex;">
+                            <a href="/login" class="btn btn-signin" style="margin-right: 10px">Sign In</a>
+                            <a href="/register" class="btn btn-signup btn-transform">Sign Up</a>
+                        </span>
+                    </div>
+                </div>
+            </nav>
+        </header>*@
+    <header class="header">
+        @Html.Partial("_MenuTopPartial")
+    </header>
+    <main class="main">
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        @Html.Partial("_FooterPartial")
+    </footer>
+
+    <div class="m-backtotop" aria-hidden="true">
+        <div class="arrow">
+            <i class="fa fa-caret-up" aria-hidden="true"></i>
+        </div>
+        <div class="text">Back to top</div>
+    </div>
+    <script src="/assets/BO/js/jquery-1.12.4.min.js"></script>
+    <script src="/assets/BO/js/slick-1.8.1/slick.min.js"></script>
+    <script src="/assets/BO/js/Magnific-Popup-master/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/BO/js/lightGallery-master/dist/js/lightgallery-all.min.js"></script>
+    <script src="/assets/BO/js/ms-Dropdown-master/js/msdropdown/jquery.dd.min.js"></script>
+    <script src="/assets/BO/js/WOW-master/wow.min.js"></script>
+    <script src="/assets/BO/js/swiper-bundle.js"></script>
+    <script src="/assets/BO/js/swiper-bundle.min.js"></script>
+    <script src="/assets/BO/js/main.js"></script>
+    <script>
+        new WOW().init();
+        $(window).scroll(function () {
+            var scroll = $(window).scrollTop();
+            if (scroll >= 10) {
+                $(".header").addClass("header-fixed");
+            } else {
+                $(".header").removeClass("header-fixed");
+            }
+        });
+
+    </script>
+
+    @*<script src=/assets/static/js/bootstrap.min.js></script>
+        <script src=/assets/static/js/fontawesome.min.js></script>
+        <script src=/assets/static/js/modernizr.custom.js></script>
+        <script src=/assets/static/js/jquery.easing.js></script>
+        <script src=/assets/static/js/jquery.appear.js></script>
+        <script src=/assets/static/js/jquery.scrollto.js></script>
+        <script src=/assets/static/js/imagesloaded.pkgd.min.js></script>
+        <script src=/assets/static/js/isotope.pkgd.min.js></script>
+        <script src=/assets/static/js/slick.min.js></script>
+        <script src=/assets/static/js/owl.carousel.min.js></script>
+        <script src=/assets/static/js/jquery.magnific-popup.min.js></script>
+        <script src=/assets/static/js/contact-form.js></script>
+        <script src=/assets/static/js/quick-form.js></script>
+        <script src=/assets/static/js/comment-form.js></script>
+        <script src=/assets/static/js/jquery.validate.min.js></script>
+        <script src=/assets/static/js/jquery.ajaxchimp.min.js></script>
+        <script src=/assets/static/js/wow.js></script>
+
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+
+        </script>*@
+
+
+
+</body>
+
+</html>

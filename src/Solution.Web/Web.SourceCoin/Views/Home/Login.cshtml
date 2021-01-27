@@ -1,0 +1,83 @@
+﻿@model Web.SourceCoin.Models.Users.UserLogin
+@{
+    ViewBag.Title = "Fortrex | Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+
+}
+<div class="authincation section-padding">
+    <div class="container h-100">
+        <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-xl-5 col-md-6">
+                <div class="mini-logo text-center my-2">
+                    <img src="/images/logo.png" alt="" style="    max-height: 84px;">
+                </div>
+                <div class="auth-form card">
+                    <div class="card-header justify-content-center">
+                        <h4 class="card-title">SIGN IN</h4>
+                    </div>
+                    @*<div class="mini-logo text-center my-2">
+                            <img src="/images/icon-logo.png" alt="" style="max-height: 64px;">
+                        </div>*@
+
+                    <div class="card-body">
+                        <form method="post" name="myform" class="signin_validate" action="">
+                            @Html.HiddenFor(m => m.ReturnUrl)
+                            <div class="form-group">
+                                <label>UserName</label>
+                                @Html.TextBoxFor(m => m.Username, new { Class = "form-control", @autocomplete = "off" })
+
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                @Html.PasswordFor(m => m.Password, new { Class = "form-control", autocomplete = "off" })
+                            </div>
+                            <div class="form-group" style="display:none;" id="enableAuthy">
+                                <label>2FA Code</label>
+                                @Html.TextBoxFor(m => m.FACode, new { Class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group form-group-default form-group-attached">
+                                    <div class="g-recaptcha" data-sitekey="6LczISoUAAAAAPnVlGxhhv2fixKpN2am2nBAodmv" style="width: 100%"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                <div class="form-group mb-0" style="display: none">
+                                    <label class="toggle">
+                                        @Html.CheckBoxFor(m => m.Remember, new { @checked = "checked", @class = "toggle-checkbox" })
+                                        <div class="toggle-switch"></div>
+                                        <span class="toggle-label">Remember me</span>
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="text-center">
+                                <button id="btn-Login" type="button" class="btn btn-success btn-block">Sign in</button>
+                            </div>
+                        </form>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script src="/assets/UI/vendor/validator/jquery.validate.js"></script>
+    <script src="/assets/UI/vendor/validator/validator-init.js"></script>*@
+<script src='https://www.google.com/recaptcha/api.js' type="text/javascript"></script>
+
+
+<script type="text/javascript">
+    $("form").keypress(function (event) {
+        if (event.which == 13) {
+            $('#btn-Login').click();
+        }
+    });
+    $("#FACode").keyup(function (event) {
+        var checkinput = $('#FACode').val();
+
+        if (checkinput.length == 6) {
+            $('#btn-Login').click();
+        }
+    });
+</script>

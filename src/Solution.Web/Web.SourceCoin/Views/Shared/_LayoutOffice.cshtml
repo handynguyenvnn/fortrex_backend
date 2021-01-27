@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Option Trading ForbitOption </title>
+    @*<title>Binary Option </title>*@
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=5.9">
+    @Styles.Render("~/main/css?v=5.9")
+    <link href="~/Content/jqueryConfirm/jquery-confirm.min.css?v=5.9" rel="stylesheet" />
+    <script src="/assets/js/jquery-2.1.4.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+    @*add QRcode*@
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.qrcode.min.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.blockUI.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout.mapping-latest.js")"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/Scripts/jquery-render-table.min.js?v=5.9"></script>
+    <script src="/Scripts/jquery-paging.2.1.js"></script>
+    <script src="/Scripts/jquery-build-data.js?v=5.9"></script>
+    <style type="text/css">
+
+        #main-wrapper {
+            opacity: 0;
+            transition: all 0.25s ease-in;
+            /*position: fixed;*/
+            z-index: 1;
+            margin-top: 77px;
+            width: 100%;
+        }
+
+        .content-body {
+            height: 100%
+        }
+        .card-content{
+            width: 100%;
+        }
+        .container-fluid {
+            height: 100%;
+        }
+
+        .card.main-chart {
+            margin-bottom: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-wrapper">
+        <div class="header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <nav class="notranslate navbar navbar-expand-lg navbar-light px-0 justify-content-between">
+                            <div class="profile_log dropdown menuleft">
+                                <div data-toggle="dropdown" id="nav-mobile" class="m-display">
+                                    <a href="javascript:void(0);" onclick="buildData._showLeftMenu();return false;">
+                                        <span class="thumb">
+                                            <span class="line"></span>
+                                            <span class="line"></span>
+                                            <span class="line"></span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <a class="navbar-brand" href="/tradingroom">
+                                <img src="/images/logo.png?v=5.9" alt="forbit">
+                                @*<span>Eq Option</span>*@
+                            </a>
+                            <div class="dashboard_log">
+                                <div class="d-flex align-items-center">
+                                    <div class="account_money d-desktop">
+                                        <ul>
+                                            <li class="crypto">
+                                                <span>Total Trade</span>
+                                            </li>
+                                            <li class="usd">
+                                                <span id="total-trade54"></span>
+                                            </li>
+                                            <li class="crypto" style="margin-left: 10px">
+                                                <span>Balance</span>
+                                            </li>
+                                            <li class="usd">
+                                                <span id="total-balance"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="profile_log dropdown">
+                                        <div class="user" data-toggle="dropdown">
+                                            <span class="thumb">
+                                                <img class="la-user" src="/images/user-w.png" />
+                                            </span>
+                                            @*<span class="name">@User.Identity.Name</span>*@
+                                            <span class="arrow"><i class="la la-angle-down"></i></span>
+                                        </div>
+                                        @*-------------------------MENU RIGHT FOR MOBILE------------------*@
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="/account/settings" class="dropdown-item">
+                                                <i class="la la-user"></i> Account
+                                            </a>
+                                            <a href="/tradingroom" class="dropdown-item">
+                                                <i class="la la-book"></i> Trading
+                                            </a>
+                                            <a href="/account/trading-history" class="dropdown-item">
+                                                <i class="la la-book"></i> History Transaction
+                                            </a>
+                                            <a href="#" data-toggle="modal" data-target="#logoutModal" class="dropdown-item logout">
+                                                <i class="la la-sign-out"></i> Logout
+                                            </a>
+                                        </div>
+                                        @*---------------------------------------------------------------*@
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sidebar" class="sidebar">
+            <div class="menu" id="navbarheader">
+                <ul class="navbar-nav">
+                    <li>
+                        <a href="/tradingroom">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Trading.png" />
+                                Trading
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/account/trading-history">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-TradingHistory.png" />
+                                Trading History
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="cm-badge badge-new-green">new</span>
+                        <a href="https://copytrade.fortrex.io/" target="_blank">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-CopyTrade.png" />
+                                CopyTrade
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="cm-badge badge-new-red">new</span>
+                        <a href="/transfer">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Transfer.png" />
+                                Transfer
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="click-btn" href="/deposit">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Desposit.png" />
+                                Deposit
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/withdraw">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Withdraw.png" />
+                                Withdraw
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/account/Affiliate">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Affilate.png" />
+                                Affiliates
+                            </span>
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="/account/settings">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Setting.png" />
+                                Settings
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/account/kyc">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Setting.png" />
+                                &nbsp; kyc &nbsp;
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content-body">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+
+        </div>
+
+
+
+        @*<div class="footer">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-xl-6 col-md-6">
+                        <div class="copy_right">
+                            Copyright © 2019 Quixlab. All Rights Reserved.
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6 text-lg-right text-center">
+                        <div class="social">
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/home/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/UI/vendor/bootstrap/js/bootstrap.bundle.min.js?v=5.9"></script>
+    <script src="/assets/UI/vendor/waves/waves.min.js"></script>
+
+    <script src="/assets/UI/vendor/toastr/toastr.min.js"></script>
+    <script src="/assets/UI/vendor/toastr/toastr-init.js"></script>
+
+    <script src="/assets/UI/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="/assets/UI/vendor/circle-progress/circle-progress-init.js"></script>
+    <script src="/assets/UI/js/scripts.js"></script>
+
+    <script src="~/Scripts/notify/bootstrap-notify.min.js"></script>
+    <script src="/Content/jqueryConfirm/jquery-confirm.min.js"></script>
+    <script src="/assets/common/mainonload.js?v=5.9"></script>
+
+    <script type="text/javascript">
+
+        //window.onload = (function () {
+        //    var url = window.location.pathname,
+        //        urlRegExp = new RegExp(url.replace(/\/$/, '') + "$"); // create regexp to match current url pathname and remove trailing slash if present as it could collide with the link in navigation in case trailing slash wasn't present there
+        //    // now grab every link from the navigation
+        //    $("ul li a").each(function () {
+        //        // and test its normalized href against the url pathname regexp
+        //        if (urlRegExp.test(this.href.replace(/\/$/, ''))) {
+        //            $(this.parentNode).addClass('active');
+        //            $(this.parentNode.parentNode.parentNode).addClass('active');
+        //        } else {
+        //            $(this.parentNode).removeClass('active');
+        //        }
+        //    });
+        //    $.ajax({
+        //        url: '/home/coinmarketcap',
+        //        type: 'POST',
+        //        dataType: 'json',
+        //        contentType: 'application/json; charset=utf-8',
+        //        success: function (result) {
+        //            $("#priceltc").append("$" + result.priceLTC);
+        //            $("#priceeth").append("$" + result.priceETH);
+        //            $("#pricebtc").append("$" + result.priceBTC);
+        //            $("#pricexlm").append("$" + result.priceXLM);
+        //            $("#pricexrp").append("$" + result.priceXRP);
+        //        }
+        //    });
+        //});
+    </script>
+    <script>
+        function myFunction() {
+                var x = document.getElementById("myLinks");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                } else {
+                    x.style.display = "block";
+                }
+        }
+
+        //$('.click-btn').on('click', function () {
+        //        $(this).blur()
+        //});
+
+        //$(document).ready(function () {
+        //    $('[data-toggle="tooltip"]').tooltip();
+        //});
+
+
+
+    </script>
+</body>
+</html>
+

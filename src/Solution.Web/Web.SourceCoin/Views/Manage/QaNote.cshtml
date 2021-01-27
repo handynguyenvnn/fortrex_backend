@@ -1,0 +1,93 @@
+﻿@model Lib.Domain.User.QANote
+@using Lib.Domain.User
+@using Web.SourceCoin.Helpers
+@{
+    ViewBag.Title = "QaNote";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+    QA_Total data = (QA_Total)ViewBag.QATotal;
+    var _helper = new Helper();
+}
+<style type="text/css">
+    table.stat-table td {
+        border: 1px solid #d5e7df !important;
+        padding: 7px !important;
+    }
+</style>
+<section style="clear:both;padding-top:20px;padding-left:20px;">
+    <div>Total Deposit: @_helper.FormatNumberD(data.TotalDeposit)</div>
+    <div>Total Withdraw: @_helper.FormatNumberD(data.TotalWithdraw)</div>
+    <div>Total(QA, Marketing): @_helper.FormatNumberD(data.TotalSend)</div>
+    <div style="color:coral">Total Pending: @_helper.FormatNumberD(data.TotalPending)</div>
+    <div style="color:green">Total: @_helper.FormatNumberD(data.Again) USD</div>
+</section>
+<section style="clear:both;padding-top:20px;">
+    <div id="admin-container">
+        <div class="tool-bar">
+            <a href="javascript:void(0);" onclick="lib_load_list.LoadDetailData(-1);" class="btn btn-danger">Create</a>
+        </div>
+        @Html.Partial("_MultiAdminTable")
+    </div>
+</section>
+<div id="dialog-model" title="QA Note" style="display:none;">
+    @using (Html.BeginForm())
+    {
+        @Html.EditorForModel();
+
+    }
+</div>
+<script type="text/javascript">
+    lib_load_list.GetCustomLoadListData = function () {
+        var self = this;
+        var data = {
+            pageIndex: self.PageIndex,
+            orderClause: self.GetOrderClause()
+        };
+
+        return data;
+    }
+    lib_load_list.DisplayCallBackSuccess = function (result) {
+        var self = this;
+
+        if (result.Message == null || result.Message == "") {
+            self.Total = result.Optional;
+
+            data = new RenderTable();
+            data.addColumn('number', 'Id');
+            data.addColumn('string', 'CreateDate');
+            data.addColumn('number', 'UserId');
+            data.addColumn('string', 'Amount');
+            data.addColumn('string', 'Note');
+            data.addColumn('boolean', 'IsDelete');
+
+            if (result.Result.length > 0) {
+                for (var i = 0; i < result.Result.length; i++) {
+                    var item = result.Result[i];
+                    var tmpRow = [
+                        item.Id,
+                        item.StrCreateDate,
+                        item.UserId,
+                        item.Input_Amount,
+                        item.Note,
+                        item.IsDelete,
+                    ];
+
+                    data.addRow(tmpRow);
+                }
+                self.DrawTable(data);
+                $(".table-list table").addClass("table");
+            }
+            else {
+                $("#" + self.ContainerId + " .table-list").html(CommonPhrase.NoData);
+                $(".table-list table").addClass("table");
+            }
+        }
+        else {
+            CommonHelper.ShowMsg("Error: " + result.Message, MsgIconType.Error);
+        }
+    }
+    lib_load_list.LoadDetailUrl = "@Url.Action("GetDetailNote")";
+    lib_load_list.ManageUrl = "@Url.Action("ManageQANote")";
+    lib_load_list.Init("@Url.Action("ListQaNote")", "20");
+    CommonHelper.SetHeadingTitle("Manage Note");
+</script>
+

@@ -1,0 +1,97 @@
+﻿@model  List<Lib.Domain.Marketings.MailTemplate>
+@{
+    ViewBag.Title = "Notification ";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+}
+<style type="text/css">
+    .ui-datepicker-calendar {
+        background-color: #fff
+    }
+
+    .panel-title {
+        background-color: #dddddd;
+        color: #000;
+        padding: 5px 10px;
+            border-bottom: 1px solid darkgreen;
+            cursor: pointer;
+    }
+
+        .panel-title a {
+            color: #000;
+            cursor: pointer;
+        }
+
+    .panel-footer {
+        padding: 5px;
+        border: solid 1px;
+    }
+</style>
+<section class="card">
+    <div class="card-content">
+        <div class="card-body" style="height: 100vh;">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    @if (Model != null)
+                    {
+                        var countitem = 0;
+                        foreach (var item in Model)
+                        {
+                            countitem += 1;
+                            if (countitem == 1)
+                            {
+                                <div class="panel-heading" data-toggle="collapse" aria-expanded="true" href="#tog-@item.Id">
+                                    <h5 class="panel-title">
+                                        <a>@countitem - @item.Title</a>
+                                        <span style="color: #dc3545; right: 10px; float: right">@item.CreateDatestr</span>
+                                    </h5>
+
+                                </div>
+                                <div id="tog-@item.Id" class="panel-collapse collapse show">
+                                    <div class="panel-footer">
+                                        @Html.Raw(@item.Body)
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="panel-heading" data-toggle="collapse" href="#tog-@item.Id">
+                                    <h5 class="panel-title">
+                                        <a>@countitem - @item.Title</a>
+                                        <span style="color: #dc3545; right: 10px; float: right">@item.CreateDatestr</span>
+                                    </h5>
+
+                                </div>
+                                <div id="tog-@item.Id" class="panel-collapse collapse">
+                                    <div class="panel-footer">
+                                        @Html.Raw(@item.Body)
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        if (Model.ToList().Count <= 0)
+                        {
+                            <div class="panel-footer">
+                                There are no data to display.
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="panel-footer">
+                            There are no data to display.
+                        </div>
+                    }
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+<script src="~/Scripts/jquery-ui.min.js"></script>
+@*<script type="text/javascript">
+    buildData.listNotify("/Office/NotifyList", 15);
+</script>*@

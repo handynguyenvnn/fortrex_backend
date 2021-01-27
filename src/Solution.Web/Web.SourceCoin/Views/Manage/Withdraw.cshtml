@@ -1,0 +1,198 @@
+﻿@{
+    ViewBag.Title = "Withdraw";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+    <script type="text/javascript" src="~/Scripts/jquery.qrcode.min.js"></script>
+<style type="text/css">
+    .btn-link {
+        cursor: pointer;
+    }
+</style>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-header" id="title-transaction"></div>
+                    <div class="card-body table-responsive p-0">
+                        <div class="tool-bar">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="txt-username" placeholder="Username input">
+                                    |&nbsp;
+                                    <select id="txt-status" class="form-control">
+                                        <option value="-1"> -- Status -- </option>
+                                        <option value="1">Pending</option>
+                                        <option value="2">Approved</option>
+                                        <option value="3">Cancel</option>
+                                    </select>
+                                    |&nbsp;
+                                    <a href="javascript:void(0);" onclick="lib_load_list.LoadList();" class="btn btn-default">Search</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="admin-container">
+                            @Html.Partial("_MultiAdminTable")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="qrcode-modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:0px;">
+                <h4 class="modal-title" style="text-transform:none;padding-left:15px;padding:15px;">QR Code</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:-8px -3px -15px auto;"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height: 450px; overflow: auto;">
+                <div class="form_block mb-20 text-center mt-2">
+                    <img id="show-image-code" alt="Error Wallet" style="height: 250px;-webkit-user-select: none;background-position: 0px 0px, 10px 10px;background-size: 20px 20px;"><br><br>
+                    <h6>  Scan QR Code to Proceed</h6>
+                    <h6 id="walletcoin"></h6>
+                    <h6><b id="amount-request"></b></h6>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type='text/javascript'>
+        lib_load_list.GetCustomLoadListData = function () {
+            var self = this;
+            var data = {
+                pageIndex: self.PageIndex,
+                orderClause: self.GetOrderClause(),
+                username: $('#txt-username').val(),
+                status: $('#txt-status').val()
+            };
+            return data;
+        }
+        lib_load_list.DisplayCallBackSuccess = function (result) {
+            var self = this;
+
+            if (result.Message == null || result.Message == "") {
+                self.Total = result.Optional;
+
+                data = new jqueryRenderTable();
+                data.addColumn('number', 'Id');
+                data.addColumn('string', 'Username');
+
+                data.addColumn('string', 'Payment');
+                data.addColumn('string', 'Address');
+                data.addColumn('string', 'Status');
+                data.addColumn('decimal', 'AmountSet');
+                data.addColumn('decimal', 'Fee');
+                data.addColumn('decimal', 'AmountGet');
+                data.addColumn('string', 'CreateDate');
+                data.addColumn('string', 'ApproveBy');
+                data.addColumn('string', 'ApproveDate');
+                data.addColumn('string', 'Action');
+
+                if (result.Result.length > 0) {
+
+                    for (var i = 0; i < result.Result.length; i++) {
+                        var item = result.Result[i];
+                        var button = "";
+                        var address = "";
+                         var strsrc = $.validator.format("'{0}','{1}',{2}");
+                        if (item.Status == 1) {
+                            button = "<div align='center'><a class='btn-link btn-set-status-" + item.Id + "'" + " onclick='SetApprove(" + item.Id + ", 2)';>Approve</a> | <a class='btn-link btn-set-status-" + item.Id + "' onclick='SetApprove(" + item.Id + ", 3)'>Cancel</a></div>";
+                            address = "<a  href='#' onclick=showQRCode(" + strsrc(item.AddressWallet, item.ToTypeName, item.AmountGet) + ")>" + item.AddressWallet + "</a>";
+                            address += "<br><input type='text' id='hash-" + item.Id + "' value=''/>";
+                        } else if (item.Status == 2) {
+                            button = "Paid";
+                            address = "<span >"+item.AddressWallet+"</span>";
+                        } else if (item.Status == 3) {
+                            address = item.AddressWallet;
+                            button = "Cancelled";
+                        }
+                       
+                        var tmpRow = [
+                            item.Id,
+                            item.Username,
+                          
+                            item.ToTypeName,
+                            address,
+                            item.StatusName,
+                            item.AmountSet,
+                            item.Fee,
+                            '<font color="red">' + item.AmountGet + '</font>',
+                            item.StrCreateDate,
+                            item.ApproveName,
+                            item.StrApproveDate,
+                            button
+                        ];
+                        data.addRow(tmpRow);
+                    }
+                    self.DrawTable(data);
+                    $(".table-list table").addClass("table");
+                }
+                else {
+                    $("#" + self.ContainerId + " .table-list").html(CommonPhrase.NoData);
+                    $(".table-list table").addClass("table");
+                }
+            }
+            else {
+                CommonHelper.ShowMsg("Error: " + result.Message, MsgIconType.Error);
+            }
+        }
+
+        lib_load_list.Init("/manage/withdrawmanage", "25");
+        CommonHelper.SetHeadingTitle("Withdraw transaction");
+
+        function SetApprove(id, status) {
+            var hash = $('#hash-' + id).val();
+            if (status == 2 && hash == "" && "1" == "2") {
+                alert("Please! input hashcode.");
+            } else {
+                if (confirm("Are you sure ?")) {
+                    CommonHelper.AjaxLoading();
+                    var data = {
+                        'id': id,
+                        'status': status,
+                        'hash': hash
+                    };
+                    $.ajax({
+                        url: '/manage/withdrawstatus',
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (result) {
+                            CommonHelper.StopAjaxLoading();
+                            if (result > 0) {
+                                $(".btn-set-status-" + id).removeAttr('onclick');
+                                $(".btn-set-status-" + id).css('opacity', '0.3');
+                                alert("update success");
+                            }
+                            else {
+                                alert("update faild");
+                            }
+                        },
+                        error: function () {
+                            CommonHelper.StopAjaxLoading();
+                            alert("update faild");
+                        }
+                    });
+                }
+            }
+        }
+    function showQRCode(wallet, type,amount) {
+        var srcimg = '';
+        if (type ==='Bitcoin') {
+              srcimg = 'https://blockchain.info/qr?data=bitcoin:'+ wallet +'&amp;size=200';
+        } else if (type ==='Ethereum') {
+              srcimg = 'https://chart.googleapis.com/chart?chs=350x350&cht=qr&chl='+wallet;
+        }
+        $("#show-image-code").attr("src", srcimg);
+        $("#qrcode-modal").modal('show');
+        $("#walletcoin").text("").append(wallet);
+        $("#amount-request").text("").append(amount+" " + type);
+    }
+    </script>
+

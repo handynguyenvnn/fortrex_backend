@@ -1,0 +1,226 @@
+﻿@model Lib.Domain.Packages.DasboarchDetail
+@using CoinbaseConnector
+@{
+    ViewBag.Title = "Manage Account";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+    string ReferLink;
+    if (Model.MaxInvest > 0)
+    {
+        ReferLink = (string)ViewBag.ReferLink;
+    }
+    else
+    {
+        ReferLink = "You haven't investment.";
+    }
+}
+<style>
+
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+        background: #f8f8f8;
+        color: inherit !important;
+    }
+
+    code.fontcolor {
+        font-size: 17px;
+        color: #33ff00;
+        word-break: break-word;
+        /*padding-left: 1.25rem;*/
+    }
+
+    .btn-copy {
+        /*#2d4154;*/
+        border: 1px solid #2fe903;
+        border-radius: unset;
+        min-width: 90px;
+        margin-left: 0.9em;
+        /*border-color: rgba(145,145,145,0.18);*/
+    }
+
+        .btn-copy:hover {
+            text-decoration: none;
+            border: 1px solid #2fe903;
+            color: #2fe903;
+        }
+
+    .link-address {
+        width: 95%;
+        margin-left: 1.25em;
+        background-color: transparent;
+        border: 1px solid #2d4154;
+        border-color: rgba(145,145,145,0.18);
+        display: block;
+        padding: 0 .75rem;
+        font-size: 12px;
+        line-height: 34px;
+    }
+
+    .text-keep {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .linked_account img {
+        height: 50px;
+    }
+
+    .linked_account #img-copy {
+        height: 17px;
+    }
+
+  .icon-copy {
+        fill: #ffff;
+    }
+
+      
+
+
+</style>
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#accountlist">Affiliates</a>
+    </li>
+
+</ul>
+<div class="tab-content">
+    <div id="accountlist" class="tab-pane active linked_account">
+        <div class="row card-body">
+            <div class="col-md-3 mb-2">
+                <div class="media">
+                    <span class="mr-3">
+                        <img src="/Images/Icon/affiliates/totalf1.png" />
+                    </span>
+                    <div class="media-body" style="text-align: right;">
+                        <h5 class="mt-0 mb-1">Total F1</h5>
+                        <p>@Model.TotalF1</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3  mb-2">
+                <div class="media">
+                    <span class="mr-3">
+                        <img src="/Images/Icon/affiliates/totalnetworks.png" />
+                    </span>
+                    <div class="media-body" style="text-align: right;">
+                        <h5 class="mt-0 mb-1">Total networks</h5>
+                        <p>@Model.TotalNetwork</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3  mb-2">
+                <div class="media">
+                    <span class="mr-3">
+                        <img src="/Images/Icon/affiliates/trading.png" />
+                    </span>
+                    <div class="media-body" style="text-align: right;">
+                        <h5 class="mt-0 mb-1">Your trading by week</h5>
+                        <p>$@Model.StrTotalTrade</p>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-md-3  mb-2">
+                <div class="media">
+                    <span class="mr-3">
+                        <img src="/Images/Icon/affiliates/NetworkTrading.png" />
+                    </span>
+                    <div class="media-body" style="text-align: right;">
+                        <h5 class="mt-0 mb-1">ToTal Networks trading by week</h5>
+                        <p>$@Model.StrTotalNetworkTrading</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card col-md-12 mt-5">
+                    @*<div class="card-header border-0">
+                            <h4 class="card-title"></h4>
+                        </div>*@
+                    <div class="mb-2" style="padding-left:1.25em"><span>Link Address:</span></div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <div class="link-address text-muted">
+                                    <div class="text-keep"><code id="textlink" class="fontcolor"></code></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="btn-url-link-right" type="button" data-clipboard-target="#textlink" class="btn btn-copy waves-effect">
+                                    @*<span><img id="img-copy" class="mr-2" src=~/Images/Icon/copy-icon.png alt=info-image>Copy</span>*@
+                                    <span>
+                                        <svg  class="icon-copy" viewBox="0 0 368.008 368.008" width="17px" height="17px">
+                                        <path d="M368,88.004c0-1.032-0.224-2.04-0.6-2.976c-0.152-0.376-0.416-0.664-0.624-1.016c-0.272-0.456-0.472-0.952-0.832-1.352    l-72.008-80c-1.512-1.688-3.672-2.656-5.944-2.656h-15.648c-0.232,0-0.472,0-0.704,0H151.992c-13.232,0-24,10.768-24,24v40H24    c-13.232,0-24,10.768-24,24v256c0,13.232,10.768,24,24,24h192c13.232,0,24-10.768,24-24v-40h104c13.232,0,24-10.768,24-24v-175.96    c0-0.016,0.008-0.024,0.008-0.04L368,88.004z M224,344.004c0,4.408-3.592,8-8,8H24c-4.408,0-8-3.592-8-8v-256c0-4.408,3.592-8,8-8    h104v88c0,4.416,3.584,8,8,8h88V344.004z M224,160.004h-80v-80h4.688L224,155.324V160.004z M352,280.004c0,4.416-3.592,8-8,8H240    v-119.64c0-0.12,0.008-0.24,0.008-0.36l-0.008-16c0,0,0-0.008,0-0.024c-0.008-2.12-0.832-4.04-2.184-5.464    c0-0.016-0.024-0.016-0.016-0.016c0,0-0.008-0.008-0.008-0.016c-0.008,0-0.016-0.008-0.016-0.016    c-0.032-0.032-0.072-0.072-0.112-0.112l-80-80c-1.504-1.504-3.544-2.352-5.664-2.352h-8.008v-40c0-4.408,3.592-8,8-8h112v88    c0,4.416,3.584,8,8,8H352V280.004z M352,96.004h-72.008v-80h4.44L352,91.076V96.004z"/>
+                                        </svg>
+                                        Copy
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="chart-content ">
+                    <div class="card">
+                        <div class="card-body pt-0">
+                            <div class="col-md-12 mt-3"></div>
+                            <div class="transaction-table">
+                                <div class="table-responsive">
+                                    <div id="account-container">
+                                        <div id="table-list" class="table-list"></div>
+                                        <div class="pagination-list" style=""></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/clipboard.min.js")"></script>
+<script type="text/javascript">
+    buildData.listAccount("/account/Affiliate", 15);
+      $('#textlink').text("@ViewBag.ReferLink");
+    var copy_left = new Clipboard('#btn-url-link-left');
+    var copy_right = new Clipboard('#btn-url-link-right');
+    copy_left.on('success', function (e) {
+        buildData.showNotifyCenter("Copy Completed", "The Link", "success", 5000);
+    });
+    copy_right.on('success', function (e) {
+        buildData.showNotifyCenter("Copy Completed.", "The Link", "success", 2000);
+    });
+
+    //$(function () {
+    //    $('#btn-url-link-right').hover(
+    //        function () { $('.link-address').css('border', '1px solid #2fe903'); },
+    //        function () { $('.link-address').css({ 'border': '1px solid #2d4154'}); },
+    //    );
+    //});
+
+    //$('#btn-url-link-right').on('mouseover', function () {
+    //    $(this).find('.icon-copy').children().css({
+    //        'fill': 'green'
+    //    });
+    //});
+
+
+      $('#btn-url-link-right').on('mouseover', function () {
+          $('.link-address').css({ 'border': '1px solid #2fe903'}); 
+          $('.icon-copy').css({ 'fill': '#2fe903'});
+      });
+
+    $('#btn-url-link-right').on('mouseleave', function () {
+        $('.link-address').css({ 'border': '1px solid #2d4154' });
+        $('.icon-copy').css({ 'fill': '#ffff' });
+    });
+
+</script>

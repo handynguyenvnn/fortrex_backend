@@ -1,0 +1,10 @@
+﻿@model string
+
+<div class="sale-setup-label-container">@Html.LabelFor(m => m)</div>
+<div class="sale-setup-input-container">
+    @Html.TextAreaFor(m => m,
+        new Dictionary<string, object> {
+            { "data-bind", "ckeditor:" + Lib.Domain.CommonHelper.GetFullHtmlFieldNameWithoutPrefix(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty)) }
+        })
+</div>
+<div style="clear:both;height:10px;font-size:0px"></div>

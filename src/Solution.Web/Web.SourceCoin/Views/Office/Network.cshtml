@@ -1,0 +1,172 @@
+﻿@model Lib.Domain.Packages.DasboarchDetail
+@using Web.SourceCoin.Helpers
+@{
+    ViewBag.Title = "Network";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+    var _helper = new Helper();
+}
+<style type="text/css">
+    .card-header {
+        padding: 0.5rem 1.5rem;
+    }
+    .google-visualization-orgchart-node a {
+        padding-left: 0px !important;
+    }
+    .fa-exchange {
+        display: flex;
+        justify-content: center; /* align horizontal */
+        align-items: center;
+    }
+    .jconfirm.jconfirm-modern .jconfirm-box div.jconfirm-content{
+        color: rgba(0,0,0,.87) !important;
+    }
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background: #f8f8f8;
+     color:inherit !important; 
+
+}
+    table tr {
+    background-color: #ffffff !important;
+    font-weight: 700;
+}
+</style>
+<link href="/Content/GoogleTreeView.css" rel="stylesheet" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<link href="/Content/tooltip.css" rel="stylesheet" type="text/css">
+<script src="/Scripts/tooltip.js"></script>
+
+<section class="card">
+    <div class="card-content">
+        <div class="card-body">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card pull-up">
+                            <div class="card-content collapse show">
+                                <div class="card-body">
+                                    <form class="form-horizontal form-purchase-token row">
+                                        <div class="col-md-2 col-12">
+                                            <fieldset class="form-label-group mb-0">
+                                                <label for="ico-token">Total Left</label>
+                                                <input type="text" class="form-control" value="@_helper.FormatNumber(Model.TotalBranchLeft)" required="" disabled autofocus="">
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-1 col-12 text-center">
+                                            <span class="fa fa-exchange"></span>
+                                        </div>
+                                        <div class="col-md-2 col-12 mb-2">
+                                            <fieldset class="form-label-group mb-0">
+                                                <label for="selected-crypto">Total Right</label>
+                                                <input type="text" class="form-control" value="@_helper.FormatNumber(Model.TotalBranchRight)" required="" disabled autofocus="">
+
+                                            </fieldset>
+                                        </div>
+                                        @Html.Partial("_TreeViewFindUsers")
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-sm-12 treeusers" style="overflow: auto;">
+                            <div class="box box-setting">
+                                <div style="display:none;">
+                                <div id="tip2"></div>
+                            </div>
+                                <div id="chart_div"></div>
+                                <script type="text/javascript">
+                                    google.charts.load('current', { packages: ["orgchart"] });
+                                    google.charts.setOnLoadCallback(drawChart);
+
+                                    function drawChart() {
+                                        var data = new google.visualization.DataTable();
+                                        data.addColumn('string', 'Name');
+                                        data.addColumn('string', 'Manager');
+                                        data.addColumn('string', 'ToolTip');
+                                        // For each orgchart box, provide the name, manager, and tooltip to show.
+                                        data.addRows([
+                                            @Html.Raw(ViewBag.TreeData)
+                                        ]);
+
+                                        // Create the chart.
+                                        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+                                        // Draw the chart, setting the allowHtml option to true for the tooltips.
+                                        chart.draw(data, { allowHtml: true });
+                                    }
+
+                                    function callTooltip(saft, id) {
+                                        buildData.getInfoUserTooltip(saft, id);
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<link href="/Content/jquery-ui.css" rel="stylesheet" />
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:0px;">
+                <h4 class="modal-title" style="text-transform:none;padding-left:15px;padding:15px;">Register</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:-8px -3px -15px auto;"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="max-height: 450px; overflow: auto;">
+                <form class="form-horizontal form-signin">
+                    <input type="hidden" value="" id="model-uid" />
+                    <input type="hidden" value="" id="model-code" />
+                    <fieldset class="form-label-group">
+                        <label for="model-username">Username<font color="red">*</font></label>
+                        <input type="text" class="form-control" id="model-username" />
+                    </fieldset>
+                    <fieldset class="form-label-group">
+                        <label for="model-email">Email <font color="red">*</font></label>
+                        <input type="text" class="form-control" id="model-email" />
+                    </fieldset>
+                    <fieldset class="form-label-group">
+                        <label for="model-password">Password <font color="red">*</font></label>
+                        <input type="password" class="form-control" id="model-password" />
+                    </fieldset>
+                    <fieldset class="form-label-group">
+                        <label for="model-password-comfirm">Password Comfirm <font color="red">*</font></label>
+                        <input type="password" class="form-control" id="model-password-comfirm" />
+                    </fieldset>
+                    <fieldset class="form-label-group">
+                        <label for="drop-package-amount">Investment <font color="red">*</font></label>
+                        <select class="custom-select" autocomplete="off" id="drop-package-amount"></select>
+                    </fieldset>
+                    <div class="form-group row">
+                        <div class="col-md-12 col-12 text-center text-sm-left">
+                            <fieldset>
+                                <label for="accept"> <input style="margin: 5px 0 0;" data-val="false" data-val-required="The Terms of Service field is required." id="accept" name="accept" type="checkbox">  I confirm that I am at least 18 years of age, and accept <a href="#">Terms of Service</a>.</label>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="userAdd" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/Scripts/system.tree.js?v=5.9"></script>
+<script type="text/javascript">
+    //buildData.listAccount("/account/list", 15);
+    $(document).ready(function () {
+        $.ajax({
+            url: '/get-package',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                $('#drop-package-amount').html(result);
+            }
+        });
+    });
+</script>

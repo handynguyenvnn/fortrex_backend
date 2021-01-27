@@ -1,0 +1,178 @@
+﻿@model Lib.Domain.Withdraws.DataWithdraw
+@using Web.SourceCoin.Helpers
+@using CoinbaseConnector
+@{
+    ViewBag.Title = "Withdraw";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+    var _helper = new Helper();
+}
+<style type="text/css">
+    #txt-result {
+        color: #888 !important;
+        font-weight: bold;
+        display: inline;
+    }
+
+        #txt-result div:first-child {
+            float: left;
+        }
+
+        #txt-result div:last-child {
+            float: right;
+            font-weight: 500;
+            color: #ff7700;
+            /*color: #11d03d;*/
+        }
+</style>
+<div class="panel-component col-md-12">
+    <p class="componentTitle">Select Withdraw method</p>
+    <div class="row text-left panel-type-deposit">
+        <div class="card-content">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12 form-group">
+                            <div class="title-info">
+                                <div class="mt-2">
+                                    • Withdrawal requests will be processed within 24 to 72 hours
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 col-12">
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-12">
+                        <form class="form-horizontal form-user-profile row mt-2">
+                            <div class="col-12 mt-2">
+                                <label>
+                                    <span class="brightGreen-color">USD Balance:</span>
+                                    <span class="total-balance">$@Model.Amount</span>
+                                </label>
+                                @*<label class="white-color">$@Model.Amount</label>*@
+
+                            </div>
+                            <div class="col-12 mt-2">
+                                <label for="user-name">From Wallet</label>
+                                <fieldset class="form-label-group">
+
+                                    <select id="id-select-type" class="custom-select">
+                                        <option value="@SimpleConstant.USD" selected>USD</option>
+                                        @*<option value="@SimpleConstant.WITHDRAW_ERC20">FBT Coin</option>*@
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 mt-2">
+
+                                <fieldset class="form-label-group" id="apply-amount-withdraw">
+                                    <label for="withdraw-amount">Amount</label>
+
+                                    <input onkeyup="investChange()" type="number" class="form-control" value="@Model.Amount" id="withdraw-amount" placeholder="0" />
+
+                                </fieldset>
+                            </div>
+                            <div class="col-12 mt-2" id="type-wallet-withdraw">
+                                <label>Wallet type :</label>
+                                <span>
+                                    <select id="withdraw-wallet-name" class="custom-select">
+                                        <option value="@SimpleConstant.ETH">ETH</option>
+                                        <option value="@SimpleConstant.BTC" selected>BTC</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <label>Your Withdraw Address <label id="label-wallet-select" style="font-weight: bold"></label>:</label>
+                                <fieldset class="form-label-group mt-2" id="apply-amount-withdraw">
+                                    <input type="hidden" value="@Model.Amount" id="balance-usd" class="form-control" />
+                                    <input type="hidden" value="@ViewBag.WalletETH" id="wallet-eth" class="form-control" />
+                                    <input type="hidden" value="@ViewBag.WalletBTC" id="wallet-btc" class="form-control" />
+                                    <input type="hidden" value="@ViewBag.WalletBNCTERC20" id="wallet-bnct-erc20" class="form-control" />
+                                    <input type="text" value="@Model.WalletAddress" id="wallet-address" class="form-control" placeholder="Address wallet" />
+
+                                </fieldset>
+
+                            </div>
+                            <div class="col-12 mt-2">
+                                <div class="form-group" style="text-align:right;">
+                                    <div class="form-group" id="txt-result" style="color:#0b5058;font-weight:bold;"></div>
+                                </div>
+                            </div>
+                            @if (string.IsNullOrEmpty(Model.FA2Code))
+                            {
+                                @*<div class="col-12 mt-2">
+                                        <fieldset class="form-label-group">
+                                            <label for="user-name">Authentication (2FA)</label>
+                                            <input type="text" class="form-control" value="" disabled autofocus="">
+
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-7 text-center mt-2">
+                                        <span>
+                                            First you have to activate Authentication (2FA)
+                                        </span>
+                                    </div>
+                                    <div class="col-md-5 text-right  mt-2">
+                                        <button type="button" id="btnActiveAuthenticator" class="btn btn-primary"><i class="fa fa-sign-in"></i> Enable 2FA</button>
+                                    </div>*@
+                                <div class="col-12 text-center  mt-2">
+                                    <button type="button" id="btn-withdraw" style="display: none"></button>
+                                    <button type="button" id="btn-withdraw-comfirm" class="btn btn-primary"><i class="fa fa-sign-out"></i> Withdraw</button>
+                                </div>
+                            }
+                            else
+                            {
+                                @*<div class="col-12  mt-2">
+                                        <fieldset class="form-label-group">
+                                            <label for="code-digit">Authentication (2FA)</label>
+                                            <input type="text" class="form-control" id="code-digit" value="" required="" autofocus="">
+                                         </fieldset>
+                                    </div>*@
+                                <div class="col-12 text-center  mt-2">
+                                    <button type="button" id="btn-withdraw" style="display: none"></button>
+                                    <button type="button" id="btn-withdraw-comfirm" class="btn btn-primary"><i class="fa fa-sign-out"></i> Withdraw</button>
+                                </div>
+
+                            }
+
+                        </form>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-12">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tab-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart-content ">
+                <div class="card">
+                    <div class="card-body pt-0">
+                        <div class="Deposit-table">
+                            <div class="table-responsive">
+                                <div id="withdraw-container">
+                                    <div id="table-list" class="table-list"></div>
+                                    <div class="pagination-list" style=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.Partial("_DialogAuthen")
+<script type='text/javascript'>
+    buildData.listWithdrawoffice("/withdraw-history", 10);
+    buildData.validateWithdraw();
+    function investChange() {
+        buildData.validateWithdraw();
+    }
+</script>
+

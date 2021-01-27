@@ -1,0 +1,44 @@
+﻿@using Web.SourceCoin.Models
+@{
+    Layout = null;
+    Security sec = (Security)ViewBag.ModelSecurity;
+}
+<link href="/Content/jquery-ui.css" rel="stylesheet" />
+<div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content text-center">
+            <div class="modal-header" style="padding:0px;">
+                <h4 class="modal-title" style="text-transform:none;padding-left:15px;padding:15px;">Two Factor Authentication</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="UserUniqueKey" value="@sec.UserUniqueKey" />
+                <input type="hidden" id="BarcodeImageUrl" value="@sec.BarcodeImageUrl" />
+                <input type="hidden" id="SetupCode" value="@sec.SetupCode" />
+                @if (!string.IsNullOrEmpty(sec.SetupCode))
+            {
+                    <div class="row" style="padding-left:20px;padding-right:20px;">
+                        <p style="font-size:14px !important;text-align:left !important;">
+                            1. Install Google Authenticator on your phone, download: <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Android</a> or <a href="https://itunes.apple.com/app/google-authenticator/id388497605">Iphone, iPad and iPod</a>, <a href="http://www.windowsphone.com/en-us/store/app/authenticator/e7994dbc-2336-4950-91ba-ca22d653759b">Windows Phone</a><br>
+                            2. Open the Google Authenticator app.<br>
+                            3. Tab menu, then tab "Set up Account", then "Scan a barcode" or "Enter key provided" is <strong class="colors">@sec.SetupCode</strong>.<br>
+                            4. Your phone will now be in "scanning" mode. When you are in this mode, scan the barcode below:
+                        </p>
+                        <p align="center"><img src="@sec.BarcodeImageUrl" alt="qr"></p>
+                        <p align="left">Once you have scanned the barcode, enter the 6-digit code below:</p>
+                        <div id="BTC" class="payment_option d-block">
+                            <h6 class="mb-2">Input code from application:</h6>
+                            <div class="copy-button">
+                                <input id="CodeDigit" type="text" name="address" class="form-control" placeholder="000000">
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer text-center">
+                <button class="btn btn-default" type="button" id="btn-authenticator">Enable 2FA</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

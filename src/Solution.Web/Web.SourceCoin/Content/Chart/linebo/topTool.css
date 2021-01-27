@@ -1,0 +1,207 @@
+﻿section.kr-dash-pan-hedr {
+    display: flex;
+    align-items: center;
+    background: #181E2A;
+    z-index: 1;
+    /*height: 32px;*/
+    height: 30px;
+    position: absolute;
+    /*top: 8px;*/
+    top: 0px;
+    width: 100%;
+    padding: 0px 10px;
+    border: solid 0.5px #27333f;
+}
+
+    section.kr-dash-pan-hedr > div.kr-dash-pan-hedr-ca {
+        position: relative;
+    }
+
+    section.kr-dash-pan-hedr * {
+        box-sizing: border-box;
+       
+    }
+
+    section.kr-dash-pan-hedr > div.kr-dash-pan-hedr-ca {
+        position: relative;
+    }
+
+        section.kr-dash-pan-hedr > div.kr-dash-pan-hedr-ca > div {
+            border: 1px solid #2f3241;
+            border-left: none;
+            border-bottom: none;
+            border-top: none;
+            height: 32px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            padding: 0px 9px 2px 9px;
+            color: #758696;
+            fill: #758696;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+.fbt-tool {
+    border: 1px solid #2f3241;
+    border-left: none;
+    border-bottom: none;
+    border-top: none;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 2px 2px 2px;
+    color: #758696;
+    fill: #758696;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 50px;
+}
+    .fbt-tool img {
+        height: 25px;
+    }
+    .fbt-tool div:first-child {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+.kr-dash-pan-hedr .fbt-tool span {
+    color: #758696;
+    fill: #758696;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.balance-widget {
+    /*background: #1D2435;*/
+    border-radius: 0;
+    /*height: calc(100vh - 75px);*/
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.kr-search-field-content div {
+    min-width: 135px;
+    text-align: left;
+    justify-content: left;
+}
+
+    .kr-search-field-content div span {
+        color: #c5c8cc !important;
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+.fbt-tool .dropdown-menu {
+    /*display: flex;*/
+    position: absolute;
+    width: 200px;
+    /* right: -100px !important; */
+    background: #1c2030;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.35);
+    flex-direction: column;
+    cursor: default;
+    left: 100px !important;
+    transform: initial !important;
+    top: 30px !important;
+}
+
+    .fbt-tool .dropdown-menu a:hover {
+        background: red;
+    }
+
+        .fbt-tool .dropdown-menu a:hover span {
+            color: #fff;
+        }
+.toplist-pair {
+    margin-left: 20%;
+    cursor: pointer;
+}
+.top-pairs {
+    float: left;
+    width: 140px;
+    max-width: 130px;
+    border: solid 2px #262E3F;
+    margin: 0px 5px;
+    height: 55px;
+    position: relative;
+}
+    .top-pairs.active {
+        background: #353C4D;
+        border: solid 2px #353C4D;
+        border-bottom: solid 2px #11d03d;
+    }
+
+    .top-pairs .pair-logo {
+        float: left;
+        width: 30%;
+        display: inline-flex;
+        text-align: center;
+        position: relative;
+        left: 6px;
+        height: 100%;
+        top: 8px;
+    }
+        .top-pairs .pair-logo img {
+            height: 36px;
+            margin: 0 auto;
+            justify-items: center;
+            vertical-align: middle;
+        }
+        .top-pairs .pair-title {
+            float: right;
+            width: 70%;
+            display: inline-grid;
+        }
+    .top-pairs:hover {
+        background: #353C4D;
+    }
+        .top-pairs:hover .pair-title .pair-type span{
+            color: #b4b7be;
+        }
+
+.top-pairs a {
+    position: absolute;
+    left: 2px;
+    top: -7px;
+}
+.top-pairs a img {
+    height: 8px;
+}
+            .top-pairs .pair-title .pair-name span {
+                width: 100%;
+                font-size: 13px;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+
+        .top-pairs .pair-title .pair-type span {
+            font-size: 12px;
+            color: #888;
+        }
+.top-pairs-add {
+    width: 55px;
+    height: 55px;
+    float: left;
+    display: inline-flex;
+    padding: 5px;
+    border: solid 2px #262E3F;
+}
+    .top-pairs-add svg {
+        width: 25px;
+        margin: 0 auto;
+        fill: #656c7d;
+    }
+    .top-pairs-add:hover {
+        background: rgba(255,255,255,0.05);
+    }
+    .top-pairs-add:hover svg {
+        fill: #b4b7be;
+    }
+.kr-search-field-content img{
+    height: 25px;
+}
+
+/*animation*/

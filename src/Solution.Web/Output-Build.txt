@@ -1,0 +1,28 @@
+﻿1>------ Build started: Project: Lib.Domain, Configuration: Release Any CPU ------
+2>------ Build started: Project: Lib.Database, Configuration: Release Any CPU ------
+3>------ Build started: Project: CoinbaseConnector, Configuration: Release Any CPU ------
+1>  Lib.Domain -> F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Lib.Domain\bin\Release\Lib.Domain.dll
+4>------ Build started: Project: Lib.Cache, Configuration: Release Any CPU ------
+5>------ Build started: Project: Web.AppAuth, Configuration: Release Any CPU ------
+3>  CoinbaseConnector -> F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\CoinbaseConnector\bin\Release\CoinbaseConnector.dll
+4>  Lib.Cache -> F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Lib.Cache\bin\Release\Lib.Cache.dll
+5>  Web.AppAuth -> F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Web.AppAuth\bin\Release\Web.AppAuth.dll
+2>  Lib.Database -> F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Lib.Database\bin\Release\Lib.Database.dll
+6>------ Build started: Project: Lib.Data, Configuration: Release Any CPU ------
+6>  Lib.Data -> F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Lib.Data\bin\Release\Lib.Data.dll
+7>------ Build started: Project: Lib.Service, Configuration: Release Any CPU ------
+7>C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(2084,5): warning MSB3277: Found conflicts between different versions of "Newtonsoft.Json" that could not be resolved.  These reference conflicts are listed in the build log when log verbosity is set to detailed.
+7>F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Lib.Service\Service\User\UserService.cs(620,30,620,32): warning CS0168: The variable 'ex' is declared but never used
+7>F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Lib.Service\Service\User\UserService.cs(657,30,657,32): warning CS0168: The variable 'ex' is declared but never used
+7>F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Lib.Service\Service\User\UserService.cs(678,30,678,32): warning CS0168: The variable 'ex' is declared but never used
+7>F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Lib.Service\Service\User\UserService.cs(745,29,745,31): warning CS0168: The variable 'ex' is declared but never used
+7>F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Lib.Service\Service\User\UserService.cs(771,30,771,32): warning CS0168: The variable 'ex' is declared but never used
+7>F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Lib.Service\Service\User\UserService.cs(1038,30,1038,32): warning CS0168: The variable 'ex' is declared but never used
+7>  Lib.Service -> F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.SharedLibraries\Lib.Service\bin\Release\Lib.Service.dll
+8>------ Build started: Project: Web.SourceCoin, Configuration: Release Any CPU ------
+8>C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(2084,5): warning MSB3277: Found conflicts between different versions of "Newtonsoft.Json" that could not be resolved.  These reference conflicts are listed in the build log when log verbosity is set to detailed.
+8>F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.Web\Web.SourceCoin\Common\HelperCommon.cs(29,37,29,124): warning CS0618: 'FormsAuthentication.HashPasswordForStoringInConfigFile(string, string)' is obsolete: 'The recommended alternative is to use the Membership APIs, such as Membership.CreateUser. For more information, see http://go.microsoft.com/fwlink/?LinkId=252463.'
+8>F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.Web\Web.SourceCoin\Controllers\OfficeController.cs(172,30,172,32): warning CS0168: The variable 'ex' is declared but never used
+8>F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.Web\Web.SourceCoin\Controllers\OfficeController.cs(3194,30,3194,32): warning CS0168: The variable 'ex' is declared but never used
+8>  Web.SourceCoin -> F:\5.CustomerProject\28.fortrex\fortrex_be\src\Solution.Web\Web.SourceCoin\bin\Web.SourceCoin.dll
+========== Build: 8 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

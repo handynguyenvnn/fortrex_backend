@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @*<meta http-equiv='cache-control' content='no-cache'>
+        <meta http-equiv='expires' content='4'>
+        <meta http-equiv='pragma' content='no-cache'>*@
+    <title>Eq Option </title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @*<link href="/Content/bootstrap.min.css" rel="stylesheet" />*@
+    @Styles.Render("~/main/css?v=5.9")
+    @Styles.Render("~/chartstool/css?v=5.9")
+
+    @*<link rel="stylesheet" href="/assets/UI/vendor/waves/waves.min.css">
+        <link rel="stylesheet" href="/assets/UI/vendor/toastr/toastr.min.css">
+        <link rel="stylesheet" href="/assets/UI/vendor/owlcarousel/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="/assets/UI/css/style.css?v=6">*@
+
+    <script src="/assets/js/jquery-2.1.4.min.js?v=5.9"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"><</script>*@
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.blockUI.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.1.0.debug.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout.mapping-latest.js")"></script>
+    <script src="/Scripts/jquery-render-table.min.js?v=5.9"></script>
+    <script src="/Scripts/jquery-paging.2.1.js?v=5.9"></script>
+    @*<script src="/Scripts/jquery-build-data.js?v=1.140"></script>*@
+    @*<script src="/Scripts/jquery.signalR-2.4.0.js"></script>*@
+    <script src="/Scripts/jquery.signalR-2.2.2.js?v=5.9"></script>
+    <script src="~/signalr/hubs"></script>
+    @*<script src="~/Scripts/ServerTime/jobTrade.js?v=20"></script>*@
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+    <script src="/Content/Chart/linebo/js/moment.min.js"></script>
+
+    <script src="/Content/Chart/linebo/js/highstock.js?v=5.9"></script>
+    @*<script src="http://code.highcharts.com/highcharts.js"></script>*@
+    @*<script src="/Content/Chart/linebo/js/data.js"></script>*@
+</head>
+
+<body>
+    <div id="main-wrapper">
+        <div class="header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <nav class=" notranslate navbar navbar-expand-lg navbar-light px-0 justify-content-between">
+                            <div class="profile_log dropdown menuleft">
+                                <div data-toggle="dropdown">
+                                    <a href="javascript:void(0);" onclick="buildData._showLeftMenuHub();return false;">
+                                        <span class="thumb">
+                                            <span class="line"></span>
+                                            <span class="line"></span>
+                                            <span class="line"></span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                            <a class="navbar-brand" href="/tradingroom">
+                                <img class="d-desktop" src="/images/logo.png?v=5.9" alt="">
+                                <img class="d-mobile" src="/images/m-logo.png?v=5.9" alt="">
+                                @*<span>Eq Option</span>*@
+                            </a>
+                            <div id="toplist-pair" class="navbar-brand toplist-pair">
+
+                            </div>
+
+                            <div class="dashboard_log">
+                                <div class="d-flex align-items-center">
+                                    <div class="account_monee">
+                                        <a href="/deposit" class="btn-deposit btn pl-5 pr-5 waves-effect ">
+                                            @*<img src="/images/icon/usd.svg" /> Deposit*@
+                                            <svg class="icon-deposit" viewBox="0 0 256 256" width="25px" height="25px">
+                                                <path d="m128 7.5c-66.454 0-120 53.769-120 120.5 0 27.989 9.6995 53.877 25.385 74.154h-25.385v18.538h55.385v-55.615h-18.462v21.145c-11.791-16.619-18.462-36.498-18.462-58.222 0-56.557 45.216-101.96 101.54-101.96 16.623 0 32.308 3.5846 46.154 11.007v-20.276c-13.846-5.576-29.531-9.2692-46.154-9.2692zm64.615 27.808v55.615h18.462v-21.145c11.791 16.619 18.462 36.498 18.462 58.222 0 56.557-45.216 101.96-101.54 101.96-16.623 0-32.308-3.5846-46.154-11.007v20.276c13.846 5.576 29.531 9.2692 46.154 9.2692 66.454 0 120-53.769 120-120.5 0-27.989-9.6995-53.877-25.385-74.154h25.385v-18.538h-55.385zm-73.846 18.538v18.828c-15.541 2.3173-27.692 15.931-27.692 32.153 0 17.814 14.567 32.442 32.308 32.442h9.2308c8.0769 0 13.846 5.7933 13.846 13.904s-5.7692 13.904-13.846 13.904h-32.308v18.538h18.462v18.538h18.462v-18.828c15.541-2.3173 27.692-15.931 27.692-32.153 0-17.814-14.567-32.442-32.308-32.442h-9.2308c-8.0769 0-13.846-5.7933-13.846-13.904s5.7692-13.904 13.846-13.904h32.308v-18.538h-18.462v-18.538h-18.462z" />
+                                            </svg>
+                                            Deposit
+                                        </a>
+                                    </div>
+                                    <div class="account_money">
+                                        <div class="user" data-toggle="dropdown">
+                                            <ul>
+                                                <li id="li-panel-balance" class="usd isReal">
+                                                    <span id="accname">Real Balance</span>
+                                                    <span id="total-balance">$0</span>
+                                                    <label>ESTIMATED BALANCE</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a id="acreal" class="dropdown-item usd isReal">
+                                                <span> Live Account</span>
+                                                <span id="total-balance-real">$0</span>
+                                            </a>
+                                            <a id="acdemo" class="dropdown-item usd isDemo">
+                                                <span> Demo Account</span>
+                                                <span id="total-balance-demo">$0</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="profile_log dropdown">
+                                        <div class="user" data-toggle="dropdown">
+                                            <span class="thumb">
+                                                <img class="la-user" src="/images/user-w.png" />
+                                            </span>
+                                            @*<span class="name">@User.Identity.Name</span>*@
+                                            <span class="arrow"><i class="la la-angle-down"></i></span>
+                                        </div>
+                                        @*-------------------------MENU RIGHT FOR MOBILE------------------*@
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item" style="color: #e1e1e1;text-align: center;    font-weight: 700;">
+                                                @User.Identity.Name
+                                            </a>
+                                            <a href="/account/settings" class="dropdown-item">
+                                                <i class="la la-user"></i> Account
+                                            </a>
+                                            <a href="/tradingroom" class="dropdown-item">
+                                                <i class="la la-book"></i> Trading
+                                            </a>
+                                            <a href="/account/trading-history" class="dropdown-item">
+                                                <i class="la la-book"></i> History Transaction
+                                            </a>
+                                            <a href="#" data-toggle="modal" data-target="#logoutModal" class="dropdown-item logout">
+                                                <i class="la la-sign-out"></i> Logout
+                                            </a>
+                                        </div>
+                                        @*---------------------------------------------------------------*@
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sidebar" class="sidebar" style="max-height:676px">
+            <div class="menu " id="navbarheader">
+                <ul class="navbar-nav">
+                    <li>
+                        <a href="/tradingroom#trading" onclick="buildfunction._showtradePairInit();return false;">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Trading.png" />
+                                Trading
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/tradingroom#hisroty" onclick="buildData.ListTradingSimple();return false;">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-TradingHistory.png" />
+                                Trading History
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="cm-badge badge-new-green">new</span>
+                        <a href="https://copytrade.fortrex.io/" target="_blank">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-CopyTrade.png" />
+                                CopyTrade
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="cm-badge badge-new-red">new</span>
+                        <a href="/transfer">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Transfer.png"/>
+                                Transfer
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="click-btn" href="/deposit">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Desposit.png" />
+                                Deposit
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/withdraw">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Withdraw.png" />
+                                Withdraw
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/account/Affiliate">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Affilate.png" />
+                                Affiliates
+                            </span>
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="/account/settings">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Setting.png" />
+                                Settings
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/account/kyc">
+                            <span>
+                                <img class="la" src="~/Images/Icon/navbar/Icon-Setting.png" />
+                                &nbsp; kyc &nbsp;
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        @*<div class="page_title">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="page_title-content">
+                                <p>
+                                    Welcome,
+                                    <span> @User.Identity.Name</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+        <div class="content-body">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/home/logout">Logout</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" value="@ViewBag.PairName_value" id="PairName_value" />
+
+    <script src="/assets/UI/vendor/bootstrap/js/bootstrap.bundle.min.js?v=5.9"></script>
+    <script src="/assets/UI/vendor/waves/waves.min.js"></script>
+
+    <script src="/assets/UI/vendor/toastr/toastr.min.js"></script>
+    <script src="/assets/UI/vendor/toastr/toastr-init.js"></script>
+
+    <script src="/assets/UI/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="/assets/UI/vendor/circle-progress/circle-progress-init.js"></script>
+    <script src="/assets/UI/js/scripts.js"></script>
+
+    <script src="~/Scripts/notify/bootstrap-notify.min.js"></script>
+    <script src="~/Content/jqueryConfirm/jquery-confirm.min.js"></script>
+    <script src="/assets/common/mainonload.js?v=5.9"></script>
+
+    <script>
+
+        //function myFunction() {
+        //    var x = document.getElementById("myLinks");
+        //    if (x.style.display === "block") {
+        //        x.style.display = "none";
+        //    } else {
+        //        x.style.display = "block";
+        //    }
+        //}
+        //jQuery(window).on("load", function () {
+        //    $('#preloader').fadeOut(500);
+        //    $('#main-wrapper').addClass('show');
+        //});
+
+        $('.account_monee').on('mouseover', function () {
+            $('.icon-deposit').css({ 'fill': '#ffff' });
+        });
+
+        $('.account_monee').on('mouseleave', function () {
+            $('.icon-deposit').css({ 'fill': '#11d03d' });
+        });
+
+
+         //$(document).ready(function () {
+         //   $('[data-toggle="tooltip"]').tooltip();
+         //});
+
+
+
+        //$('.click-btn').on('click', function () {
+        //    $(this).blur()
+        //})
+
+        /*.btn-deposit:hover {
+     color: #ffff !important;
+     background-color: #11d03d;
+     border-color: #11d03d;
+ }*/
+
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8JS0HPVJ9L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-8JS0HPVJ9L');
+    </script>
+    <audio id="clickaudio" volume="10">
+        <source src="/sound/soundClick.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="soundbookorder">
+        <source src="/sound/soundbookorder.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="soundoverorder">
+        <source src="/sound/soundoverorder.mp3?v=5.9" type="audio/mpeg" />
+    </audio>
+</body>
+</html>
+

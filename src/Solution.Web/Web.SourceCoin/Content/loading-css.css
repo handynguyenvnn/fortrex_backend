@@ -1,0 +1,153 @@
+﻿.blockMsg {
+    z-index: 9011 !important;
+    position: fixed;
+    padding: 15px;
+    margin: 0px;
+    top: 20% !important;
+    left: inherit !important;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    border: none;
+    cursor: wait;
+    width: 100% !important;
+    height: 100%;
+    text-align: center;
+    top: 40% !important;
+}
+.ui-widget-overlay{
+    background: inherit !important;
+}
+.ui-widget-overlay {
+    opacity: 0.3 !important;
+    background-color: rgb(9, 10, 15) !important;
+}
+.loader {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #a0a0a0;
+    position: relative;
+}
+
+/* COMMON ANIMATIONS */
+@keyframes spinBasic {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinBasicReverse {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes rotateWithBoost {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    60% {
+        transform: rotate(180deg);
+    }
+
+    90%, 100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loader-icondot1 {
+    0%, 45% {
+        cx: 6;
+        cy: 6;
+    }
+
+    55%, 80% {
+        cx: 2;
+        cy: 2;
+    }
+
+    90%, 100% {
+        cx: 6;
+        cy: 6;
+    }
+}
+
+@keyframes loader-icondot2 {
+    0%, 45% {
+        cx: 6;
+        cy: 24;
+    }
+
+    55%, 80% {
+        cx: 2;
+        cy: 28;
+    }
+
+    90%, 100% {
+        cx: 6;
+        cy: 24;
+    }
+}
+@keyframes loader-icondot3 {
+    0%, 45% {
+        cx: 24;
+        cy: 6;
+    }
+
+    55%, 80% {
+        cx: 28;
+        cy: 2;
+    }
+
+    90%, 100% {
+        cx: 24;
+        cy: 6;
+    }
+}
+
+@keyframes loader-icondot4 {
+    0%, 45% {
+        cx: 24;
+        cy: 24;
+    }
+
+    55%, 80% {
+        cx: 28;
+        cy: 28;
+    }
+
+    90%, 100% {
+        cx: 24;
+        cy: 24;
+    }
+}
+
+.loader-icon svg {
+    overflow: visible;
+    animation: 1.5s rotateWithBoost linear infinite;
+}
+
+    .loader-icon svg circle:first-of-type {
+        animation: 1.5s loader-icondot1 linear infinite;
+    }
+
+    .loader-icon svg circle:nth-of-type(2) {
+        animation: 1.5s loader-icondot2 linear infinite;
+    }
+
+    .loader-icon svg circle:nth-of-type(3) {
+        animation: 1.5s loader-icondot3 linear infinite;
+    }
+
+    .loader-icon svg circle:last-of-type {
+        animation: 1.5s loader-icondot4 linear infinite;
+    }

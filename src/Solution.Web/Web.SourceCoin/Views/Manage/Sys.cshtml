@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Lib.Domain.User.SystemSchedule>
+@{
+    ViewBag.Title = "Sys";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Name</th>
+                        <th>Seconds</th>
+                        <th>LastStartUtc</th>
+                        <th>LastEndUtc</th>
+                        <th>TimeSystem</th>
+                    </tr>
+                    @foreach (var sys in Model)
+                    {
+                    <tr>
+                        @if (sys.LastStartUtc.HasValue && sys.LastStartUtc.Value.AddSeconds(sys.Seconds + 30) < sys.TimeSystem)
+    {
+                    <td style="color:red;">@sys.Name</td>
+                    <td style="color:red;">@sys.Seconds</td>
+                    <td style="color:red;">@sys.StrLastStartUtc</td>
+                    <td style="color:red;">@sys.StrLastEndUtc</td>
+                    <td style="color:red;">@sys.StrTimeSystem</td>
+}
+else
+{
+                    <td style="color:green;">@sys.Name</td>
+                    <td style="color:green;">@sys.Seconds</td>
+                    <td style="color:green;">@sys.StrLastStartUtc</td>
+                    <td style="color:green;">@sys.StrLastEndUtc</td>
+                    <td style="color:green;">@sys.StrTimeSystem</td>
+}
+
+                    </tr>
+                    }
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div><!-- /.row -->
+

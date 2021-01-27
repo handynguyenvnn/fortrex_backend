@@ -1,0 +1,435 @@
+﻿@using Lib.Domain.CoinTransactions;
+@using Lib.Domain.User;
+@model IEnumerable<Lib.Domain.CoinTransactions.TransactionCoin>
+@using Web.SourceCoin.Helpers
+@{
+    ViewBag.Title = "Deposit";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+    var dataWallet = (ShowWalletData)ViewBag.DataWallet;
+    var _helper = new Helper();
+}
+<script type="text/javascript" src="~/Scripts/jquery.qrcode.min.js"></script>
+<link href="~/Content/loading-css.css" rel="stylesheet" />
+<style type="text/css">
+
+    .d-icon {
+        height: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        margin-right: 10px !important;
+    }
+
+    .dps:focus {
+        background-color: #042C85;
+    }
+
+    .dps:hover {
+        background-color: #042C85;
+    }
+
+    .choose-packages .dps {
+        padding: 14px 0px;
+        width: 130px;
+        border-color: #17a2b8;
+        border: 2px solid orange !important;
+        background: no-repeat;
+        color: inherit;
+    }
+
+    .choose-packages .btn-primary.dps {
+        border: 2px solid orange !important;
+        background-color: #F89F34;
+        color: #fff;
+    }
+
+
+    /* button customize*/
+    a.btn-popup {
+        padding: 13px 8px 13px 8px !important;
+        display: inline-block;
+        border-radius: 5px;
+        min-width: 170px;
+        text-align:left;
+        font-size: 16px;
+        font-weight: 500;
+        /*padding: 12px;*/
+        color: #fff !important;
+        min-height: 60px;
+        background-color: rgba(42, 54, 64, 0.26);
+        border-color: rgb(42, 54, 64);
+    }
+
+        a.btn-popup:hover, a.btn-comingsoon:hover {
+            border: 1px solid #11d03d !important;
+            color: #11d03d !important;
+        }
+
+
+    a.btn-comingsoon {
+        /*padding: 5px 23px;*/
+        display: inline-block;
+        border-radius: 5px;
+        min-width: 109px;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 12px 8px 12px 8px;
+        color: #fff;
+        min-height: 60px;
+        background-color: rgba(42, 54, 64, 0.26);
+        border-color: rgb(42, 54, 64);
+        /*background: repeating-linear-gradient( 303deg, rgba(0, 0, 0, 0), rgba(42, 54, 64, 0.38) 10px, rgb(59, 34, 3) 2px, rgb(118, 74, 18) 11px );*/
+        background: repeating-linear-gradient( 303deg, rgba(0, 0, 0, 0), rgba(42, 54, 64, 0.38) 10px, rgb(0, 0, 0) 2px, rgb(24, 152, 45) 11px );
+    }
+
+   a#btn-commingsoon-click {
+        cursor: not-allowed;
+    }
+
+    .panel-type-deposit {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    #qrcode canvas {
+        border: solid 1px;
+        background-color: aliceblue;
+        padding: 5px
+    }
+
+    #col-HashCode {
+        white-space: nowrap;
+    }
+
+    /***/
+    code.fontcolor {
+        font-size: 15px;
+        color: #ffff;
+        word-break: break-word;
+        /*padding-left: 1.25rem;*/
+    }
+    code#text-CoinSymbol {
+        color: #18fa19;
+        font-size: 100%;
+    }
+    .link-address {
+        width: 95%;
+        margin-left: 1.1em;
+        background-color: transparent;
+        border: 1px solid #2d4154;
+        border-color: rgba(145,145,145,0.18);
+        display: block;
+        padding: 0 .75rem;
+        font-size: 12px;
+        line-height: 34px;
+    }
+
+    .text-keep {
+        white-space: pre-wrap;
+        /*overflow: hidden;
+        text-overflow: ellipsis;*/
+    }
+
+</style>
+
+
+
+<div class="panel-component col-md-12">
+    <p class="componentTitle">Select deposit method</p>
+    <div class="row text-center panel-type-deposit">
+        <div class="col-md-3">
+            <div class="form_block mb-2 text-center mt-2">
+                <a href="#" id="btn-eth-click" onclick="getwalletid(1);" data-toggle="modal" data-target="#depositModal" class="btn-popup waves-effect btn"><img class="d-icon" src="/images/symbol/eth.svg"> Ethereum</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form_block mb-2 text-center mt-2">
+                <a href="#" id="btn-btc-click" onclick="getwalletid(2);" data-toggle="modal" data-target="#depositModal" class="btn-popup waves-effect btn"><img class="d-icon" src="/images/symbol/btc.svg">Bitcoin</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form_block mb-2 text-center mt-2">
+                <a href="#" id="btn-usdt-click" onclick="buildData.initpagedeposit('USDT');" data-toggle="modal" data-target="#depositModal" data-placement="bottom"
+                   title="" class="btn-popup waves-effect btn"><img class="d-icon" src="/images/symbol/usdt.svg">USDT</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+           
+            <div class="form_block mb-2 text-center mt-2">
+                <div>
+                    <a href="#" id="btn-fbtc-click" onclick="buildData.initpagedepositfbtc('USDT');" data-toggle="modal" data-target="#depositModal" data-placement="bottom" title="" class="btn-popup waves-effect btn"><img class="d-icon" style="background-color: transparent;" src="/images/symbol/fbtc.svg">FBTC
+                    <span class="cm-badge badge-hot" style="top:1px;padding:.25em 0.8em;">Hot</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form_block mb-2 text-center mt-2">
+                <span data-toggle="modal" data-target="#depositModal12">
+                    <a href="#" id="btn-commingsoon-click" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Comming soon" class="btn-comingsoon waves-effect btn"><img class="d-icon" src="/images/icon/rsz_hourglass.png">[COMING SOON]</a>
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="tab-content" style="overflow-x:auto;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart-content ">
+                <div class="card">
+                    <div class="card-body pt-0">
+                        <div class="Deposit-table">
+                            <div class="table-responsive">
+                                <div id="admin-container">
+                                    <table class="table table-striped">
+                                        <thead class="table-head">
+                                            <tr>
+                                                <th class="text-center" title="The ID of the respective transaction">
+                                                    No.
+                                                </th>
+                                                <th class="text-center" title="The ID of the respective transaction">
+                                                    Coin
+                                                </th>
+                                                <th class="text-center" title="Long or Short Position opened">
+                                                    Status
+                                                </th>
+                                                <th class=" text-left">
+                                                    Number coin
+                                                </th>
+                                                <th class=" text-left">
+                                                    Price USD
+                                                </th>
+                                                <th class="text-center" title="Stop loss">
+                                                    Deposit Date
+                                                </th>
+                                                <th class="text-left" title="Take profit">
+                                                    HashCode
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.Count() > 0)
+                                            {
+                                                int numcount = 0;
+                                                foreach (TransactionCoin coin in Model)
+                                                {
+                                                    numcount += 1;
+                                                    <tr>
+                                                        <td class="text-center">@numcount</td>
+                                                        <td class="text-center" style="text-align: left !important"> @coin.MethodSymbol <span style="color:rgb(77, 78, 79)">@coin.MethodPaymentName</span></td>
+                                                        <td class="text-center">@coin.Status</td>
+                                                        <td class=" text-left">@coin.PriceCoin</td>
+                                                        <td class=" text-left"> @_helper.FormatNumber(coin.PriceUSD)</td>
+                                                        <td class=" text-center">@coin.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                                        <td id="col-HashCode" class=" text-left">
+                                                            Addess: <span style="color:rgb(77, 78, 79)">@coin.AddressWallet</span><br />
+                                                            txHash: <span style="color:rgb(77, 78, 79)">@coin.HashCode</span>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="7">
+                                                        There are no data to display.
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" value="@dataWallet.WalletActive" id="wallet-active-code" />
+
+<input type="hidden" value="@dataWallet.AddressBTC" id="wallet-btc-address" />
+<input type="hidden" value="@dataWallet.AddressETH" id="wallet-eth-address" />
+
+<!-- The Modal -->
+<div class="modal fade" id="depositModal" tabindex="-1" role="dialog" aria-labelledby="depositModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <img id="deposit-icon" class="d-icon" style="background-color: transparent;" src="/images/symbol/btc.svg">
+                <h5 class="modal-title" id="depositModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 text-center">
+                        <div id="qrcode"></div>
+                        <p>  Scan QR Code to Proceed</p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 mt-2">
+                        <div>
+                            <div class="mb-1">
+                                <code id="text-CoinSymbol" class="text-uppercase fontcode mr-1"></code>
+                                <span>Wallet Address</span>
+                            </div>
+                            <div class="media mb-3">
+                                <div class="link-address text-muted">
+                                    <div class="text-keep"><code id="depositwallet" class="fontcolor"></code></div>
+                                </div>
+                                <script type="text/javascript" src="/Scripts/clipboard.min.js"></script>
+                                <script type="text/javascript">
+                                    var clipboard = new Clipboard('#btnurllinkintroduction');
+                                    clipboard.on('success', function (e) {
+                                        buildData.showNotifyCenter("Copy Completed", "Deposit Address", "success", 3000);
+                                        //$("#btnurllinkintroduction").css("color", "forestgreen");
+                                        //$("#btnurllinkintroduction").html('Copied');
+                                        //$("#btncopied").html('<i style="position:static;" class="fa fa-copy"></i>');
+                                    });
+
+                                </script>
+                            </div>
+                            <div class="col-md-12 text-center mb-2">
+                                @*<div class="form-group">
+                <button id="btnurllinkintroduction" data-clipboard-target="#depositwallet" type="button" style="margin-block-start: auto;" class="btn btn-success pl-5 pr-5 waves-effect">
+                    <i class="fa fa-copy"></i>  Copy
+                </button>
+            </div>*@
+                                <div class="form-group">
+                                    <button id="btnurllinkintroduction" data-clipboard-target="#depositwallet" type="button" style="margin-block-start: auto;" class="btn btn-success pl-5 pr-5 waves-effect">
+                                        <i class="fa fa-copy"></i>  Copy
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="deposit-note" class="mb-4">
+                                <div class="row-note"><img class="warning-icon" src="/images/icon/warning.png"> <p>Attention! </p></div>
+                                <div class="row-note"><img class="warning-icon" src="/images/icon/warning.png"> <p>Send only <span class="textnote-Coin"></span> to this deposit address. Sending another coin to this address may result in the loss of your deposit!</p></div>
+                                <div class="row-note"><img class="warning-icon" src="/images/icon/warning.png"> <p><span class="textnote-Coin"></span> deposits are credited after a minimum of 2 confirmation(s).</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function getwalletid(type) {
+        $('#depositwallet').empty();
+        if (type === 1) {
+            var walletbytype = $("#wallet-eth-address").val();
+            $("#depositwallet").empty().text(walletbytype);
+            $("#depositModalLabel").empty().text("Ethereum");
+            $("#text-CoinSymbol").empty().text("ETH");
+            $(".textnote-Coin").empty().text("ETH");
+            $("#deposit-icon").attr("src", "/images/symbol/eth.svg");
+
+            $('#qrcode').empty().qrcode({ width: 150, height: 150, text: walletbytype });
+
+        } else if (type === 2) {
+            var walletbytype = $("#wallet-btc-address").val();
+            $("#depositwallet").empty().text(walletbytype);
+            $("#depositModalLabel").empty().text("Bitcoin");
+            $("#text-CoinSymbol").empty().text("BTC");
+            $(".textnote-Coin").empty().text("BTC");
+            $("#deposit-icon").attr("src", "/images/symbol/btc.svg");
+            $('#qrcode').empty().qrcode({ width: 150, height: 150, text: walletbytype });
+        }
+     
+
+    }
+
+    function convertAmountToCoin(amount, type, convert) {
+
+        $("#deposit-request-coin").text("");
+        $.ajax({
+            url: '/office/Cvtusdtocoin',
+            type: 'POST',
+            data: JSON.stringify({ "amount": amount, "type": type }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+
+                $("#deposit-request-coin").text(result + ' ' + convert);
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('.choose-packages a').on('click', function () {
+            //$(".choose-packages a").removeClass("btn btn-primary");
+            //$(".choose-packages a").removeClass("btn btn-info");
+            // $(this).removeClass("btn btn-info");
+            //        $(this).addClass("btn btn-primary");
+            $(".choose-packages").each(function (i) {
+                $('.choose-packages a').removeClass("btn btn-primary");
+                $('.choose-packages a').addClass("btn btn-info");
+            });
+            $(this).removeClass("btn btn-info");
+            $(this).addClass("btn btn-primary");
+            $("#deposit-request").text("");
+            $("#deposit-request-fee").text("");
+            $("#deposit-request-coin").text("");
+            $("#deposit-request").append(this.text);
+            var package_fee = this.text.replace('$', '').replace(',', '').trim();
+            $("#package-selected").val((parseInt(package_fee) + parseInt(objFee[package_fee])));
+            $("#package-selected-fee").val(package_fee);
+            $("#deposit-request-fee").append("$" + objFee[package_fee]);
+            $("#deposit-request-coin").text("");
+            var convert = $("#label-wallet-select").text();
+            if (convert == "BTC") {
+                convertAmountToCoin(parseInt($("#package-selected").val()), 1, convert);
+            } else {
+                convertAmountToCoin(parseInt($("#package-selected").val()), 2, convert);
+            }
+        });
+    });
+    //window.onload = (function () {
+    //    $("#ethclick").click();
+    //    });
+    $(window).on('load', function () {
+        $("#ethclick").click();
+        $("#packagedefault").click();
+    });
+
+
+
+    // load data Deposit
+    buildData.listTrading("/office/tradinglist", 10);
+
+    // hide nav-icon
+
+
+   // hide tooltip button
+    //$('#btn-usdt-click').on('click', function () {
+    //    $(this).blur()
+    //})
+    $('#btn-commingsoon-click').on('click', function () {
+        $(this).blur()
+    })
+
+
+</script>
+

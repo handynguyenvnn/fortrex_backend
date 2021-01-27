@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14612553-79DF-4659-B6A7-1C93F5780A4A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lib.Data</RootNamespace>
+    <AssemblyName>Lib.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.1.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution.Web\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution.Web\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution.Web\packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseRepository.cs" />
+    <Compile Include="DatabaseExtension.cs" />
+    <Compile Include="Domain\Binance\Abstract\BaseCreateOrderResponse.cs" />
+    <Compile Include="Domain\Binance\AccountInformationResponse.cs" />
+    <Compile Include="Domain\Binance\AccountTradeReponse.cs" />
+    <Compile Include="Domain\Binance\AcknowledgeCreateOrderResponse.cs" />
+    <Compile Include="Domain\Binance\BalanceResponse.cs" />
+    <Compile Include="Domain\Binance\CancelOrderResponse.cs" />
+    <Compile Include="Domain\Binance\CompressedAggregateTradeResponse.cs" />
+    <Compile Include="Domain\Binance\DepositAddressResponse.cs" />
+    <Compile Include="Domain\Binance\DepositListItem.cs" />
+    <Compile Include="Domain\Binance\DepositListResponse.cs" />
+    <Compile Include="Domain\Binance\EmptyResponse.cs" />
+    <Compile Include="Domain\Binance\Error\BinanceBadRequestException.cs" />
+    <Compile Include="Domain\Binance\Error\BinanceError.cs" />
+    <Compile Include="Domain\Binance\Error\BinanceException.cs" />
+    <Compile Include="Domain\Binance\Error\BinanceServerException.cs" />
+    <Compile Include="Domain\Binance\Error\BinanceTimeoutException.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoRateLimit.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoResponse.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbol.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilter.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterExchangeMaxNumAlgoOrders.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterExchangeMaxNumOrders.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterIcebergParts.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterLotSize.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterMarketLotSize.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterMaxNumAlgoOrders.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterMaxNumIcebergOrders.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterMaxNumOrders.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterMinNotional.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterPercentagePrice.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterPercentPrice.cs" />
+    <Compile Include="Domain\Binance\ExchangeInfoSymbolFilterPrice.cs" />
+    <Compile Include="Domain\Binance\Fill.cs" />
+    <Compile Include="Domain\Binance\FullCreateOrderResponse.cs" />
+    <Compile Include="Domain\Binance\Interfaces\IBalanceResponse.cs" />
+    <Compile Include="Domain\Binance\Interfaces\IConfirmationResponse.cs" />
+    <Compile Include="Domain\Binance\Interfaces\IResponse.cs" />
+    <Compile Include="Domain\Binance\KlineCandleStickResponse.cs" />
+    <Compile Include="Domain\Binance\OrderBookResponse.cs" />
+    <Compile Include="Domain\Binance\OrderResponse.cs" />
+    <Compile Include="Domain\Binance\ResultCreateOrderResponse.cs" />
+    <Compile Include="Domain\Binance\ServerTimeResponse.cs" />
+    <Compile Include="Domain\Binance\SymbolOrderBookResponse.cs" />
+    <Compile Include="Domain\Binance\SymbolPriceChangeTickerResponse.cs" />
+    <Compile Include="Domain\Binance\SymbolPriceResponse.cs" />
+    <Compile Include="Domain\Binance\SystemStatusResponse.cs" />
+    <Compile Include="Domain\Binance\TradeResponse.cs" />
+    <Compile Include="Domain\Binance\UserDataStreamResponse.cs" />
+    <Compile Include="Domain\Binance\WithdrawListItem.cs" />
+    <Compile Include="Domain\Binance\WithdrawListResponse.cs" />
+    <Compile Include="Domain\Binance\WithdrawResponse.cs" />
+    <Compile Include="Domain\CoinList.cs" />
+    <Compile Include="Domain\Constants.cs" />
+    <Compile Include="Domain\Cryptoapis\WalletGenerate.cs" />
+    <Compile Include="Domain\Deposit\DepositList.cs" />
+    <Compile Include="Domain\Deposit\ERC20TokenTransferByAddressResponse.cs" />
+    <Compile Include="Domain\EnumCoinConfirms.cs" />
+    <Compile Include="Domain\EnumSimple.cs" />
+    <Compile Include="Domain\Random_Orders_WinLose.cs" />
+    <Compile Include="Domain\Trade\Candlesticks.cs" />
+    <Compile Include="Domain\Trade\EnumStatusConfirms.cs" />
+    <Compile Include="Domain\Trade\HighchartSyncTrade.cs" />
+    <Compile Include="Domain\Wallets.cs" />
+    <Compile Include="GenericListTypeConverter.cs" />
+    <Compile Include="LockHelper.cs" />
+    <Compile Include="NewsMapBuilder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReflectionRowMapper.cs" />
+    <Compile Include="Repository\Models\AddressMail.cs" />
+    <Compile Include="Repository\Models\Blockcypher.cs" />
+    <Compile Include="Repository\Models\Coins\Arbittrage.cs" />
+    <Compile Include="Repository\Models\Coins\GetPriceCoin.cs" />
+    <Compile Include="Repository\Models\CustomJsonResult.cs" />
+    <Compile Include="Repository\Models\EnumSimple.cs" />
+    <Compile Include="Repository\Models\Etherchain.cs" />
+    <Compile Include="Repository\Models\Forexs\ResponseData.cs" />
+    <Compile Include="Repository\Models\Genaral_Marketing_Mail.cs" />
+    <Compile Include="Repository\Models\MailMarketing.cs" />
+    <Compile Include="Repository\Models\MailPromotion.cs" />
+    <Compile Include="Repository\Models\Mail_UserMining.cs" />
+    <Compile Include="Repository\Models\Packages\AutoReceired.cs" />
+    <Compile Include="Repository\Models\Packages\BitcoinArbitrage.cs" />
+    <Compile Include="Repository\Models\Packages\BonusSale.cs" />
+    <Compile Include="Repository\Models\Packages\PackagesStatus.cs" />
+    <Compile Include="Repository\Models\Packages\Packages_Bonus.cs" />
+    <Compile Include="Repository\Models\Packages\Packages_Bonus_Transaction.cs" />
+    <Compile Include="Repository\Models\Packages\User_Branch_Balance.cs" />
+    <Compile Include="Repository\Models\ScheduleTask.cs" />
+    <Compile Include="Repository\Models\TransactionCoin.cs" />
+    <Compile Include="Repository\Models\TronCoins\CoinTransaction.cs" />
+    <Compile Include="Repository\Models\TronCoins\TronCoin.cs" />
+    <Compile Include="Repository\Models\TronCoins\TronTran.cs" />
+    <Compile Include="Repository\Models\UserInfo.cs" />
+    <Compile Include="Repository\Models\UserWallet.cs" />
+    <Compile Include="Repository\Models\User_WalletAddress.cs" />
+    <Compile Include="Repository\Models\WithdrawExpire.cs" />
+    <Compile Include="Repository\Tasks\TaskRepository.cs" />
+    <Compile Include="ResultSetMapper\BooleanResultSetMapper.cs" />
+    <Compile Include="ResultSetMapper\DecimalResultSetMapper.cs" />
+    <Compile Include="ResultSetMapper\DoubleResultSetMapper.cs" />
+    <Compile Include="ResultSetMapper\GuidResultSetMapper.cs" />
+    <Compile Include="ResultSetMapper\IntegerResultSetMapper.cs" />
+    <Compile Include="ResultSetMapper\LongResultSetMapper.cs" />
+    <Compile Include="ResultSetMapper\PrimitiveRowMapper.cs" />
+    <Compile Include="ResultSetMapper\StringResultSetMapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lib.Cache\Lib.Cache.csproj">
+      <Project>{79E7F1E3-A54B-4D95-97A3-805E72695517}</Project>
+      <Name>Lib.Cache</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

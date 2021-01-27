@@ -1,0 +1,33 @@
+﻿@media only screen and (max-device-width: 375px) {
+    .leftside {
+        width: 100%;
+        float: left;
+        padding: 0px;
+        background-color: #181F2C;
+        -webkit-transition: all 0.1s ease;
+        -moz-transition: all 0.1s ease;
+        -o-transition: all 0.1s ease;
+        transition: all 0.1s ease;
+    }
+
+    .leftside-close-controller {
+        position: absolute;
+        right: 8px;
+        z-index: 1;
+        margin-top: 2px;
+    }
+
+        .leftside-close-controller img {
+            height: 15px;
+        }
+
+    .fbt-leftside-hide-controller {
+        left: -4px;
+    }
+   
+}
+@media only screen and (min-device-width: 376px) {
+    .leftside-close-controller {
+        display: none !important;
+    }
+}

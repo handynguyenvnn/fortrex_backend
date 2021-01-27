@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutManagead.cshtml";
+}
+
+<section class="content" id="content-user-info">
+    <div class="container-fluid">
+        <div class="row">
+          
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="info-box">
+                    <span style="width: 10%; margin-right: 10px">Transaction Type</span>
+                    <select class="form-control input-common ng-untouched ng-pristine ng-valid" style="width: 40%" id="cboTypeTransaction" name="cboTypeTransaction">
+                        <option value="1">Investment</option>
+                        <option selected value="7">DepositTRX</option>
+                    </select>
+                    <button id="btnManagedashboard" type="button" class="btn btn-primary" style="width: 150px;height: 38px;margin-left: 10px;">Get Detail</button>
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Deposit</span>
+                        <span class="info-box-number" id="total-deposit">@ViewBag.TotalDeposit</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Investment</span>
+                        <span class="info-box-number" id="total-invest">@ViewBag.TotalInvestment</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Withdrawn</span>
+                        <span class="info-box-number" id="total-withdrawn">@ViewBag.TotalWithdrawn</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total USD remaining in the wallet</span>
+                        <span class="info-box-number" id="total-coin">@ViewBag.TotalCoin</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-header" id="title-transaction">Your transaction</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div id="admin-container">
+                                <table id="dtList" class="table table-striped table-bordered dataTable no-footer">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>ByUserName</th>
+                                            <th>CreateOn</th>
+                                            <th>By User</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                            <th>Amount</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                   
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/usersfind.js"></script>

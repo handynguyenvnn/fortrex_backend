@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Ticket";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+}
+
+<section class="card">
+    <div class="card-content">
+        <div class="card-body">
+            <!-- Section -->
+            <div class="section section-pad">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 res-m-bttm">
+                            <div class="contact-information">
+                                <h4>Contact Information</h4>
+                                <div class="row">
+                                    <div class="col-sm-4 res-m-bttm">
+                                        <div class="contact-entry">
+                                            <h6>Forbit<span> Trading</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 res-m-bttm">
+                                        <div class="contact-entry">
+                                            <h6>Email</h6>
+                                            <p>support@fortrex.io</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 res-m-bttm">
+                                        <div class="contact-entry">
+                                            <h6>Support</h6>
+                                            <p>24/7</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-form">
+                                <p>Complete and submit the form below</p>
+                                <form id="contact-form" class="form-message">
+                                    <div class="form-results"></div>
+                                    <div class="form-group row">
+                                        <div class="form-field col-sm-6 form-m-bttm">
+                                            <input name="contact-name" id="t-fullname" type="text" placeholder="Full Name " class="form-control required">
+                                        </div>
+                                        <div class="form-field col-sm-6">
+                                            <input name="contact-email" id="t-email" type="email" placeholder="Email " class="form-control required email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="form-field col-sm-6 form-m-bttm">
+                                            <input name="contact-phone" id="t-phonenumber" type="text" placeholder="Phone Number " class="form-control required">
+                                        </div>
+                                        <div class="form-field col-sm-6">
+                                            <input name="contact-subject" id="t-subject" type="text" placeholder="Subject " class="form-control required">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="form-field col-md-12">
+                                            <textarea name="contact-message" id="t-messages" placeholder="Messages " class="txtarea form-control required"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="form-field col-md-12 text-center">
+                                            <button type="button" id="send-ticket-confirm" class="btn btn-primary">Submit</button>
+                                            <button type="button" id="send-ticket" class="btn btn-primary" style="display: none"></button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div><!-- .col  -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Section -->
+<section class="card">
+    <div class="card-content">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title text-left mb-20">
+                        <h2 class="text-black">Ticket  <span class="theme-color1">List</span></h2>
+                    </div>
+                    <div id="ticketlist-container">
+                        <div id="table-list" class="table-list"></div>
+                        <div class="pagination-list" style=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type='text/javascript'>
+    buildData.listTicket("/office/Ticket_Lst", 100);
+</script>

@@ -1,0 +1,189 @@
+﻿@model Lib.Domain.User.MUser
+@using Web.SourceCoin.Models
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+}
+<section class="card">
+    <div class="card-content">
+        <div class="card-body">
+            <div class="row" id="profile-update-frm">
+
+                <div class="col-sm-12 col-md-6 col-12">
+                    <div class="title text-left mb-30">
+                        <h2 class="text-black">My  Profile<span class="line-text"></span></h2>
+                    </div>
+                    <div class="col-md-12" style="padding: 20px">
+                        @Html.HiddenFor(m => m.Code)
+
+                        <div class="form-group">
+                            <label>Username </label>
+                            @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class = "form-control current-form", disabled = "disabled" })
+                        </div>
+                        <div class="form-group">
+                            <label>Email </label>
+                            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "form-control current-form", disabled = "disabled" })
+                            @*<a href="#tabchangeemail" style="color: #9D2A2B; margin: 15px 5px 0px 10px; cursor: pointer">Change your email</a>*@
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name </label>
+                            @Html.TextBoxFor(m => m.FullName, new { placeholder = "FullName", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone Number </label>
+                            @Html.TextBoxFor(m => m.Phone, new { placeholder = "Phone", @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label>Country </label>
+                            @Html.TextBoxFor(m => m.Country, new { placeholder = "Country", @class = "form-control current-form", disabled = "disabled" })
+                        </div>
+
+
+                        @if (ViewBag.IsAuthenFa && string.IsNullOrEmpty(Model.FA2Code))
+                        {
+                            <div class="form-group mt-2">
+                                <label>
+                                    First you have to activate Authentication (2FA)
+                                </label>
+                                <span class="btn_icon">
+                                    <span id="btnActiveAuthenticator" class="btn btn-primary">Enable 2FA</span>
+
+                                </span>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                <label>Two-factor Auth </label>
+                                <input type="text" class="form-control" id="code-digit" value="" placeholder="Input 6 digit" />
+                            </div>
+                            <div class="form-group col-md-12" style="text-align: center;">
+                                <div id="btn-profile-confirm" class="btn btn-primary"><i class="fa fa-save"></i> Update</div>
+                                <div id="btn-profile" class="hidden"></div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-12">
+                    <div class="col-lg-12 col-md-5">
+                        <div class="title text-left mb-30">
+                            <h2 class="text-black">Change Password<span class="line-text"></span></h2>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="padding:20px">
+                        <div id="MsgAlertChangePass"></div>
+                        <div class="form-group col-md-12">
+                            <label>Old Password <font color="red">*</font></label>
+                            <input type="password" class="form-control" id="txt-password" value="">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>New Password <font color="red">*</font></label>
+                            <input type="password" class="form-control" id="txt-password-new" value="">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Retype New Password <font color="red">*</font></label>
+                            <input type="password" class="form-control" id="txt-password-new-re" value="">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <p class="text-red"><font color="red">*</font> Required fields</p>
+                        </div>
+                        <div class="form-group col-md-12" style="text-align: center;">
+                            <div id="btn-change-password-confirm" class="btn btn-primary"><i class="fa fa-save"></i> Update</div>
+                            <div id="btn-change-password" class="hidden"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_DialogAuthen")
+<script type="text/javascript">
+    $('#btn-profile-confirm').on('click', function () {
+        $.alert({
+            title: 'Confirm',
+            theme: 'modern',
+            boxWidth: '300px',
+            useBootstrap: false,
+            content: 'Are you sure?',
+            icon: "fa fa-warning",
+            animation: 'scale',
+            closeAnimation: 'scale',
+            buttons: {
+                okay: {
+                    text: "Ok, got it",
+                    btnClass: 'btn-submit',
+                    action: function () {
+                        $('#btn-profile').click();
+                    }
+                }, cancel: {
+                    btnClass: 'btn-cancel',
+                    action: function () {
+
+                    }
+                }
+            }
+        });
+    });
+
+    $('#btn-change-email-confirm').on('click', function () {
+        $.confirm({
+            title: 'Confirm',
+            theme: 'modern',
+            boxWidth: '350px',
+            useBootstrap: false,
+            content: 'Are you sure ?',
+            icon: 'fa fa-warning',
+            animation: 'scale',
+            closeAnimation: 'scale',
+            buttons: {
+                confirm: {
+                    text: 'Confirm',
+                    btnClass: 'btn-submit',
+                    action: function () {
+                        $('#btn-change-email').click();
+                    },
+                    cancel: {
+                        btnClass: 'btn-cancel',
+                        action: function () {
+
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+    $('#btn-change-password-confirm').on('click', function () {
+        $.alert({
+            title: 'Confirm',
+            theme: 'modern',
+            boxWidth: '300px',
+            useBootstrap: false,
+            content: 'Are you sure?',
+            icon: "fa fa-warning",
+            animation: 'scale',
+            closeAnimation: 'scale',
+            buttons: {
+                okay: {
+                    text: "Ok, got it",
+                    btnClass: 'btn-submit',
+                    action: function () {
+                        $('#btn-change-password').click();
+                    }
+                }, cancel: {
+                    btnClass: 'btn-cancel',
+                    action: function () {
+
+                    }
+                }
+            }
+        });
+    });
+
+</script>

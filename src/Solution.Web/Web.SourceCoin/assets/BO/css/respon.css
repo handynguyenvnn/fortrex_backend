@@ -1,0 +1,151 @@
+@media only screen and (max-width: 991px) {
+
+}
+@media only screen and (max-width: 768px) {
+	.language-drop {
+		display: none;
+	}
+	.main-menu-nav {
+		display: block;
+		padding-right: 20px;
+	}
+	.main-banner .content-main-banner .columns .colum.left {
+		width: 100%;
+	}
+	.main-banner .content-main-banner .columns .colum.right {
+		width: 100%;
+	}
+	.main-banner .content-main-banner .columns .colum.left .box-guide-main .title {
+		font-size: 48px;
+	}
+	.main-banner .content-main-banner .columns .colum.left .box-guide-main .desc {
+		font-size: 20px;
+	}
+	.choose-img {
+		width: 100%;
+	}
+	.choose-form {
+		width: 100%;
+		padding: 0;
+		margin-top: 15px;
+	}
+	.trade {
+		padding: 50px 15px;
+	}
+	.market h2 {
+		font-size: 36px;
+	}
+	.market-sum {
+		width: 100%;
+		margin-bottom: 0 inherit !important;
+	}
+	.market-form {
+		margin-bottom: 0px !important;
+	}
+	.info .swiper-slide {
+		padding: 0 50px;
+	}
+	.join .new-container .columns .colum.left {
+		width: 100%;
+	}
+	.join .new-container .columns .colum.right {
+		width: 100%;
+	}
+	.join-bigtext:after {
+		right: -9px;
+	}
+	.table-ft-cont .columns {
+		display: block;
+	}
+	.info-h2 {
+		font-size: 36px;
+	}
+	.banner .container {
+		padding: 100px 0;
+	}
+	.banner h2 {
+		font-size: 48px;
+	}
+	.banner h3 {
+		font-size: 24px;
+	}
+	.sec-trade-2 {
+		padding: 30px 0;
+	}
+	.num {
+		padding: 30px 0;
+	}
+	.num-item {
+		margin: 10px;
+	}
+	.why .container {
+		width: 100%;
+
+	}
+	.why-item {
+		margin-bottom: 20px;
+	}
+	.partner h2 {
+		font-size: 36px;
+	}
+	.why h2 {
+		font-size: 36px;
+	}
+	.main-banner-op .content-banner-op .title {
+		font-size: 48px;
+	}
+	.table-option {
+		padding: 40px 0 40px 0;
+	}
+	.table-option .main-title-op .title {
+		font-size: 36px;
+	}
+	.table-option .main-title-op-1 .title {
+		font-size: 24px;
+	}
+	.w-800 {
+		width: 100%;
+	}
+	.table-option .columns .colum {
+		width: 50%;
+	}
+	.c-tab .c-tab__nav {
+		width: 100%;
+	}
+	.c-tab .c-tab__content {
+		width: 100%;
+	}
+	.table-trade-forex .columns .colum {
+		width: 50%;
+	}
+	.table-margin  {
+		    padding: 40px 0px 0 0px;
+	}
+	.content-margin {
+		padding: 15px 15px;
+	}
+	.table-instruments .box-major .lang-major ul li {
+		width: 50%;
+	}
+	.content-margin .box-btn-margin a {
+		font-size: 12px;
+	}
+	.box-up-down .columns .colum {
+		width: 100%;
+	}
+	.table-trade-forex .content .desc {
+		padding: 0;
+	}
+	.login .form {
+		width: 100%;
+	}
+	.login .form-log .fullname .name {
+		width: auto;
+	}
+	.login .form-log .fullname .lname {
+		width: auto;
+	}
+}
+@media only screen and (max-width: 500px) {
+
+}

@@ -1,0 +1,79 @@
+﻿@model Lib.Domain.User.User_WalletAddress
+@using CoinbaseConnector.ModelCoin.Base
+@{
+    ViewBag.Title = "Deposit";
+    Layout = "~/Views/Shared/_LayoutOffice.cshtml";
+    string walletAdress = string.Empty;
+}
+<script type="text/javascript" src="~/Scripts/jquery.qrcode.min.js"></script>
+
+<section class="card">
+    <div class="card-content">
+        <div class="card-body ">
+            <h1>My Wallet<span class="line"></span></h1>
+            <div class="row mb-4">
+
+                <div class="col-sm-12 col-md-3 col-12">
+                </div>
+                <div class="col-sm-12 col-md-6 col-12">
+                    <div class="deposit_withdraw">
+                        <div class="deposit_withdraw_tab">
+                            <div class="deposit_withdraw_box">
+
+                                <div class="form_block mb-20">
+                                    <label>Wallet Type</label>
+                                    <select autocomplete="off" id="wallet-type" class="custom-select">
+                                        <option value="usd" selected>USD Wallet</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12" align="center" style="color: #0b5058;padding:20px">
+                                    <div id="qrcode"></div>
+                                    <h6>  Scan QR Code to Proceed</h6>
+                                </div>
+                                <div class="form_block mb-20">
+                                    <label>Your Wallet Address <b id="type-wallet-selected">(USDF)</b>:</label>
+                                    <span>
+                                        <input id="urllinkintroduction" autocomplete="off" value="@Model.WalletMy" placeholder="Wallet Address" type="text" class="form-control">
+                                    </span>
+                                    <div class="col-md-12">
+                                        <div class="deposit_withdraw_btn" style="text-align: center !important">
+                                            <button type="button" style="margin-top: 20px" class="btn btn-primary" id="btnurllinkintroduction" data-clipboard-target="#urllinkintroduction"><i class="fa fa-copy"></i> Copy</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script type="text/javascript" src="@Url.Content("~/Scripts/clipboard.min.js")"></script>
+                                <script type="text/javascript">
+                                    var clipboard = new Clipboard('#btnurllinkintroduction');
+                                    clipboard.on('success', function (e) {
+                                        buildData.showNotifyCenter("Copy Completed", "Deposit Address", "success", 3000);
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 col-12">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="admin_body_bottom">
+  
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#qrcode').qrcode({ width: 250, height: 250, text: '@Model.WalletMy' });
+        $('#wallet-type').on('change', function () {
+            $('#qrcode').html('');
+            var walletname = $('#wallet-type').val();
+            if (walletname == "usd") {
+                $('#qrcode').qrcode({ width: 250, height: 250, text: '@Model.WalletMy' });
+                $('#urllinkintroduction').val($('#usd-wallet').val());
+                $('#img-stockswallet').css("display", "none");
+                $('#img-usdswallet').css("display", "inherit");
+                $('#type-wallet-selected').text("(USD)");
+            } 
+        });
+    });
+</script>

@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{43B328F7-B322-4056-8E7F-D7BC5CCAAAF0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lib.Domain</RootNamespace>
+    <AssemblyName>Lib.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution.Web\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\Solution.Web\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\..\Solution.Web\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AsynTabs\AsyncTab.cs" />
+    <Compile Include="AsynTabs\VolumnSystemModel.cs" />
+    <Compile Include="Bots\Random_Orders_WinLose.cs" />
+    <Compile Include="BuyCoins\BuyCoinEntity.cs" />
+    <Compile Include="BuyCoins\Coin.cs" />
+    <Compile Include="BuyCoins\BuyCoinList.cs" />
+    <Compile Include="BuyCoins\BuyCoin.cs" />
+    <Compile Include="BuyCoins\TotalCoinChildren.cs" />
+    <Compile Include="Coins\Arbittrage.cs" />
+    <Compile Include="Coins\Cryptoapis\WalletGenerate.cs" />
+    <Compile Include="Coins\Deposit\DepositList.cs" />
+    <Compile Include="Coins\Deposit\ERC20TokenTransferByAddressResponse.cs" />
+    <Compile Include="Coins\GetPriceCoin.cs" />
+    <Compile Include="CoinTransactions\TransactionCoin.cs" />
+    <Compile Include="CommonHelper.cs" />
+    <Compile Include="CommonHelper\ConstantMessage.cs" />
+    <Compile Include="CommonHelper\Helpers.cs" />
+    <Compile Include="CommonHelper\ParammetersModel.cs" />
+    <Compile Include="CommonHelper\ResponseData.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="ContentStatics\ContentStatic.cs" />
+    <Compile Include="Core\CoreHelper.cs" />
+    <Compile Include="Core\GenericListTypeConverter.cs" />
+    <Compile Include="CustomJsonResult.cs" />
+    <Compile Include="DataContract\DataMemberWalletBNCT.cs" />
+    <Compile Include="LockHelper.cs" />
+    <Compile Include="ResponseAPI\WithdrawResponse.cs" />
+    <Compile Include="WalletUser\WalletAddress.cs" />
+    <Compile Include="Marketings\MailAccount.cs" />
+    <Compile Include="Marketings\MailTemplate.cs" />
+    <Compile Include="Models\DepositModel.cs" />
+    <Compile Include="Models\UserProfileModel.cs" />
+    <Compile Include="Packages\AutoReceired.cs" />
+    <Compile Include="Packages\ExpireList.cs" />
+    <Compile Include="Packages\ManageDasboard.cs" />
+    <Compile Include="Packages\DasboarchDetail.cs" />
+    <Compile Include="Packages\InvestmentList.cs" />
+    <Compile Include="Packages\MessagePush.cs" />
+    <Compile Include="Packages\PackagesEntity.cs" />
+    <Compile Include="Packages\Package_BonusOnDay.cs" />
+    <Compile Include="Packages\Packeges_Bonus.cs" />
+    <Compile Include="Packages\Promocode.cs" />
+    <Compile Include="Packages\ReceivecPromocode.cs" />
+    <Compile Include="Packages\Received.cs" />
+    <Compile Include="Packages\TargetBonus.cs" />
+    <Compile Include="Packages\Trades\HighchartSyncTrade.cs" />
+    <Compile Include="Packages\UserSearch.cs" />
+    <Compile Include="Promocodes\Promocode.cs" />
+    <Compile Include="Promocodes\Promocode_User_Mapping.cs" />
+    <Compile Include="Promocodes\PromotionSendMail.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResponseAPI\DepositResponse.cs" />
+    <Compile Include="ResponseAPI\InvestmentPackageResponse.cs" />
+    <Compile Include="ResponseAPI\ResponseOrders.cs" />
+    <Compile Include="ResponseAPI\ResponseAffiliate.cs" />
+    <Compile Include="SimpleAttribute.cs" />
+    <Compile Include="Simples\BonusList.cs" />
+    <Compile Include="Simples\Country.cs" />
+    <Compile Include="Simples\Email.cs" />
+    <Compile Include="Simples\EnumSimple.cs" />
+    <Compile Include="Simples\IpInfo.cs" />
+    <Compile Include="Simples\Kcy.cs" />
+    <Compile Include="Simples\ResponseError.cs" />
+    <Compile Include="Simples\Setting.cs" />
+    <Compile Include="Simples\SimpleBase.cs" />
+    <Compile Include="Tasks\ScheduleTask.cs" />
+    <Compile Include="TransactionHistorys\HistoryTransaction.cs" />
+    <Compile Include="Transfers\TransferHistoryModel.cs" />
+    <Compile Include="Transfers\Transfers.cs" />
+    <Compile Include="Trees\Parents.cs" />
+    <Compile Include="Trees\ShowTree.cs" />
+    <Compile Include="Trees\SyncDataTab.cs" />
+    <Compile Include="Trees\TreeData.cs" />
+    <Compile Include="Trees\TreeDataList.cs" />
+    <Compile Include="Trees\UserIntroduction.cs" />
+    <Compile Include="Trees\User_Branch_Balance.cs" />
+    <Compile Include="User\AccountBalance.cs" />
+    <Compile Include="User\BonusCoin.cs" />
+    <Compile Include="User\CoinTransactionList.cs" />
+    <Compile Include="User\Convert_Price_Coin.cs" />
+    <Compile Include="User\Dblog.cs" />
+    <Compile Include="User\EnumSetting.cs" />
+    <Compile Include="User\EnumGender.cs" />
+    <Compile Include="User\EnumPasswordFormat.cs" />
+    <Compile Include="User\Ticket.cs" />
+    <Compile Include="User\UserDepositByUSDT.cs" />
+    <Compile Include="User\TransactionSession.cs" />
+    <Compile Include="User\LoginSession.cs" />
+    <Compile Include="User\MUser.cs" />
+    <Compile Include="User\QANote.cs" />
+    <Compile Include="User\QA_Total.cs" />
+    <Compile Include="User\SettingEntity.cs" />
+    <Compile Include="User\SocialEnum.cs" />
+    <Compile Include="User\SystemSchedule.cs" />
+    <Compile Include="User\TronCoin.cs" />
+    <Compile Include="User\TronTran.cs" />
+    <Compile Include="User\UserData.cs" />
+    <Compile Include="User\UsersAffiliates.cs" />
+    <Compile Include="User\UserPending.cs" />
+    <Compile Include="User\Users_Marketing_Bonus.cs" />
+    <Compile Include="User\UserInfo.cs" />
+    <Compile Include="User\UserSocialMap.cs" />
+    <Compile Include="Simples\ListBase.cs" />
+    <Compile Include="Simples\SimpleList.cs" />
+    <Compile Include="User\UserTooltip.cs" />
+    <Compile Include="User\User_Extension.cs" />
+    <Compile Include="User\User_WalletAddress.cs" />
+    <Compile Include="Withdraws\DataWithdraw.cs" />
+    <Compile Include="Withdraws\ResponseAmount.cs" />
+    <Compile Include="Withdraws\WithdrawETH.cs" />
+    <Compile Include="Withdraws\WithdrawList.cs" />
+    <Compile Include="Withdraws\Withdraw.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

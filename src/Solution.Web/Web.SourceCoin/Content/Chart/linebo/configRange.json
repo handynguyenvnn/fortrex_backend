@@ -1,0 +1,146 @@
+{
+  "BTC_USD": {
+    "minRange": 50,
+    "maxRange": 1000,
+    "range": 60000,
+    "profit": 65
+  },
+  "ETH_USD": {
+    "minRange": 20,
+    "maxRange": 50,
+    "range": 60000,
+    "profit": 70
+  },
+  "ADA_USD": {
+    "minRange": 0.001,
+    "maxRange": 0.025,
+    "range": 60000,
+    "profit": 85
+  },
+  "DASH_USD": {
+    "minRange": 1.5,
+    "maxRange": 60,
+    "range": 60000,
+    "profit": 75
+  },
+  "BCH_USD": {
+    "minRange": 5,
+    "maxRange": 80,
+    "range": 60000,
+    "profit": 75
+  },
+  "BNB_USD": {
+    "minRange": 0.6,
+    "maxRange": 6,
+    "range": 60000,
+    "profit": 75
+  },
+  "XLM_USD": {
+    "minRange": 0.0012,
+    "maxRange": 0.025,
+    "range": 60000,
+    "profit": 75
+  },
+  "ETH_BTC": {
+    "minRange": 0.0004,
+    "maxRange": 0.0125,
+    "range": 60000,
+    "profit": 75
+  },
+  "BNB_BTC": {
+    "minRange": 0.00004,
+    "maxRange": 0.00125,
+    "range": 60000,
+    "profit": 75
+  },
+  "AUD_CAD": {
+    "minRange": 0.015,
+    "maxRange": 0.3,
+    "range": 60000,
+    "profit": 85
+  },
+  "CAD_JPY": {
+    "minRange": 1.5,
+    "maxRange": 60,
+    "range": 60000,
+    "profit": 90
+  },
+  "EUR_AUD": {
+    "minRange": 0.029,
+    "maxRange": 0.4,
+    "range": 60000,
+    "profit": 85
+  },
+  "EUR_CHF": {
+    "minRange": 0.025,
+    "maxRange": 0.3,
+    "range": 60000,
+    "profit": 85
+  },
+  "EUR_GBP": {
+    "minRange": 0.02,
+    "maxRange": 0.25,
+    "range": 60000,
+    "profit": 80
+  },
+  "EUR_JPY": {
+    "minRange": 2,
+    "maxRange": 80,
+    "range": 60000,
+    "profit": 80
+  },
+  "EUR_USD": {
+    "minRange": 0.03,
+    "maxRange": 0.25,
+    "range": 60000,
+    "profit": 80
+  },
+  "GBP_AUD": {
+    "minRange": 0.045,
+    "maxRange": 0.3,
+    "range": 60000,
+    "profit": 85
+  },
+  "GBP_CHF": {
+    "minRange": 0.04,
+    "maxRange": 0.3,
+    "range": 60000,
+    "profit": 85
+  },
+  "GBP_JPY": {
+    "minRange": 2,
+    "maxRange": 80,
+    "range": 60000,
+    "profit": 85
+  },
+  "GBP_USD": {
+    "minRange": 0.04,
+    "maxRange": 0.3,
+    "range": 60000,
+    "profit": 85
+  },
+  "GBP_CAD": {
+    "minRange": 0.03,
+    "maxRange": 0.25,
+    "range": 60000,
+    "profit": 80
+  },
+  "USD_AUD": {
+    "minRange": 0.04,
+    "maxRange": 0.3,
+    "range": 60000,
+    "profit": 85
+  },
+  "USD_CAD": {
+    "minRange": 0.04,
+    "maxRange": 0.3,
+    "range": 60000,
+    "profit": 80
+  },
+  "USD_JPY": {
+    "minRange": 1.5,
+    "maxRange": 50,
+    "range": 60000,
+    "profit": 85
+  }
+}

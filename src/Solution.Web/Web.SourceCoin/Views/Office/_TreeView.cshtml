@@ -1,0 +1,103 @@
+﻿@model Web.SourceCoin.Models.SeededTreeNodes
+@using Web.SourceCoin.Models
+
+
+@if (Model.TreeNodes.Where(s => s.ParentId == Model.Seed).Any())
+{
+    @*<div @(!Model.Seed.HasValue ? Html.Raw("id='red' class=''") : Html.Raw(""))>*@
+    foreach (var node in Model.TreeNodes)
+    {
+        string lv = string.Empty;
+        if (node.Level >= 0 && node.Level < 10)
+        {
+            lv = string.Format("F{0}", node.Level + 1);
+        }
+        if (node.ParentId == Model.Seed)
+        {
+            SeededTreeNodes inner = new SeededTreeNodes { Seed = node.UserId, TreeNodes = Model.TreeNodes, UserId = Model.UserId };
+            if (!Model.Seed.HasValue)
+            {
+                var findparrent = inner.TreeNodes.Where(p => p.ParentId == node.UserId || node.Level == -1).FirstOrDefault();
+                if (findparrent != null)
+                {
+                    <div class="hv-item-child">
+                        <div class="hv-item-parent">
+                            <p class="simple-card" onmouseover="callTooltip(this, @node.UserId)">  </p>
+                            <p class="username-card">@node.Username.ToUpper()</p>
+                        </div>
+                        <div class="hv-item-children">
+                            @Html.Partial("_TreeView", inner)
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="hv-item-child">
+                        <p class="simple-card" onmouseover="callTooltip(this, @node.UserId)">  </p>
+                        <p class="username-card">(@lv) @node.Username.ToUpper()</p>
+
+                    </div>
+                    @Html.Partial("_TreeView", inner)
+                }
+
+
+
+            }
+            else if (Model.Seed == Model.UserId)
+            {
+                var findparrent = inner.TreeNodes.Where(p => p.ParentId == node.UserId || node.Level == -1).FirstOrDefault();
+                if (findparrent != null)
+                {
+                    <div class="hv-item-child">
+                        <div class="hv-item-parent">
+                            <p class="simple-card" onmouseover="callTooltip(this, @node.UserId)">  </p>
+                            <p class="username-card">(@lv) @node.Username.ToUpper()</p>
+                        </div>
+                        <div class="hv-item-children">
+                            @Html.Partial("_TreeView", inner)
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="hv-item-child">
+                        <p class="simple-card" onmouseover="callTooltip(this, @node.UserId)">  </p>
+                        <p class="username-card">(@lv) @node.Username.ToUpper()</p>
+
+                    </div>
+                    @Html.Partial("_TreeView", inner)
+                }
+
+
+            }
+            else
+            {
+                var findparrent = inner.TreeNodes.Where(p => p.ParentId == node.UserId || node.Level == -1).FirstOrDefault();
+                if (findparrent != null)
+                {
+                    <div class="hv-item-child">
+                        <div class="hv-item-parent">
+                            <p class="simple-card" onmouseover="callTooltip(this, @node.UserId)">  </p>
+                            <p class="username-card">(@lv) @node.Username.ToUpper()</p>
+                        </div>
+                        <div class="hv-item-children">
+                            @Html.Partial("_TreeView", inner)
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="hv-item-child">
+                        <p class="simple-card" onmouseover="callTooltip(this, @node.UserId)">  </p>
+                        <p class="username-card">(@lv) @node.Username.ToUpper()</p>
+
+                    </div>
+                    @Html.Partial("_TreeView", inner)
+                }
+
+            }
+        }
+    }
+    @*</div>*@
+
+}

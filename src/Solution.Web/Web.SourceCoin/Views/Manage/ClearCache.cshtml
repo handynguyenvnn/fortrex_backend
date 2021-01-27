@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "ClearCache";
+    Layout = "~/Views/Shared/_LayoutManage.cshtml";
+}
+
+<form action="/manage/clearcache" method="post">
+    <div style="float:left;">
+        <label for="Setting" style="width:74px;float:left;">Setting </label><input style="margin-top:5px;" type="checkbox" name="Setting" id="Setting" value="1" /><br />
+        <label for="Category" style="width:74px;float:left;"> Category</label><input style="margin-top:10px;" type="checkbox" name="Category" id="Category" value="2" /><br />
+        <label for="Videos" style="width:74px;float:left;"> Videos</label><input style="margin-top:10px;" type="checkbox" name="Videos" id="Videos" value="3" /><br />
+        <input type="submit" value="Clear" />
+    </div>
+</form>
+
